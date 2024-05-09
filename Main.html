@@ -1,147 +1,151 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>스쿨존</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      html, body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .fixed-container {
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>스쿨존</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
       position: fixed;
       height: 60px;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 999; /* 다른 요소 위에 나타나도록 z-index 설정 */
-      background-color: #ffffff; /* 배경색 지정 */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-      padding: 10px 20px; /* 내부 여백 설정 */
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
       display: flex;
-      justify-content: center; /* 수평 가운데 정렬 */
+      justify-content: center;
+      /* 수평 가운데 정렬 */
       align-items: center;
     }
-    </style>
-  </head>
-  <body>
-    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;" onclick="goToMainPage()">스쿨존</button>
-        <!-- 로그인 및 회원가입 버튼 -->
-        <div style="display: flex; align-items: center;">
-          <button style="width: 59px; height: 35px; font-size: 18px; text-align: center; position: absolute; right: 200px; color: #786f6f;" onclick="goToLoginPage()">로그인</button>
-          <div style="width: 1px; height: 31px; margin-left: 10px; position: absolute; right: 190px; background-color: #786F6F;"></div> <!-- 구분선 추가 -->
-          <button style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f; position: absolute; right: 100px;" onclick="goToSignUpPage()">회원가입</button>
-        </div>
-      </div>
-    <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
-        <div style="width: 1920px; height: 952px; position: absolute; left: -1px; top: 127px; background: #c6f1ff;">
-        </div>
-      <div style="width: 1920px; height: 128px; position: absolute; left: -1px; top: -1px; background: #fff; box-shadow: 0px 4px 4px 0 #04bbf4;">
+  </style>
+</head>
+
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button
+      style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;"
+      onclick="goToMainPage()">스쿨존</button>
+    <!-- 로그인 및 회원가입 버튼 -->
+    <div style="display: flex; align-items: center;">
+      <button
+        style="width: 59px; height: 35px; font-size: 18px; text-align: center; position: absolute; right: 200px; color: #786f6f;"
+        onclick="goToLoginPage()">로그인</button>
+      <div
+        style="width: 1px; height: 31px; margin-left: 10px; position: absolute; right: 190px; background-color: #786F6F;">
+      </div> <!-- 구분선 추가 -->
+      <button
+        style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f; position: absolute; right: 100px;"
+        onclick="goToSignUpPage()">회원가입</button>
     </div>
-      <div style="width: 175px; height: 41px; position: absolute; left: 1329px; top: 46px;">
+  </div>
+  <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+    <div style="width: 1920px; height: 952px; position: absolute; left: -1px; top: 127px; background: #c6f1ff;">
+    </div>
+    <div
+      style="width: 1920px; height: 128px; position: absolute; left: -1px; top: -1px; background: #fff; box-shadow: 0px 4px 4px 0 #04bbf4;">
+    </div>
+    <div style="width: 175px; height: 41px; position: absolute; left: 1329px; top: 46px;">
+    </div>
+    <button onclick="goToSecondHandTransactionPage()">
+      <div
+        style="width: 350px; height: 350px; position: absolute; left: 450px; top: 364px; border-radius: 10px; background: #fff;">
       </div>
-      <button onclick="goToSecondHandTransactionPage()">
-        <div style="width: 350px; height: 350px; position: absolute; left: 450px; top: 364px; border-radius: 10px; background: #fff;"></div>
-        <svg
-        width="113"
-        height="138"
-        viewBox="0 0 113 138"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: 566.38px; top: 425.38px;"
-        preserveAspectRatio="none"
-        >
-        <path d="M28.125 28.125C28.125 20.6658 31.0882 13.5121 36.3626 8.23762C41.6371 2.96316 48.7908 0 56.25 0C63.7092 0 70.8629 2.96316 76.1374 8.23762C81.4118 13.5121 84.375 20.6658 84.375 28.125V37.5H112.5V137.5H0V37.5H28.125V28.125ZM28.125 50H12.5V125H100V50H84.375V68.75H71.875V50H40.625V68.75H28.125V50ZM71.875 37.5V28.125C71.875 23.981 70.2288 20.0067 67.2985 17.0765C64.3683 14.1462 60.394 12.5 56.25 12.5C52.106 12.5 48.1317 14.1462 45.2015 17.0765C42.2712 20.0067 40.625 23.981 40.625 28.125V37.5H71.875Z"
-            fill="#04BBF4"></path>
-        </svg>
-        <p style="position: absolute; left: 534px; top: 608px; font-size: 50px; text-align: center; color: #04bbf4;">중고거래</p>
-      </button>
-      <button onclick="goToPlacePage()">
-        <div style="width: 350px; height: 350px; position: absolute; left: 1118px; top: 364px; border-radius: 10px; background: #fff;"></div>
-      <p style="position: absolute; left: 1202px; top: 608px; font-size: 50px; text-align: center; color: #04bbf4;">플레이스</p>
-      <svg
-        width="150"
-        height="150"
-        viewBox="0 0 150 150"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="width: 150px; height: 150px; position: absolute; left: 1219px; top: 429px;"
-        preserveAspectRatio="none">
-        <g clip-path="url(#clip0_91_460)">
-            <path
-              d="M75 112.5L46.4531 72.1875C41.7805 66.6706 38.7714 59.9398 37.7763 52.7789C36.7812 45.6179 37.841 38.3217 40.8324 31.7398C43.8237 25.1579 48.6234 19.5613 54.6725 15.6018C60.7215 11.6423 67.7711 9.48289 75 9.375C85.0207 9.47402 94.5937 13.5403 101.622 20.6832C108.651 27.8261 112.562 37.4634 112.5 47.4844C112.504 56.2263 109.528 64.7083 104.062 71.5312L75 112.5ZM75 18.75C67.4618 18.8366 60.2661 21.9111 54.9928 27.2986C49.7196 32.6861 46.8 39.9461 46.875 47.4844C46.9104 54.364 49.3853 61.0081 53.8594 66.2344L75 96.1875L96.7031 65.625C100.829 60.4755 103.092 54.0825 103.125 47.4844C103.2 39.9461 100.28 32.6861 95.0071 27.2986C89.7339 21.9111 82.5382 18.8366 75 18.75Z"
-              fill="#04BBF4"
-            ></path>
-            <path
-              d="M75 51.5625C80.1777 51.5625 84.375 47.3652 84.375 42.1875C84.375 37.0098 80.1777 32.8125 75 32.8125C69.8223 32.8125 65.625 37.0098 65.625 42.1875C65.625 47.3652 69.8223 51.5625 75 51.5625Z"
-              fill="#04BBF4"
-            ></path>
-            <path
-              d="M75 112.5L46.4531 72.1875C41.7805 66.6706 38.7714 59.9398 37.7763 52.7789C36.7812 45.6179 37.841 38.3217 40.8324 31.7398C43.8237 25.1579 48.6234 19.5613 54.6725 15.6018C60.7215 11.6423 67.7711 9.48289 75 9.375C85.0207 9.47402 94.5937 13.5403 101.622 20.6832C108.651 27.8261 112.562 37.4634 112.5 47.4844C112.504 56.2263 109.528 64.7083 104.062 71.5312L75 112.5ZM75 18.75C67.4618 18.8366 60.2661 21.9111 54.9928 27.2986C49.7196 32.6861 46.8 39.9461 46.875 47.4844C46.9104 54.364 49.3853 61.0081 53.8594 66.2344L75 96.1875L96.7031 65.625C100.829 60.4755 103.092 54.0825 103.125 47.4844C103.2 39.9461 100.28 32.6861 95.0071 27.2986C89.7339 21.9111 82.5382 18.8366 75 18.75Z"
-              fill="#04BBF4"
-            ></path>
-            <path
-              d="M75 51.5625C80.1777 51.5625 84.375 47.3652 84.375 42.1875C84.375 37.0098 80.1777 32.8125 75 32.8125C69.8223 32.8125 65.625 37.0098 65.625 42.1875C65.625 47.3652 69.8223 51.5625 75 51.5625Z"
-              fill="#04BBF4"
-            ></path>
-            <path
-              d="M131.25 56.25H121.875V65.625H131.25V131.25H18.75V65.625H28.125V56.25H18.75C16.2636 56.25 13.879 57.2377 12.1209 58.9959C10.3627 60.754 9.375 63.1386 9.375 65.625V131.25C9.375 133.736 10.3627 136.121 12.1209 137.879C13.879 139.637 16.2636 140.625 18.75 140.625H131.25C133.736 140.625 136.121 139.637 137.879 137.879C139.637 136.121 140.625 133.736 140.625 131.25V65.625C140.625 63.1386 139.637 60.754 137.879 58.9959C136.121 57.2377 133.736 56.25 131.25 56.25Z"
-              fill="#04BBF4"
-            ></path>
-          </g>
-          <defs>
-            <clipPath id="clip0_91_460"><rect width="150" height="150" fill="white"></rect></clipPath>
-          </defs></svg>
-      </button>
-        <svg
-        width="5"
-        height="606"
-        viewBox="0 0 5 606"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: 957px; top: 261px;"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <line x1="2.5" y1="1.09278e-7" x2="2.49997" y2="606" stroke="white" stroke-width="5"></line>
+      <svg width="113" height="138" viewBox="0 0 113 138" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="position: absolute; left: 566.38px; top: 425.38px;" preserveAspectRatio="none">
+        <path
+          d="M28.125 28.125C28.125 20.6658 31.0882 13.5121 36.3626 8.23762C41.6371 2.96316 48.7908 0 56.25 0C63.7092 0 70.8629 2.96316 76.1374 8.23762C81.4118 13.5121 84.375 20.6658 84.375 28.125V37.5H112.5V137.5H0V37.5H28.125V28.125ZM28.125 50H12.5V125H100V50H84.375V68.75H71.875V50H40.625V68.75H28.125V50ZM71.875 37.5V28.125C71.875 23.981 70.2288 20.0067 67.2985 17.0765C64.3683 14.1462 60.394 12.5 56.25 12.5C52.106 12.5 48.1317 14.1462 45.2015 17.0765C42.2712 20.0067 40.625 23.981 40.625 28.125V37.5H71.875Z"
+          fill="#04BBF4"></path>
       </svg>
-    </div>
-    <script>
-        // 메인 페이지로 이동하는 함수
-        function goToMainPage() {
-          var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-          window.location.href = mainPageURL;
-        }
-        function goToSecondHandTransactionPage() {
-          // 중고거래 페이지의 URL을 여기에 입력합니다.
-          var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
-          window.location.href = SecondHandTransactionPageURL;
-        }
-        function goToPlacePage() {
-          // 플레이스 페이지의 URL을 여기에 입력합니다.
-          var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
-          window.location.href = PlacePageURL;
-        }
-        // 로그인 페이지로 이동하는 함수
-        function goToLoginPage() {
-          var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
-          window.location.href = loginPageURL;
-        }
-  
-        // 회원가입 페이지로 이동하는 함수
-        function goToSignUpPage() {
-          var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
-          window.location.href = signUpPageURL;
-        }
-    </script>
-  </body>
+      <p style="position: absolute; left: 534px; top: 608px; font-size: 50px; text-align: center; color: #04bbf4;">중고거래
+      </p>
+    </button>
+    <button onclick="goToPlacePage()">
+      <div
+        style="width: 350px; height: 350px; position: absolute; left: 1118px; top: 364px; border-radius: 10px; background: #fff;">
+      </div>
+      <p style="position: absolute; left: 1202px; top: 608px; font-size: 50px; text-align: center; color: #04bbf4;">플레이스
+      </p>
+      <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 150px; height: 150px; position: absolute; left: 1219px; top: 429px;" preserveAspectRatio="none">
+        <g clip-path="url(#clip0_91_460)">
+          <path
+            d="M75 112.5L46.4531 72.1875C41.7805 66.6706 38.7714 59.9398 37.7763 52.7789C36.7812 45.6179 37.841 38.3217 40.8324 31.7398C43.8237 25.1579 48.6234 19.5613 54.6725 15.6018C60.7215 11.6423 67.7711 9.48289 75 9.375C85.0207 9.47402 94.5937 13.5403 101.622 20.6832C108.651 27.8261 112.562 37.4634 112.5 47.4844C112.504 56.2263 109.528 64.7083 104.062 71.5312L75 112.5ZM75 18.75C67.4618 18.8366 60.2661 21.9111 54.9928 27.2986C49.7196 32.6861 46.8 39.9461 46.875 47.4844C46.9104 54.364 49.3853 61.0081 53.8594 66.2344L75 96.1875L96.7031 65.625C100.829 60.4755 103.092 54.0825 103.125 47.4844C103.2 39.9461 100.28 32.6861 95.0071 27.2986C89.7339 21.9111 82.5382 18.8366 75 18.75Z"
+            fill="#04BBF4"></path>
+          <path
+            d="M75 51.5625C80.1777 51.5625 84.375 47.3652 84.375 42.1875C84.375 37.0098 80.1777 32.8125 75 32.8125C69.8223 32.8125 65.625 37.0098 65.625 42.1875C65.625 47.3652 69.8223 51.5625 75 51.5625Z"
+            fill="#04BBF4"></path>
+          <path
+            d="M75 112.5L46.4531 72.1875C41.7805 66.6706 38.7714 59.9398 37.7763 52.7789C36.7812 45.6179 37.841 38.3217 40.8324 31.7398C43.8237 25.1579 48.6234 19.5613 54.6725 15.6018C60.7215 11.6423 67.7711 9.48289 75 9.375C85.0207 9.47402 94.5937 13.5403 101.622 20.6832C108.651 27.8261 112.562 37.4634 112.5 47.4844C112.504 56.2263 109.528 64.7083 104.062 71.5312L75 112.5ZM75 18.75C67.4618 18.8366 60.2661 21.9111 54.9928 27.2986C49.7196 32.6861 46.8 39.9461 46.875 47.4844C46.9104 54.364 49.3853 61.0081 53.8594 66.2344L75 96.1875L96.7031 65.625C100.829 60.4755 103.092 54.0825 103.125 47.4844C103.2 39.9461 100.28 32.6861 95.0071 27.2986C89.7339 21.9111 82.5382 18.8366 75 18.75Z"
+            fill="#04BBF4"></path>
+          <path
+            d="M75 51.5625C80.1777 51.5625 84.375 47.3652 84.375 42.1875C84.375 37.0098 80.1777 32.8125 75 32.8125C69.8223 32.8125 65.625 37.0098 65.625 42.1875C65.625 47.3652 69.8223 51.5625 75 51.5625Z"
+            fill="#04BBF4"></path>
+          <path
+            d="M131.25 56.25H121.875V65.625H131.25V131.25H18.75V65.625H28.125V56.25H18.75C16.2636 56.25 13.879 57.2377 12.1209 58.9959C10.3627 60.754 9.375 63.1386 9.375 65.625V131.25C9.375 133.736 10.3627 136.121 12.1209 137.879C13.879 139.637 16.2636 140.625 18.75 140.625H131.25C133.736 140.625 136.121 139.637 137.879 137.879C139.637 136.121 140.625 133.736 140.625 131.25V65.625C140.625 63.1386 139.637 60.754 137.879 58.9959C136.121 57.2377 133.736 56.25 131.25 56.25Z"
+            fill="#04BBF4"></path>
+        </g>
+        <defs>
+          <clipPath id="clip0_91_460">
+            <rect width="150" height="150" fill="white"></rect>
+          </clipPath>
+        </defs>
+      </svg>
+    </button>
+    <svg width="5" height="606" viewBox="0 0 5 606" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: 957px; top: 261px;" preserveAspectRatio="xMidYMid meet">
+      <line x1="2.5" y1="1.09278e-7" x2="2.49997" y2="606" stroke="white" stroke-width="5"></line>
+    </svg>
+  </div>
+  <script>
+    // 메인 페이지로 이동하는 함수
+    function goToMainPage() {
+      var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+      window.location.href = mainPageURL;
+    }
+    function goToSecondHandTransactionPage() {
+      // 중고거래 페이지의 URL을 여기에 입력합니다.
+      var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
+      window.location.href = SecondHandTransactionPageURL;
+    }
+    function goToPlacePage() {
+      // 플레이스 페이지의 URL을 여기에 입력합니다.
+      var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
+      window.location.href = PlacePageURL;
+    }
+    // 로그인 페이지로 이동하는 함수
+    function goToLoginPage() {
+      var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
+      window.location.href = loginPageURL;
+    }
+
+    // 회원가입 페이지로 이동하는 함수
+    function goToSignUpPage() {
+      var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
+      window.location.href = signUpPageURL;
+    }
+  </script>
+</body>
+
 </html>

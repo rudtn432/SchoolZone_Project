@@ -1,111 +1,127 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      html, body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .fixed-container {
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>로그인</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
       position: fixed;
       height: 60px;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 999; /* 다른 요소 위에 나타나도록 z-index 설정 */
-      background-color: #ffffff; /* 배경색 지정 */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-      padding: 10px 20px; /* 내부 여백 설정 */
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
       display: flex;
-      justify-content: center; /* 수평 가운데 정렬 */
+      justify-content: center;
+      /* 수평 가운데 정렬 */
       align-items: center;
     }
-    </style>
-  </head>
-  <body>
-    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;" onclick="goToMainPage()">스쿨존</button>
-      </div>
-    <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
-      <svg
-        width="1920"
-        height="1"
-        viewBox="0 0 1920 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: -1px; top: 127px;"
-        preserveAspectRatio="none"
-      >
-        <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
-      </svg>
-      <div
-        style="width: 176px; height: 67px; position: absolute; left: 1434px; top: 27px; border-radius: 10px; background: #fff;"
-      ></div>
-      <p style="position: absolute; left: 743px; top: 326px; font-size: 40px; text-align: center;">
-        <span style="font-size: 40px; text-align: center; color: #000;">학생들과 함께 </span
-        ><span style="font-size: 40px; text-align: center; color: #04bbf4;">스쿨존!</span>
-      </p>
-      <div
-        style="width: 502px; height: 75px; position: absolute; left: 711px; top: 678px; border-radius: 15px; background: #04bbf4;"
-      ></div>
-      <button style="width: 502px; height: 75px; position: absolute; left: 711px; top: 678px; border-radius: 15px; background: #04bbf4; border: none;" onclick="login()">
-        <p style="font-size: 30px; text-align: center; color: #fff;">로그인</p>
-      </button>
+  </style>
+</head>
 
-      <input type="checkbox" id="loginPersistCheckbox" style="width: 33px; height: 33px; position: absolute; left: 711px; top: 618px; border-radius: 10px;">
-      <p style="width: auto; height: 33px; position: absolute; left: 757px; top: 619px; font-size: 20px; text-align: center; color: #000; white-space: nowrap; overflow: hidden;">로그인 유지</p>
-      <input type="checkbox" id="idSaveCheckbox" style="width: 33px; height: 33px; position: absolute; left: 875px; top: 618px; border-radius: 10px;">
-      <p style="width: auto; height: 33px; position: absolute; left: 921px; top: 619px; font-size: 20px; text-align: center; color: #000; white-space: nowrap; overflow: hidden;">아이디 저장</p>
-
-      <button onclick="redirectToSignUp()" style="width: auto; height: 33px; position: absolute; left: 1100px; top: 619px; font-size: 20px; text-align: center; color: #5e5e5e; background: none; border: none; cursor: pointer;">회원가입</button>
-      
-      <input type="text" id="idInput" placeholder="ID" style="width: 502px; height: 75px; position: absolute; left: 712px; top: 412px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="password" id="passwordInput" placeholder="PASSWORD" style="width: 502px; height: 75px; position: absolute; left: 711px; top: 518px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;"></div>
-      <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;"></div>
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button
+      style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;"
+      onclick="goToMainPage()">스쿨존</button>
+  </div>
+  <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+      <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+    </svg>
+    <div
+      style="width: 176px; height: 67px; position: absolute; left: 1434px; top: 27px; border-radius: 10px; background: #fff;">
     </div>
-    <script>
-      function login() {
-    // ID 입력값 가져오기
-    var id = document.getElementById("idInput").value;
-    // PASSWORD 입력값 가져오기
-    var password = document.getElementById("passwordInput").value;
+    <p style="position: absolute; left: 743px; top: 326px; font-size: 40px; text-align: center;">
+      <span style="font-size: 40px; text-align: center; color: #000;">학생들과 함께 </span><span
+        style="font-size: 40px; text-align: center; color: #04bbf4;">스쿨존!</span>
+    </p>
+    <div
+      style="width: 502px; height: 75px; position: absolute; left: 711px; top: 678px; border-radius: 15px; background: #04bbf4;">
+    </div>
+    <button
+      style="width: 502px; height: 75px; position: absolute; left: 711px; top: 678px; border-radius: 15px; background: #04bbf4; border: none;"
+      onclick="login()">
+      <p style="font-size: 30px; text-align: center; color: #fff;">로그인</p>
+    </button>
 
-    // ID가 비어 있는지 확인
-    if (id === "") {
+    <input type="checkbox" id="loginPersistCheckbox"
+      style="width: 33px; height: 33px; position: absolute; left: 711px; top: 618px; border-radius: 10px;">
+    <p
+      style="width: auto; height: 33px; position: absolute; left: 757px; top: 619px; font-size: 20px; text-align: center; color: #000; white-space: nowrap; overflow: hidden;">
+      로그인 유지</p>
+    <input type="checkbox" id="idSaveCheckbox"
+      style="width: 33px; height: 33px; position: absolute; left: 875px; top: 618px; border-radius: 10px;">
+    <p
+      style="width: auto; height: 33px; position: absolute; left: 921px; top: 619px; font-size: 20px; text-align: center; color: #000; white-space: nowrap; overflow: hidden;">
+      아이디 저장</p>
+
+    <button onclick="redirectToSignUp()"
+      style="width: auto; height: 33px; position: absolute; left: 1100px; top: 619px; font-size: 20px; text-align: center; color: #5e5e5e; background: none; border: none; cursor: pointer;">회원가입</button>
+
+    <input type="text" id="idInput" placeholder="ID"
+      style="width: 502px; height: 75px; position: absolute; left: 712px; top: 412px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+    <input type="password" id="passwordInput" placeholder="PASSWORD"
+      style="width: 502px; height: 75px; position: absolute; left: 711px; top: 518px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+    <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;"></div>
+    <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;"></div>
+  </div>
+  <script>
+    function login() {
+      // ID 입력값 가져오기
+      var id = document.getElementById("idInput").value;
+      // PASSWORD 입력값 가져오기
+      var password = document.getElementById("passwordInput").value;
+
+      // ID가 비어 있는지 확인
+      if (id === "") {
         alert("ID를 입력해주세요.");
         return false;
-    }
-    // PASSWORD가 비어 있는지 확인
-    if (password === "") {
+      }
+      // PASSWORD가 비어 있는지 확인
+      if (password === "") {
         alert("비밀번호를 입력해주세요.");
         return false;
-    }
+      }
 
-    // 모든 조건을 통과하면 true 반환
-    return true;
+      // 모든 조건을 통과하면 true 반환
+      return true;
     }
-      function redirectToSignUp() {
-    // 회원가입 페이지의 URL을 여기에 입력합니다.
-    var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
-    window.location.href = signUpPageURL;
+    function redirectToSignUp() {
+      // 회원가입 페이지의 URL을 여기에 입력합니다.
+      var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
+      window.location.href = signUpPageURL;
     }
     // 메인 페이지로 이동하는 함수
     function goToMainPage() {
-          var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-          window.location.href = mainPageURL;
-        }
-    </script>
-  </body>
+      var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+      window.location.href = mainPageURL;
+    }
+  </script>
+</body>
+
 </html>

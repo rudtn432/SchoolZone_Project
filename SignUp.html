@@ -1,163 +1,172 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원가입</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      html, body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .fixed-container {
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회원가입</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
       position: fixed;
       height: 60px;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 999; /* 다른 요소 위에 나타나도록 z-index 설정 */
-      background-color: #ffffff; /* 배경색 지정 */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-      padding: 10px 20px; /* 내부 여백 설정 */
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
       display: flex;
-      justify-content: center; /* 수평 가운데 정렬 */
+      justify-content: center;
+      /* 수평 가운데 정렬 */
       align-items: center;
     }
 
     .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-    </style>
-  </head>
-  <body>
-    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;" onclick="goToMainPage()">스쿨존</button>
-      </div>
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button
+      style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;"
+      onclick="goToMainPage()">스쿨존</button>
+  </div>
+  <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+      <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+    </svg>
     <div
-      style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;"
-    >
-      <svg
-        width="1920"
-        height="1"
-        viewBox="0 0 1920 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: -1px; top: 127px;"
-        preserveAspectRatio="none"
-      >
-        <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
-      </svg>
-      <div
-        style="width: 1244px; height: 67px; position: absolute; left: 336px; top: 19px; border-radius: 10px; background: #fff;"
-      ></div>
-
-      <div class="container">
-        <p style="font-size: 40px; margin-bottom: 10px; text-align: center;">
-          <span style="font-size: 40px; text-align: center; color: #000;">학생들과 함께 </span
-          ><span style="font-size: 40px; text-align: center; color: #04bbf4;">스쿨존!</span>
-        </p>
-
-        <input type="text" id="idInput" placeholder="ID" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="password" id="passwordInput" placeholder="PASSWORD" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="password" id="confirmPasswordInput" placeholder="PASSWORD 확인" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="text" id="nameInput" placeholder="이름 입력" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="text" id="phoneInput" placeholder="핸드폰 / ’-’빼고 숫자만 입력" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-        <input type="email" id="emailInput" placeholder="email@joongo.co.kr" style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      
-        <form>
-          <select name="school" id="schoolSelect" style="width: 502px; margin-bottom: 20px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px;" onchange="getSelectedValue()">
-            <option value="none">학교를 선택해주세요.</option>
-            <option value="WonkwangUniversity">원광대학교</option>
-            <option value="SeoulNationalUniversity">서울대학교</option>
-            <option value="KoreaUniversity">고려대학교</option>
-            <option value="YonseiUniversity">연세대학교</option>
-          </select>
-        </form>
-
-        <button style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #04bbf4; border: none;" onclick="register()">
-        <p style="font-size: 30px; text-align: center; color: #fff;">회원가입</p>
-        </button>
-      </div>
-
-      <div
-        style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;"
-      ></div>
-      <div
-        style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;"
-      ></div>
+      style="width: 1244px; height: 67px; position: absolute; left: 336px; top: 19px; border-radius: 10px; background: #fff;">
     </div>
-    <script>
-        function register() {
-        // 입력 필드에서 값 가져오기
-        var id = document.getElementById("idInput").value;
-        var password = document.getElementById("passwordInput").value;
-        var confirmPassword = document.getElementById("confirmPasswordInput").value;
-        var name = document.getElementById("nameInput").value;
-        var birthdate = document.getElementById("birthdateInput").value;
-        var phone = document.getElementById("phoneInput").value;
-        var email = document.getElementById("emailInput").value;
-        var selectElement = document.getElementById("schoolSelect"); // select 요소를 가져옴
-        var selectedValue = selectElement.value; // 선택된 값을 가져옴
 
-        // 입력 값 확인
-        if (id === "" || password === "" || confirmPassword === "" || name === "" || birthdate === "" || phone === "" || email === "") {
-            // 하나 이상의 입력 필드가 비어 있을 때 알림창 표시
-            alert("입력되지 않은 항목이 있습니다. 모든 항목을 입력해주세요.");
-            return;
-        }
-        // 비밀번호 일치 확인
-        if (password !== confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-            return;
-        }
-        // 생년월일이 숫자로만 이루어져 있고 8자리인지 확인
-        if (!(/^\d+$/.test(birthdate)) || birthdate.length !== 8) {
-            alert("생년월일은 숫자 8자리로 입력해주세요.");
-            return;
-        }
-        // 핸드폰 번호가 숫자로만 이루어져 있고 11자리인지 확인
-        if (!(/^\d+$/.test(phone)) || phone.length !== 11) {
-            alert("핸드폰 번호는 숫자 11자리로 입력해주세요.");
-            return;
-        }
-        // 이메일 형식 확인
-        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailPattern.test(email)) {
-            alert("올바른 이메일 주소를 입력해주세요.");
-            return;
-        }
-        // 학교를 선택했는지 확인
-        if(selectedValue=="none")
-        {
-          alert("학교를 선택해주세요.");
-            return;
-        }
+    <div class="container">
+      <p style="font-size: 40px; margin-bottom: 10px; text-align: center;">
+        <span style="font-size: 40px; text-align: center; color: #000;">학생들과 함께 </span>
+        <span style="font-size: 40px; text-align: center; color: #04bbf4;">스쿨존!</span>
+      </p>
 
-        // 모든 필드가 입력되었을 때 회원가입 로직을 진행하는 코드 추가
+      <input type="text" id="idInput" placeholder="ID"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="password" id="passwordInput" placeholder="PASSWORD"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="password" id="confirmPasswordInput" placeholder="PASSWORD 확인"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="text" id="nameInput" placeholder="이름 입력"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="text" id="phoneInput" placeholder="핸드폰 / ’-’빼고 숫자만 입력"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+      <input type="email" id="emailInput" placeholder="email@joongo.co.kr"
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
 
-        // 여기에 회원가입 로직을 구현하세요.
+      <form>
+        <select name="school" id="schoolSelect"
+          style="width: 502px; margin-bottom: 20px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px;"
+          onchange="getSelectedValue()">
+          <option value="none">학교를 선택해주세요.</option>
+          <option value="WonkwangUniversity">원광대학교</option>
+          <option value="SeoulNationalUniversity">서울대학교</option>
+          <option value="KoreaUniversity">고려대학교</option>
+          <option value="YonseiUniversity">연세대학교</option>
+        </select>
+      </form>
+
+      <button
+        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #04bbf4; border: none;"
+        onclick="register()">
+        <p style="font-size: 30px; text-align: center; color: #fff;">회원가입</p>
+      </button>
+    </div>
+
+    <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;"></div>
+    <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;"></div>
+  </div>
+  <script>
+    function register() {
+      // 입력 필드에서 값 가져오기
+      var id = document.getElementById("idInput").value;
+      var password = document.getElementById("passwordInput").value;
+      var confirmPassword = document.getElementById("confirmPasswordInput").value;
+      var name = document.getElementById("nameInput").value;
+      var birthdate = document.getElementById("birthdateInput").value;
+      var phone = document.getElementById("phoneInput").value;
+      var email = document.getElementById("emailInput").value;
+      var selectElement = document.getElementById("schoolSelect"); // select 요소를 가져옴
+      var selectedValue = selectElement.value; // 선택된 값을 가져옴
+
+      // 입력 값 확인
+      if (id === "" || password === "" || confirmPassword === "" || name === "" || birthdate === "" || phone === "" || email === "") {
+        // 하나 이상의 입력 필드가 비어 있을 때 알림창 표시
+        alert("입력되지 않은 항목이 있습니다. 모든 항목을 입력해주세요.");
+        return;
+      }
+      // 비밀번호 일치 확인
+      if (password !== confirmPassword) {
+        alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+        return;
+      }
+      // 생년월일이 숫자로만 이루어져 있고 8자리인지 확인
+      if (!(/^\d+$/.test(birthdate)) || birthdate.length !== 8) {
+        alert("생년월일은 숫자 8자리로 입력해주세요.");
+        return;
+      }
+      // 핸드폰 번호가 숫자로만 이루어져 있고 11자리인지 확인
+      if (!(/^\d+$/.test(phone)) || phone.length !== 11) {
+        alert("핸드폰 번호는 숫자 11자리로 입력해주세요.");
+        return;
+      }
+      // 이메일 형식 확인
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert("올바른 이메일 주소를 입력해주세요.");
+        return;
+      }
+      // 학교를 선택했는지 확인
+      if (selectedValue == "none") {
+        alert("학교를 선택해주세요.");
+        return;
+      }
+
+      // 모든 필드가 입력되었을 때 회원가입 로직을 진행하는 코드 추가
+
+      // 여기에 회원가입 로직을 구현하세요.
     }
     // 메인 페이지로 이동하는 함수
     function goToMainPage() {
-          var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-          window.location.href = mainPageURL;
-        }
-    </script>
-  </body>
+      var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+      window.location.href = mainPageURL;
+    }
+  </script>
+</body>
+
 </html>

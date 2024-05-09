@@ -1,237 +1,317 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>중고거래</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      html, body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .fixed-container {
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중고거래</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
       position: fixed;
       height: 60px;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 999; /* 다른 요소 위에 나타나도록 z-index 설정 */
-      background-color: #ffffff; /* 배경색 지정 */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-      padding: 10px 20px; /* 내부 여백 설정 */
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
       display: flex;
-      justify-content: center; /* 수평 가운데 정렬 */
+      justify-content: center;
+      /* 수평 가운데 정렬 */
       align-items: center;
     }
-      /* 카테고리 버튼을 감싸는 컨테이너 스타일 */
+
+    /* 카테고리 버튼을 감싸는 컨테이너 스타일 */
     .category-container {
       margin-top: 60px;
       position: fixed;
       height: 50px;
       left: 0;
       right: 0;
-      z-index: 999; /* 다른 요소 위에 나타나도록 z-index 설정 */
-      background-color: #ffffff; /* 배경색 지정 */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
       display: flex;
-      
+
     }
+
     /* 버튼 스타일 */
     .category {
       width: 125px;
-  height: auto;
-  display: flex; /* 텍스트와 이미지를 가로로 정렬하기 위해 flex 사용 */
-  align-items: center; /* 수직 가운데 정렬 */
-  font-size: 22px;
-  text-align: center;
-  font-weight: bold; /* 글꼴을 굵게 설정 */
-  color: #000;
-  border: none;
-  background: none;
-  position: fixed;
-  left: 20px;
-  top: 70px;
+      height: auto;
+      display: flex;
+      /* 텍스트와 이미지를 가로로 정렬하기 위해 flex 사용 */
+      align-items: center;
+      /* 수직 가운데 정렬 */
+      font-size: 22px;
+      text-align: center;
+      font-weight: bold;
+      /* 글꼴을 굵게 설정 */
+      color: #000;
+      border: none;
+      background: none;
+      position: fixed;
+      left: 20px;
+      top: 70px;
     }
+
     .category img {
-  width: 24px; /* 이미지 너비 조정 */
-  height: 24px; /* 이미지 높이 조정 */
-  margin-right: 10px; /* 이미지와 텍스트 간격 조정 */
-}
+      width: 24px;
+      /* 이미지 너비 조정 */
+      height: 24px;
+      /* 이미지 높이 조정 */
+      margin-right: 10px;
+      /* 이미지와 텍스트 간격 조정 */
+    }
 
     /* 사이드바 스타일 */
     .sidebar {
       position: fixed;
       top: 70px;
-      left: calc(20px + 125px); /* 카테고리 버튼의 오른쪽에 위치하도록 조정 */
+      left: calc(20px + 125px);
+      /* 카테고리 버튼의 오른쪽에 위치하도록 조정 */
       width: 180px;
-      min-height: 66px; /* 최소 높이를 버튼의 높이로 설정 */
-      max-height: calc(100vh - 128px); /* 최대 높이를 화면의 높이에서 상단 여백만큼 뺀 값으로 설정 */
+      min-height: 66px;
+      /* 최소 높이를 버튼의 높이로 설정 */
+      max-height: calc(100vh - 128px);
+      /* 최대 높이를 화면의 높이에서 상단 여백만큼 뺀 값으로 설정 */
       background-color: #f0f0f0;
       padding: 20px;
       border-left: 1px solid #ccc;
-      transition: opacity 0.2s; /* 사이드바 나타날 때 애니메이션 적용 */
-      opacity: 0; /* 초기에는 투명하게 설정하여 숨김 */
-      pointer-events: none; /* 사이드바가 사라진 상태에서는 마우스 이벤트 비활성화 */
+      transition: opacity 0.2s;
+      /* 사이드바 나타날 때 애니메이션 적용 */
+      opacity: 0;
+      /* 초기에는 투명하게 설정하여 숨김 */
+      pointer-events: none;
+      /* 사이드바가 사라진 상태에서는 마우스 이벤트 비활성화 */
     }
-      .sidebar button {
-        display: flex;
-        align-items: center; /* 자식 요소들을 세로 중앙 정렬 */
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-        text-align: center;
-        background-color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .sidebar button img {
-      width: 24px; /* 이미지 너비 조정 */
-      height: 24px; /* 이미지 높이 조정 */
-      margin-right: 10px; /* 이미지와 텍스트 간격 조정 */
-    }
-    
-    </style>
-  </head>
-  <body>
-    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-      <!-- 로고 또는 사이트 제목 -->
-      <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 50px;" onclick="goToHomePage()">Joongo</button>
-      <!-- 검색 입력 상자 -->
-      <div style="margin-right: 50px; width: 527px; height: 47px; border-radius: 10px; background: #fff; border: 2px solid #04bbf4;">
-        <input type="text" style="width: 100%; height: 100%; padding: 0 10px; border: none; outline: none; border-radius: 10px;" placeholder="찾고 싶은 상품을 입력하세요." onkeypress="search(event)">
-      </div>
-      <!-- 로그인 및 회원가입 버튼 -->
-      <div style="display: flex; align-items: center;">
-        <button style="width: 59px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;" onclick="goToLoginPage()">로그인</button>
-        <div style="width: 1px; height: 31px; margin-left: 10px; margin-right: 5px; background-color: #786F6F;"></div> <!-- 구분선 추가 -->
-        <button style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;" onclick="goToSignUpPage()">회원가입</button>
-      </div>
-    </div>
-    <!-- 아래에 카테고리 버튼을 감싸는 컨테이너 -->
-    <div class="category-container">
-      <!-- 카테고리 버튼 -->
-      <button class="category" id="categoryBtn">
-        <img src="menubar.png" alt="Category Icon">카테고리</button>
-      <!-- 사이드바 -->
-      <div class="sidebar" id="sidebar">
-        <!-- 사이드바 내용 -->
-        <button><img src="category-electronics.png" alt="Sidebar Icon">의류</button>
-        <button><img src="sidebar_icon.png" alt="Sidebar Icon">가전제품</button>
-        <button><img src="sidebar_icon.png" alt="Sidebar Icon">디지털</button>
-      </div>
-    </div>
-    <div
-      style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
-      <svg
-        width="1920"
-        height="1"
-        viewBox="0 0 1920 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: -1px; top: 127px;"
-        preserveAspectRatio="none"
-      ></svg>
-        <svg
-        width="1920"
-        height="1"
-        viewBox="0 0 1920 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: -1px; top: 193px;"
-        preserveAspectRatio="none"
-      >
-        <line y1="0.5" x2="1920" y2="0.5" stroke="#9BB2C4" stroke-opacity="0.5"></line></svg>
-      <svg
-        width="1"
-        height="41"
-        viewBox="0 0 1 41"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: 1404px; top: 45px;"
-        preserveAspectRatio="none"
-      >
-      </svg>
-      
-      <div style="width: 1920px; height: 360px; position: absolute; left: -1px; top: 193px; background: rgba(198,241,255,0.5);"></div>
-      <img
-        src="rectangle-3.jpeg"
-        style="width: 230px; height: 230px; position: absolute; left: 427px; top: 627px; border-radius: 20px; object-fit: cover;"
-      /><img
-        src="rectangle-4.jpeg"
-        style="width: 230px; height: 230px; position: absolute; left: 704px; top: 627px; border-radius: 20px; object-fit: cover;"
-      /><img
-        src="rectangle-5.jpeg"
-        style="width: 230px; height: 230px; position: absolute; left: 981px; top: 627px; border-radius: 20px; object-fit: cover;"
-      /><img
-        src="rectangle-6.jpeg"
-        style="width: 230px; height: 230px; position: absolute; left: 1259px; top: 627px; border-radius: 20px; object-fit: cover;"
-      /><img
-        src="rectangle-7.jpeg"
-        style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;"
-      />
-      <p style="width: 230px; height: 138px; position: absolute; left: 429px; top: 859px; text-align: left;">
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">가방 판매합니다</span><br/>
-          <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">30,000원</span><br/>
-          <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">익산시 신동</span><br />
-          <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 18 댓글 23</span>
-      </p>
-      <p style="width: 230px; height: 138px; position: absolute; left: 706px; top: 859px; text-align: left;">
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">호두</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">5,000원</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">군산시 조촌동</span><br />
-        <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 5 댓글 2</span>
-      </p>
-      <p style="width: 230px; height: 138px; position: absolute; left: 983px; top: 859px; text-align: left;">
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">이태리식 만두 팔아요 ~</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">10,000원</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">광주 서구</span><br />
-        <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 25 댓글 10</span>
-      </p>
-      <p style="width: 230px; height: 138px; position: absolute; left: 1261px; top: 859px; text-align: left;">
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">아이폰 공기계/네고 없음</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">300,000원</span><br />
-        <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">대전 둔산동</span><br />
-        <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 52 댓글 35</span>
-      </p>
-  </div>
-    <script>
-      function goToHomePage() {
-        // 홈페이지의 URL을 여기에 입력합니다.
-        var homePageURL = "Homepage.html"; // 홈페이지 URL로 수정 필요
-        window.location.href = homePageURL;
-      }
-      // 로그인 페이지로 이동하는 함수
-      function goToLoginPage() {
-        var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
-        window.location.href = loginPageURL;
-      }
 
-      // 회원가입 페이지로 이동하는 함수
-      function goToSignUpPage() {
-        var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
-        window.location.href = signUpPageURL;
-      }
-      function search(event) {
-        if (event.key === "Enter") {
-      var searchText = event.target.value;
-      // 여기에 검색 기능 구현
-      // 예시로 구글 검색을 시뮬레이션합니다.
-      window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
+    .sidebar button {
+      display: flex;
+      align-items: center;
+      /* 자식 요소들을 세로 중앙 정렬 */
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      text-align: center;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
+
+    .sidebar button img {
+      width: 24px;
+      /* 이미지 너비 조정 */
+      height: 24px;
+      /* 이미지 높이 조정 */
+      margin-right: 10px;
+      /* 이미지와 텍스트 간격 조정 */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 100px;"
+      onclick="goToMainPage()">스쿨존</button>
+
+    <button onclick="goToSecondHandTransactionPage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 50px;">
+      <svg width="41" height="50" viewBox="0 0 41 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet">
+        <path
+          d="M10.2273 10.2273C10.2273 7.51483 11.3048 4.91348 13.2228 2.9955C15.1408 1.07751 17.7421 0 20.4545 0C23.167 0 25.7683 1.07751 27.6863 2.9955C29.6043 4.91348 30.6818 7.51483 30.6818 10.2273V13.6364H40.9091V50H0V13.6364H10.2273V10.2273ZM10.2273 18.1818H4.54545V45.4545H36.3636V18.1818H30.6818V25H26.1364V18.1818H14.7727V25H10.2273V18.1818ZM26.1364 13.6364V10.2273C26.1364 8.72036 25.5377 7.27517 24.4722 6.20962C23.4066 5.14407 21.9615 4.54545 20.4545 4.54545C18.9476 4.54545 17.5024 5.14407 16.4369 6.20962C15.3713 7.27517 14.7727 8.72036 14.7727 10.2273V13.6364H26.1364Z"
+          fill="black">
+        </path>
+      </svg>
+      </svg>
+      </svg>
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">중고거래</p>
+    </button>
+
+    <button onclick="goToPlacePage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 100px;">
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 50px; height: 50px; position: relative;" preserveAspectRatio="xMidYMid meet">
+        <g clip-path="url(#clip0_91_460)">
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M43.75 18.75H40.625V21.875H43.75V43.75H6.25V21.875H9.375V18.75H6.25C5.4212 18.75 4.62634 19.0792 4.04029 19.6653C3.45424 20.2513 3.125 21.0462 3.125 21.875V43.75C3.125 44.5788 3.45424 45.3737 4.04029 45.9597C4.62634 46.5458 5.4212 46.875 6.25 46.875H43.75C44.5788 46.875 45.3737 46.5458 45.9597 45.9597C46.5458 45.3737 46.875 44.5788 46.875 43.75V21.875C46.875 21.0462 46.5458 20.2513 45.9597 19.6653C45.3737 19.0792 44.5788 18.75 43.75 18.75Z"
+            fill="black"></path>
+        </g>
+        <defs>
+          <clipPath id="clip0_91_460">
+            <rect width="50" height="50" fill="white"></rect>
+          </clipPath>
+        </defs>
+      </svg>
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">
+        플레이스
+      </p>
+    </button>
+
+    <!-- 로그인 및 회원가입 버튼 -->
+    <div style="display: flex; align-items: center;">
+      <button style="width: 59px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;"
+        onclick="goToLoginPage()">로그인</button>
+      <div style="width: 1px; height: 31px; margin-left: 10px; margin-right: 5px; background-color: #786F6F;"></div>
+      <!-- 구분선 추가 -->
+      <button style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;"
+        onclick="goToSignUpPage()">회원가입</button>
+    </div>
+  </div>
+  <!-- 아래에 카테고리 버튼을 감싸는 컨테이너 -->
+  <div class="category-container">
+    <!-- 카테고리 버튼 -->
+    <button class="category" id="categoryBtn">
+      <img src="menubar.png" alt="Category Icon">카테고리</button>
+    <!-- 사이드바 -->
+    <div class="sidebar" id="sidebar">
+      <!-- 사이드바 내용 -->
+      <button><img src="category-electronics.png" alt="Sidebar Icon">의류</button>
+      <button><img src="sidebar_icon.png" alt="Sidebar Icon">가전제품</button>
+      <button><img src="sidebar_icon.png" alt="Sidebar Icon">디지털</button>
+    </div>
+  </div>
+  <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none"></svg>
+    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: -1px; top: 193px;" preserveAspectRatio="none">
+      <line y1="0.5" x2="1920" y2="0.5" stroke="#9BB2C4" stroke-opacity="0.5"></line>
+    </svg>
+    <svg width="1" height="41" viewBox="0 0 1 41" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: 1404px; top: 45px;" preserveAspectRatio="none">
+    </svg>
+
+    <!-- 검색 입력 상자 -->
+    <div
+      style="width: 593px; height: 47px; position: absolute; top: 155px; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; border-radius: 10px; background: #fff; border: 2px solid #04bbf4;">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 30px; height: 30px;">
+        <path
+          d="M21.1162 21.15L24.9662 25M23.855 14.4763C23.855 19.71 19.6262 23.9525 14.4112 23.9525C9.195 23.9525 4.96625 19.71 4.96625 14.4775C4.96625 9.24125 9.195 5 14.41 5C19.6262 5 23.855 9.2425 23.855 14.4763Z"
+          stroke="#85B6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <input type="text"
+        style="flex: 1; height: 100%; padding: 0 10px; border: none; outline: none; border-radius: 10px;"
+        placeholder="찾고 싶은 상품을 입력하세요." onkeypress="search(event)">
+    </div>
+
+    <div
+      style="width: 1920px; height: 360px; position: absolute; left: -1px; top: 193px; background: rgba(198,241,255,0.5);">
+    </div>
+    <img src="rectangle-3.jpeg"
+      style="width: 230px; height: 230px; position: absolute; left: 427px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
+      src="rectangle-4.jpeg"
+      style="width: 230px; height: 230px; position: absolute; left: 704px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
+      src="rectangle-5.jpeg"
+      style="width: 230px; height: 230px; position: absolute; left: 981px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
+      src="rectangle-6.jpeg"
+      style="width: 230px; height: 230px; position: absolute; left: 1259px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
+      src="rectangle-7.jpeg"
+      style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;" />
+    <p style="width: 230px; height: 138px; position: absolute; left: 429px; top: 859px; text-align: left;">
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">가방 판매합니다</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">30,000원</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">익산시 신동</span><br />
+      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 18 댓글 23</span>
+    </p>
+    <p style="width: 230px; height: 138px; position: absolute; left: 706px; top: 859px; text-align: left;">
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">호두</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">5,000원</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">군산시 조촌동</span><br />
+      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 5 댓글 2</span>
+    </p>
+    <p style="width: 230px; height: 138px; position: absolute; left: 983px; top: 859px; text-align: left;">
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">이태리식 만두 팔아요
+        ~</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">10,000원</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">광주 서구</span><br />
+      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 25 댓글 10</span>
+    </p>
+    <p style="width: 230px; height: 138px; position: absolute; left: 1261px; top: 859px; text-align: left;">
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">아이폰 공기계/네고
+        없음</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">300,000원</span><br />
+      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">대전 둔산동</span><br />
+      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 52 댓글 35</span>
+    </p>
+  </div>
+  <script>
+    function goToMainPage() {
+      // 홈페이지의 URL을 여기에 입력합니다.
+      var mainPageURL = "Main.html"; // 홈페이지 URL로 수정 필요
+      window.location.href = mainPageURL;
+    }
+    function goToSecondHandTransactionPage() {
+      // 중고거래 페이지의 URL을 여기에 입력합니다.
+      var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
+      window.location.href = SecondHandTransactionPageURL;
+    }
+    function goToPlacePage() {
+      // 플레이스 페이지의 URL을 여기에 입력합니다.
+      var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
+      window.location.href = PlacePageURL;
+    }
+    // 로그인 페이지로 이동하는 함수
+    function goToLoginPage() {
+      var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
+      window.location.href = loginPageURL;
+    }
+
+    // 회원가입 페이지로 이동하는 함수
+    function goToSignUpPage() {
+      var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
+      window.location.href = signUpPageURL;
+    }
+    function search(event) {
+      if (event.key === "Enter") {
+        var searchText = event.target.value;
+        // 여기에 검색 기능 구현
+        // 예시로 구글 검색을 시뮬레이션합니다.
+        window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
       }
-      // 사이드바를 나타내는 함수
+    }
+    // 사이드바를 나타내는 함수
     function showSidebar() {
       var sidebar = document.getElementById('sidebar');
-      var categoryBtn=document.getElementById('categoryBtn');
+      var categoryBtn = document.getElementById('categoryBtn');
       sidebar.style.opacity = 1;
       sidebar.style.pointerEvents = 'auto'; // 마우스 이벤트 활성화
     }
@@ -239,7 +319,7 @@
     // 사이드바를 숨기는 함수
     function hideSidebar() {
       var sidebar = document.getElementById('sidebar');
-      var categoryBtn=document.getElementById('categoryBtn');
+      var categoryBtn = document.getElementById('categoryBtn');
       sidebar.style.opacity = 0;
       sidebar.style.pointerEvents = 'none'; // 마우스 이벤트 비활성화
     }
@@ -251,6 +331,7 @@
     // 사이드바 버튼에서 마우스가 벗어났을 때
     document.getElementById('sidebar').addEventListener('mouseleave', hideSidebar);
     document.getElementById('categoryBtn').addEventListener('mouseleave', hideSidebar);
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>
