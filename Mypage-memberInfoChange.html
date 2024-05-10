@@ -48,6 +48,33 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content-SecondHandTransaction  {
+            display: none;
+            position: absolute;
+            top: 71px; /* 드롭다운 내용의 위치 조정 */
+            min-width: 204px;
+            z-index: 1;
+        }
+        .dropdown-content-Place{
+            display: none;
+            position: absolute;
+            min-width: 204px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #6fe0ff;
+        }
     </style>
 </head>
 
@@ -76,56 +103,64 @@
                 회원정보 수정
             </p>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     아이디
                 </p>
                 <input type="text" id="idInput" placeholder="ID"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     비밀번호 변경
                 </p>
                 <input type="password" id="passwordInput" placeholder="PASSWORD"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     비밀번호 확인
                 </p>
                 <input type="password" id="confirmPasswordInput" placeholder="PASSWORD 확인"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     이름
                 </p>
                 <input type="text" id="nameInput" placeholder="이름"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     생년월일
                 </p>
                 <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     핸드폰번호
                 </p>
                 <input type="text" id="phoneInput" placeholder="핸드폰 / ’-’빼고 숫자만 입력"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     이메일
                 </p>
                 <input type="email" id="emailInput" placeholder="email@joongo.co.kr"
                     style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
             </div>
             <div style="display: flex; align-items: center;">
-                <p style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
+                <p
+                    style="width: 202px; height: 75px; font-size: 25px; text-align: left; color: #000; margin-right: 10px;">
                     계좌번호
                 </p>
                 <input type="text" id="accountNumberInput" placeholder="계좌번호 / ’-’빼고 숫자만 입력"
@@ -152,18 +187,48 @@
         </div>
 
         <!-- 목록 -->
-        <button onclick="GoToMyPage_MemberInfoChange()"
-            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 128px; font-size: 25px; text-align: center; color: #000; background: #8de4fc;">
-            회원정보 수정
-        </button>
-        <button onclick="GoToMyPage_SecondHandTransaction()"
-            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 202px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
-            중고거래
-        </button>
-        <button onclick="GoToMyPage_Place()"
-            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 273px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
-            플레이스
-        </button>
+        <div style="font-weight: bold;">
+            <button onclick="GoToMyPage_MemberInfoChange()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 128px; font-size: 25px; text-align: center; color: #000; background: #8de4fc;">
+                회원정보 수정
+            </button>
+            <div class="dropdown" onmouseover="keepDropdownOpen_SHT()" onmouseleave="hideDropdown_SHT()"
+                style="position: absolute; left: 0px; top: 202px;">
+                <button class="dropbtn" onclick="goToMyPosts()"
+                    style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">중고거래</button>
+                <div class="dropdown-content-SecondHandTransaction">
+                    <button onclick="goToMyPosts()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                        <li>내 게시글</li>
+                    </button>
+                    <button onclick="goToSalesHistory()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 74px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        <li>판매내역</li>
+                    </button>
+                    <button onclick="goToPurchaseHistory()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 148px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        <li>구매내역</li>
+                    </button>
+                    <button onclick="goToWishlist()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 222px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        <li>찜한 상품</li>
+                    </button>
+                    <button onclick="GoToMyPage_Place_ReviewList()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 296px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
+                        플레이스
+                    </button>
+                </div>
+            </div>
+            <div class="dropdown" onmouseover="keepDropdownOpen_Place()" onmouseleave="hideDropdown_Place()"
+                style="position: absolute; left: 0px; top: 273px;">
+                <button class="dropbtn" onclick="GoToMyPage_Place_ReviewList()"
+                    style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">플레이스</button>
+                <div class="dropdown-content-Place">
+                    <button onclick="GoToMyPage_Place_ReviewList()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                        <li>리뷰 목록</li>
+                    </button>
+        </div>
 
         <script>
             function memberInfoChange() {
@@ -228,18 +293,48 @@
             }
             // 마이페이지-회원정보수정 페이지로 이동하는 함수
             function GoToMyPage_MemberInfoChange() {
-                var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html"; // 메인 페이지 URL로 수정 필요
+                var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
                 window.location.href = myPage_MemberInfoChangeURL;
             }
             // 마이페이지-중고거래 페이지로 이동하는 함수
-            function GoToMyPage_SecondHandTransaction() {
-                var myPage_SecondHandTransactionURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-                window.location.href = myPage_SecondHandTransactionURL;
+            function goToMyPosts() {
+                var myPage_MyPostsURL = "Mypage-SecondHandTransaction-MyPosts.html";
+                window.location.href = myPage_MyPostsURL;
             }
-            // 마이페이지-플레이스 페이지로 이동하는 함수
-            function GoToMyPage_Place() {
-                var myPage_PlaceURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-                window.location.href = myPage_PlaceURL;
+            function goToSalesHistory() {
+                // 여기에 판매내역 페이지로 이동하는 코드를 작성하세요.
+                var myPage_SalesHistoryURL = "Mypage-SecondHandTransaction-SalesHistory.html";
+                window.location.href = myPage_SalesHistoryURL;
+            }
+            function goToPurchaseHistory() {
+                // 여기에 구매내역 페이지로 이동하는 코드를 작성하세요.
+                var myPage_PurchaseHistoryURL = "Mypage-SecondHandTransaction-PurchaseHistory.html";
+                window.location.href = myPage_PurchaseHistoryURL;
+            }
+            function goToWishlist() {
+                // 여기에 찜한 상품 페이지로 이동하는 코드를 작성하세요.
+                var myPage_WishlistURL = "Mypage-SecondHandTransaction-Wishlist.html";
+                window.location.href = myPage_WishlistURL;
+            }
+            // 마이페이지-플레이스 리뷰목록 페이지로 이동하는 함수
+            function GoToMyPage_Place_ReviewList() {
+                var myPage_Place_ReviewListURL = "Mypage-Place-ReviewList.html";
+                window.location.href = myPage_Place_ReviewListURL;
+            }
+
+            var dropdownContent_SHT = document.querySelector('.dropdown-content-SecondHandTransaction');
+            var dropdownContent_Place = document.querySelector('.dropdown-content-Place');
+            function keepDropdownOpen_SHT() {
+                dropdownContent_SHT.style.display = "block";
+            }
+            function hideDropdown_SHT() {
+                dropdownContent_SHT.style.display = "none";
+            }
+            function keepDropdownOpen_Place() {
+                dropdownContent_Place.style.display = "block";
+            }
+            function hideDropdown_Place() {
+                dropdownContent_Place.style.display = "none";
             }
         </script>
 </body>
