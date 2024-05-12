@@ -70,6 +70,15 @@
         .dropdown:hover .dropbtn {
             background-color: #6fe0ff;
         }
+
+        /* 페이지 버튼을 감싸는 div 스타일 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            align-items: center;
+            gap: 50px;
+        }
     </style>
 </head>
 
@@ -82,7 +91,7 @@
             onclick="goToMainPage()">스쿨존</button>
         <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
     </div>
-    <div style="width: 1920px; height: 1300px; position: relative; overflow: hidden; background: #fff;">
+    <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
         <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
             style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
             <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
@@ -93,291 +102,13 @@
         <div style="width: 307px; height: 1200px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
         </div>
 
-        <div style="width: 1240px; height: 771px; position: absolute; left: 343px; top: 172px;">
-            <div
-                style="width: 1240px; height: 801px; position: absolute; left: -1px; top: -1px; background: #fff; border-width: 1px; border-color: #bababa;">
+        <!-- 게시글 목록 테이블 -->
+        <div style="width: 1240px; height: 2000; position: absolute; left: 343px; top: 172px;">
+            <table id="postTable" style="width: 1240px; position: absolute; top: 0; border-collapse: collapse;">
+            </table>
+            <!-- 페이지 번호 버튼을 담을 컨테이너 -->
+            <div class="pagination-container">
             </div>
-            <p
-                style="width: 124px; height: 57px; position: absolute; left: 0px; top: 0px; font-size: 15px; font-weight: 700; text-align: center; color: #000;">
-                번호
-            </p>
-            <p
-                style="width: 124px; height: 57px; position: absolute; left: 496px; top: 0px; font-size: 15px; font-weight: 700; text-align: center; color: #000;">
-                리뷰 내용
-            </p>
-            <p
-                style="width: 124px; height: 57px; position: absolute; left: 124px; top: 0px; font-size: 15px; font-weight: 700; text-align: center; color: #000;">
-                리뷰 사진
-            </p>
-            <p
-                style="width: 124px; height: 57px; position: absolute; left: 992px; top: 0px; font-size: 15px; font-weight: 700; text-align: center; color: #000;">
-                별점
-            </p>
-            <p
-                style="width: 124px; height: 57px; position: absolute; left: 1116px; top: 0px; font-size: 15px; font-weight: 700; text-align: center; color: #000;">
-                작성일
-            </p>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 56.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 56.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 56.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 56.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 57px; font-size: 15px; text-align: center; color: #000;">
-                    1
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 57px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 970px; top: 57px; font-size: 15px; text-align: center; color: red;">
-                    ★
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 57px; font-size: 15px; text-align: center; color: #000;">
-                    4.8
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 57px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 180.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 180.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 180.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 180.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 181px; font-size: 15px; text-align: center; color: #000;">
-                    4
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 181px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 181px; font-size: 15px; text-align: center; color: #000;">
-                    3.0
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 181px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 304.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 304.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 304.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 304.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 305px; font-size: 15px; text-align: center; color: #000;">
-                    7
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 305px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 305px; font-size: 15px; text-align: center; color: #000;">
-                    5.0
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 305px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 428.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 428.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 428.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 428.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 429px; font-size: 15px; text-align: center; color: #000;">
-                    10
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 429px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 429px; font-size: 15px; text-align: center; color: #000;">
-                    2.1
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 429px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 552.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 552.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 552.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 552.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 553px; font-size: 15px; text-align: center; color: #000;">
-                    13
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 553px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 553px; font-size: 15px; text-align: center; color: #000;">
-                    1.0
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 553px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <div style="width: 1240px; height: 124px;">
-                <div
-                    style="width: 868px; height: 124px; position: absolute; left: 123.5px; top: 676.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: -0.5px; top: 676.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 991.5px; top: 676.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <div
-                    style="width: 124px; height: 124px; position: absolute; left: 1115.5px; top: 676.5px; background: #fff; border-width: 1px; border-color: #f2f2f2;">
-                </div>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 0px; top: 677px; font-size: 15px; text-align: center; color: #000;">
-                    16
-                </p>
-                <p
-                    style="width: 868px; height: 124px; position: absolute; left: 124px; top: 677px; font-size: 15px; font-weight: 500; text-align: center; color: #000;">
-                    리뷰 내용
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 992px; top: 677px; font-size: 15px; text-align: center; color: #000;">
-                    1.0
-                </p>
-                <p
-                    style="width: 124px; height: 124px; position: absolute; left: 1116px; top: 677px; font-size: 15px; text-align: center; color: #000;">
-                    2024.01.01
-                </p>
-            </div>
-            <svg width="1240" height="1" viewBox="0 0 1240 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: -1px; top: 56px;" preserveAspectRatio="xMidYMid meet">
-                <line y1="0.5" x2="1240" y2="0.5" stroke="#CCCCCC"></line>
-            </svg><svg width="2" height="744" viewBox="0 0 2 744" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: 123px; top: 56px;" preserveAspectRatio="xMidYMid meet">
-                <path d="M1 0L1.00003 744" stroke="#CCCCCC"></path>
-            </svg><svg width="1" height="744" viewBox="0 0 1 744" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: 1115px; top: 56px;" preserveAspectRatio="xMidYMid meet">
-                <line x1="0.5" y1="-2.18557e-8" x2="0.500033" y2="744" stroke="#CCCCCC"></line>
-            </svg><svg width="1" height="744" viewBox="0 0 1 744" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: 991px; top: 56px;" preserveAspectRatio="xMidYMid meet">
-                <line x1="0.5" y1="-2.18557e-8" x2="0.500033" y2="744" stroke="#CCCCCC"></line>
-            </svg><img src="rectangle-40.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 56px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" /><img
-                src="rectangle-41.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 180px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" /><img
-                src="rectangle-42.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 304px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" /><img
-                src="rectangle-43.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 428px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" /><img
-                src="rectangle-44.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 552px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" /><img
-                src="rectangle-45.jpeg"
-                style="width: 124px; height: 124px; position: absolute; left: 123px; top: 676px; border-radius: 15px; object-fit: cover; border-width: 1px; border-color: #d3d3d3;" />
-        </div>
-        <div style="width: 992px; height: 57px; position: absolute; left: 467px; top: 973px;">
-            <div style="width: 992px; height: 57px; position: absolute; left: -1px; top: -1px; background: #fff;"></div>
-            <div
-                style="display: flex; justify-content: flex-start; align-items: flex-start; width: 886.86px; height: 57px; position: absolute; left: 52.57px; top: 0px; gap: 59px;">
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    1
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #000;">
-                    2
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    3
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    4
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    5
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    6
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    7
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    8
-                </p>
-                <p
-                    style="flex-grow: 0; flex-shrink: 0; width: 46px; height: 57px; font-size: 15px; text-align: center; color: #8f8f8f;">
-                    9
-                </p>
-            </div>
-            <div style="width: 52.57px; height: 57px; position: absolute; left: -1px; top: -1px; background: #fff;">
-            </div>
-            <div style="width: 52.57px; height: 57px; position: absolute; left: 938.43px; top: -1px; background: #fff;">
-            </div>
-            <svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: 13.36px; top: 12.5px;" preserveAspectRatio="none">
-                <path d="M19.0003 1L1.85742 16L19.0003 31" stroke="black" stroke-width="2"></path>
-            </svg><svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg"
-                style="position: absolute; left: 975.64px; top: 42.5px;" preserveAspectRatio="none">
-                <path d="M0.999695 31L18.1426 16L0.999695 1" stroke="black" stroke-width="2"></path>
-            </svg>
         </div>
 
         <!-- 목록 -->
@@ -393,7 +124,7 @@
                 <div class="dropdown-content-SecondHandTransaction">
                     <button onclick="goToMyPosts()"
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
-                        <li>내 게시글</li>
+                        <li>내 상품목록</li>
                     </button>
                     <button onclick="goToSalesHistory()"
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 74px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
@@ -424,6 +155,102 @@
         </div>
 
         <script>
+            var totalPosts = 25;    // 게시글의 갯수
+            var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
+            var currentPage = 1;    // 현재 페이지
+            var maxPage = Math.ceil(totalPosts / postsPerPage);
+
+            // 게시글 생성
+            function generatePosts() {
+                var postTable = document.getElementById('postTable');
+                postTable.innerHTML = ''; // 이전 행들을 삭제
+
+                // 테이블 헤더 추가
+                var headerRow = postTable.insertRow();
+                headerRow.innerHTML = `<th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">번호</th>
+                                   <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">리뷰 사진</th>
+                                   <th style="width: 868px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">리뷰 내용</th>
+                                   <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">별점</th>
+                                   <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">작성일</th>`;
+
+                for (var i = (currentPage - 1) * postsPerPage; i < Math.min(currentPage * postsPerPage, totalPosts); i++) {
+                    var newRow = postTable.insertRow(); // 새로운 행 추가
+
+                    // 셀에 데이터 추가
+                    newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
+                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="이미지_경로.jpg" alt="이미지 설명"></td>
+                                    <td style="width: 868px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">리뷰 내용</td>
+                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><span style="color: red;">★ </span>4.8</td>
+                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">2024.01.01</td>`;
+                }
+            }
+
+            // 페이지 버튼 생성
+            function generatePagination() {
+                var maxPage = Math.ceil(totalPosts / postsPerPage);
+                var paginationContainer = document.querySelector('.pagination-container');
+                paginationContainer.innerHTML = ''; // 이전에 생성된 버튼 제거
+                paginationContainer.style.top = 830 + 'px';
+                if (currentPage == maxPage && totalPosts % postsPerPage != 0) {
+                    paginationContainer.style.top = 830 - ((postsPerPage - (totalPosts % postsPerPage)) * 124) + 'px';
+                }
+
+                // 페이지 이전 버튼 추가
+                var prevPageBtn = document.createElement('button');
+                prevPageBtn.innerHTML = `<svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.0003 1L1.85742 16L19.0003 31" stroke="black" stroke-width="2"></path></svg>`;
+                prevPageBtn.className = 'page-btn';
+                prevPageBtn.onclick = prevPage;
+                paginationContainer.appendChild(prevPageBtn);
+
+                // 페이지 번호 이동 버튼 생성
+                for (var i = 1; i <= maxPage; i++) {
+                        var pageBtn = document.createElement('button');
+                        pageBtn.textContent = i;
+                        pageBtn.className = 'page-btn';
+                        if (i === currentPage) { // 현재 페이지와 같은 경우 굵은 글꼴로 변경
+                            pageBtn.style.fontWeight = 'bold';
+                        }
+                        pageBtn.onclick = function () {
+                            changePage(parseInt(this.textContent));
+                        };
+                        paginationContainer.appendChild(pageBtn);
+                    }
+
+                // 페이지 다음 버튼 추가
+                var nextPageBtn = document.createElement('button');
+                nextPageBtn.innerHTML = `<svg width="20" height="32" viewBox="0 0 20 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0.999695 31L18.1426 16L0.999695 1" stroke="black" stroke-width="2"></path></svg>`;
+                nextPageBtn.className = 'page-btn';
+                nextPageBtn.onclick = nextPage;
+                paginationContainer.appendChild(nextPageBtn);
+            }
+
+            function prevPage() {
+                if (currentPage == 1)
+                    return;
+                changePage(currentPage - 1);
+            }
+
+            function nextPage() {
+                if (currentPage == maxPage)
+                    return;
+                changePage(currentPage + 1);
+            }
+
+            function changePage(pageNumber) {
+                currentPage = pageNumber;
+                generatePosts();
+                generatePagination();
+            }
+
+            function initialize() {
+                generatePosts();
+                generatePagination();
+            }
+
+            window.onload = initialize;
+
             // 메인 페이지로 이동하는 함수
             function goToMainPage() {
                 var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요

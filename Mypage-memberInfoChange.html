@@ -54,14 +54,16 @@
             display: inline-block;
         }
 
-        .dropdown-content-SecondHandTransaction  {
+        .dropdown-content-SecondHandTransaction {
             display: none;
             position: absolute;
-            top: 71px; /* 드롭다운 내용의 위치 조정 */
+            top: 71px;
+            /* 드롭다운 내용의 위치 조정 */
             min-width: 204px;
             z-index: 1;
         }
-        .dropdown-content-Place{
+
+        .dropdown-content-Place {
             display: none;
             position: absolute;
             min-width: 204px;
@@ -199,7 +201,7 @@
                 <div class="dropdown-content-SecondHandTransaction">
                     <button onclick="goToMyPosts()"
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
-                        <li>내 게시글</li>
+                        <li>내 상품목록</li>
                     </button>
                     <button onclick="goToSalesHistory()"
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 74px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
@@ -228,115 +230,115 @@
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
                         <li>리뷰 목록</li>
                     </button>
-        </div>
+                </div>
 
-        <script>
-            function memberInfoChange() {
-                // 입력 필드에서 값 가져오기
-                var id = document.getElementById("idInput").value;
-                var password = document.getElementById("passwordInput").value;
-                var confirmPassword = document.getElementById("confirmPasswordInput").value;
-                var name = document.getElementById("nameInput").value;
-                var birthdate = document.getElementById("birthdateInput").value;
-                var phone = document.getElementById("phoneInput").value;
-                var email = document.getElementById("emailInput").value;
-                var accountNumber = document.getElementById("accountNumberInput").value;
-                var selectElement = document.getElementById("schoolSelect"); // select 요소를 가져옴
-                var selectedValue = selectElement.value; // 선택된 값을 가져옴
+                <script>
+                    function memberInfoChange() {
+                        // 입력 필드에서 값 가져오기
+                        var id = document.getElementById("idInput").value;
+                        var password = document.getElementById("passwordInput").value;
+                        var confirmPassword = document.getElementById("confirmPasswordInput").value;
+                        var name = document.getElementById("nameInput").value;
+                        var birthdate = document.getElementById("birthdateInput").value;
+                        var phone = document.getElementById("phoneInput").value;
+                        var email = document.getElementById("emailInput").value;
+                        var accountNumber = document.getElementById("accountNumberInput").value;
+                        var selectElement = document.getElementById("schoolSelect"); // select 요소를 가져옴
+                        var selectedValue = selectElement.value; // 선택된 값을 가져옴
 
-                // 입력 값 확인
-                if (id === "" || password === "" || confirmPassword === "" || name === "" || birthdate === "" || phone === "" || email === "" || accountNumber == "") {
-                    // 하나 이상의 입력 필드가 비어 있을 때 알림창 표시
-                    alert("입력되지 않은 항목이 있습니다. 모든 항목을 입력해주세요.");
-                    return;
-                }
-                // 비밀번호 일치 확인
-                if (password !== confirmPassword) {
-                    alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-                    return;
-                }
-                // 생년월일이 숫자로만 이루어져 있고 8자리인지 확인
-                if (!(/^\d+$/.test(birthdate)) || birthdate.length !== 8) {
-                    alert("생년월일은 숫자 8자리로 입력해주세요.");
-                    return;
-                }
-                // 핸드폰 번호가 숫자로만 이루어져 있고 11자리인지 확인
-                if (!(/^\d+$/.test(phone)) || phone.length !== 11) {
-                    alert("핸드폰 번호는 숫자 11자리로 입력해주세요.");
-                    return;
-                }
-                // 이메일 형식 확인
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(email)) {
-                    alert("올바른 이메일 주소를 입력해주세요.");
-                    return;
-                }
-                // 계좌 번호가 숫자로만 이루어져 있는지 확인
-                if (!(/^\d+$/.test(accountNumber))) {
-                    alert("계좌 번호는 숫자만 입력해주세요.");
-                    return;
-                }
-                // 학교를 선택했는지 확인
-                if (selectedValue == "none") {
-                    alert("학교를 선택해주세요.");
-                    return;
-                }
+                        // 입력 값 확인
+                        if (id === "" || password === "" || confirmPassword === "" || name === "" || birthdate === "" || phone === "" || email === "" || accountNumber == "") {
+                            // 하나 이상의 입력 필드가 비어 있을 때 알림창 표시
+                            alert("입력되지 않은 항목이 있습니다. 모든 항목을 입력해주세요.");
+                            return;
+                        }
+                        // 비밀번호 일치 확인
+                        if (password !== confirmPassword) {
+                            alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+                            return;
+                        }
+                        // 생년월일이 숫자로만 이루어져 있고 8자리인지 확인
+                        if (!(/^\d+$/.test(birthdate)) || birthdate.length !== 8) {
+                            alert("생년월일은 숫자 8자리로 입력해주세요.");
+                            return;
+                        }
+                        // 핸드폰 번호가 숫자로만 이루어져 있고 11자리인지 확인
+                        if (!(/^\d+$/.test(phone)) || phone.length !== 11) {
+                            alert("핸드폰 번호는 숫자 11자리로 입력해주세요.");
+                            return;
+                        }
+                        // 이메일 형식 확인
+                        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(email)) {
+                            alert("올바른 이메일 주소를 입력해주세요.");
+                            return;
+                        }
+                        // 계좌 번호가 숫자로만 이루어져 있는지 확인
+                        if (!(/^\d+$/.test(accountNumber))) {
+                            alert("계좌 번호는 숫자만 입력해주세요.");
+                            return;
+                        }
+                        // 학교를 선택했는지 확인
+                        if (selectedValue == "none") {
+                            alert("학교를 선택해주세요.");
+                            return;
+                        }
 
-                // 모든 필드가 입력되었을 때 회원정보 저장 로직을 진행하는 코드 추가
-                alert("저장되었습니다.");
-            }
+                        // 모든 필드가 입력되었을 때 회원정보 저장 로직을 진행하는 코드 추가
+                        alert("저장되었습니다.");
+                    }
 
-            // 메인 페이지로 이동하는 함수
-            function goToMainPage() {
-                var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-                window.location.href = mainPageURL;
-            }
-            // 마이페이지-회원정보수정 페이지로 이동하는 함수
-            function GoToMyPage_MemberInfoChange() {
-                var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
-                window.location.href = myPage_MemberInfoChangeURL;
-            }
-            // 마이페이지-중고거래 페이지로 이동하는 함수
-            function goToMyPosts() {
-                var myPage_MyPostsURL = "Mypage-SecondHandTransaction-MyPosts.html";
-                window.location.href = myPage_MyPostsURL;
-            }
-            function goToSalesHistory() {
-                // 여기에 판매내역 페이지로 이동하는 코드를 작성하세요.
-                var myPage_SalesHistoryURL = "Mypage-SecondHandTransaction-SalesHistory.html";
-                window.location.href = myPage_SalesHistoryURL;
-            }
-            function goToPurchaseHistory() {
-                // 여기에 구매내역 페이지로 이동하는 코드를 작성하세요.
-                var myPage_PurchaseHistoryURL = "Mypage-SecondHandTransaction-PurchaseHistory.html";
-                window.location.href = myPage_PurchaseHistoryURL;
-            }
-            function goToWishlist() {
-                // 여기에 찜한 상품 페이지로 이동하는 코드를 작성하세요.
-                var myPage_WishlistURL = "Mypage-SecondHandTransaction-Wishlist.html";
-                window.location.href = myPage_WishlistURL;
-            }
-            // 마이페이지-플레이스 리뷰목록 페이지로 이동하는 함수
-            function GoToMyPage_Place_ReviewList() {
-                var myPage_Place_ReviewListURL = "Mypage-Place-ReviewList.html";
-                window.location.href = myPage_Place_ReviewListURL;
-            }
+                    // 메인 페이지로 이동하는 함수
+                    function goToMainPage() {
+                        var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+                        window.location.href = mainPageURL;
+                    }
+                    // 마이페이지-회원정보수정 페이지로 이동하는 함수
+                    function GoToMyPage_MemberInfoChange() {
+                        var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
+                        window.location.href = myPage_MemberInfoChangeURL;
+                    }
+                    // 마이페이지-중고거래 페이지로 이동하는 함수
+                    function goToMyPosts() {
+                        var myPage_MyPostsURL = "Mypage-SecondHandTransaction-MyPosts.html";
+                        window.location.href = myPage_MyPostsURL;
+                    }
+                    function goToSalesHistory() {
+                        // 여기에 판매내역 페이지로 이동하는 코드를 작성하세요.
+                        var myPage_SalesHistoryURL = "Mypage-SecondHandTransaction-SalesHistory.html";
+                        window.location.href = myPage_SalesHistoryURL;
+                    }
+                    function goToPurchaseHistory() {
+                        // 여기에 구매내역 페이지로 이동하는 코드를 작성하세요.
+                        var myPage_PurchaseHistoryURL = "Mypage-SecondHandTransaction-PurchaseHistory.html";
+                        window.location.href = myPage_PurchaseHistoryURL;
+                    }
+                    function goToWishlist() {
+                        // 여기에 찜한 상품 페이지로 이동하는 코드를 작성하세요.
+                        var myPage_WishlistURL = "Mypage-SecondHandTransaction-Wishlist.html";
+                        window.location.href = myPage_WishlistURL;
+                    }
+                    // 마이페이지-플레이스 리뷰목록 페이지로 이동하는 함수
+                    function GoToMyPage_Place_ReviewList() {
+                        var myPage_Place_ReviewListURL = "Mypage-Place-ReviewList.html";
+                        window.location.href = myPage_Place_ReviewListURL;
+                    }
 
-            var dropdownContent_SHT = document.querySelector('.dropdown-content-SecondHandTransaction');
-            var dropdownContent_Place = document.querySelector('.dropdown-content-Place');
-            function keepDropdownOpen_SHT() {
-                dropdownContent_SHT.style.display = "block";
-            }
-            function hideDropdown_SHT() {
-                dropdownContent_SHT.style.display = "none";
-            }
-            function keepDropdownOpen_Place() {
-                dropdownContent_Place.style.display = "block";
-            }
-            function hideDropdown_Place() {
-                dropdownContent_Place.style.display = "none";
-            }
-        </script>
+                    var dropdownContent_SHT = document.querySelector('.dropdown-content-SecondHandTransaction');
+                    var dropdownContent_Place = document.querySelector('.dropdown-content-Place');
+                    function keepDropdownOpen_SHT() {
+                        dropdownContent_SHT.style.display = "block";
+                    }
+                    function hideDropdown_SHT() {
+                        dropdownContent_SHT.style.display = "none";
+                    }
+                    function keepDropdownOpen_Place() {
+                        dropdownContent_Place.style.display = "block";
+                    }
+                    function hideDropdown_Place() {
+                        dropdownContent_Place.style.display = "none";
+                    }
+                </script>
 </body>
 
 </html>
