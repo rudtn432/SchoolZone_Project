@@ -168,7 +168,7 @@
                 if (status === 0 || (status >= 200 && status < 400)) {
                     // 요청이 성공적으로 완료됨
                     alert("회원가입이 완료되었습니다.");
-                    //goToMainPage();
+                    goToLoginPage();
                 } else {
                     // 요청이 실패함
                     alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -182,10 +182,10 @@
 
         xhr.send(data);
     }
-    // 메인 페이지로 이동하는 함수
-    function goToMainPage() {
-      var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
-      window.location.href = mainPageURL;
+    // 로그인 페이지로 이동하는 함수
+    function goToLoginPage() {
+      var loginPageURL = "Login.html"; 
+      window.location.href = loginPageURL;
     }
   </script>
 </body>

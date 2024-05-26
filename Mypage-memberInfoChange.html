@@ -77,18 +77,49 @@
         .dropdown:hover .dropbtn {
             background-color: #6fe0ff;
         }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            width: auto;
+            height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: #786f6f;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 1px;
+            height: 31px;
+            background-color: #786F6F;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
     <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button
-            style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px; display: block;"
-            onclick="goToMainPage()">스쿨존</button>
-        <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+    <div class="fixed-container"
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; padding: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- 로고 또는 사이트 제목을 담을 컨테이너 -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button style="font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px;"
+                onclick="goToMainPage()">스쿨존</button>
+            <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+        </div>
+        <!-- 로그인 및 회원가입 버튼 -->
+        <div class="button-container" id="button-container" style="display: flex; align-items: center;">
+            <span id="user-id" style="display: none; margin-right: 10px;"></span>
+            <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+            <div class="separator"></div>
+            <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
+        </div>
     </div>
+
     <div style="width: 1920px; height: 1300px; position: relative; overflow: hidden; background: #fff;">
         <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
             style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
@@ -110,7 +141,8 @@
                     아이디
                 </p>
                 <input type="text" id="idInput" placeholder="ID"
-                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;"
+                    readonly>
             </div>
             <div style="display: flex; align-items: center;">
                 <p
@@ -134,7 +166,8 @@
                     이름
                 </p>
                 <input type="text" id="nameInput" placeholder="이름"
-                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;"
+                    readonly>
             </div>
             <div style="display: flex; align-items: center;">
                 <p
@@ -142,7 +175,8 @@
                     생년월일
                 </p>
                 <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD"
-                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+                    style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;"
+                    readonly>
             </div>
             <div style="display: flex; align-items: center;">
                 <p
@@ -233,6 +267,63 @@
                 </div>
 
                 <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        checkLoginStatus();
+                        var loggedIn = localStorage.getItem("loggedIn");
+                        var loggedInId = localStorage.getItem("loggedInId");
+                        document.getElementById('idInput').value = loggedInId;
+
+                        if (loggedInId) {
+                            fetch(`memberInfo.php?loggedInId=${loggedInId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data) {
+                                        document.getElementById('nameInput').value = data.name || '';
+                                        document.getElementById('birthdateInput').value = data.birthdate || '';
+                                        document.getElementById('phoneInput').value = data.phone || '';
+                                        document.getElementById('emailInput').value = data.email || '';
+                                        document.getElementById('accountNumberInput').value = data.accountnum || '';
+
+                                        var schoolSelect = document.getElementById('schoolSelect');
+                                        if (data.school) {
+                                            for (var i = 0; i < schoolSelect.options.length; i++) {
+                                                if (schoolSelect.options[i].value === data.school) {
+                                                    schoolSelect.selectedIndex = i;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
+                    });
+
+                    function logout() {
+                        localStorage.removeItem("loggedIn");
+                        localStorage.removeItem("loggedInId");
+                        checkLoginStatus();
+                        goToMainPage();
+                    }
+
+                    function checkLoginStatus() {
+                        const isLoggedIn = localStorage.getItem('loggedIn');
+                        const writeBtn = document.getElementById('write-btn');
+                        const logoutBtn = document.getElementById('logout-btn');
+                        const useridText = document.getElementById('user-id');
+
+                        if (isLoggedIn) {
+                            useridText.textContent = localStorage.getItem("loggedInId") + "님";
+                            useridText.style.display = 'block';
+                            logoutBtn.style.display = 'block';
+                            writeBtn.style.display = 'block';
+                        } else {
+                            useridText.style.display = 'none';
+                            logoutBtn.style.display = 'none';
+                            writeBtn.style.display = 'none';
+                        }
+                    }
+
                     function memberInfoChange() {
                         // 입력 필드에서 값 가져오기
                         var id = document.getElementById("idInput").value;
@@ -284,14 +375,34 @@
                             return;
                         }
 
-                        // 모든 필드가 입력되었을 때 회원정보 저장 로직을 진행하는 코드 추가
-                        alert("저장되었습니다.");
+                        // fetch를 사용하여 서버에 비동기 요청
+                        fetch('memberInfoChange.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `id=${encodeURIComponent(id)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}&accountnum=${encodeURIComponent(accountNumber)}&password=${encodeURIComponent(password)}&name=${encodeURIComponent(name)}&birthdate=${encodeURIComponent(birthdate)}&school=${encodeURIComponent(selectedValue)}`
+                        })
+
+                            .then(response => response.text())
+                            .then(data => {
+                                alert('정보가 성공적으로 업데이트되었습니다.');
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                                alert('정보 업데이트에 실패했습니다.');
+                            });
                     }
 
                     // 메인 페이지로 이동하는 함수
                     function goToMainPage() {
                         var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
                         window.location.href = mainPageURL;
+                    }
+                    // 상품등록 페이지로 이동하는 함수
+                    function GoToProductRegist() {
+                        var productRegistURL = "ProductRegistration.html";
+                        window.location.href = productRegistURL;
                     }
                     // 마이페이지-회원정보수정 페이지로 이동하는 함수
                     function GoToMyPage_MemberInfoChange() {

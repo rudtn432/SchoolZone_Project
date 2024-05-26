@@ -79,17 +79,47 @@
             align-items: center;
             gap: 50px;
         }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            width: auto;
+            height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: #786f6f;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 1px;
+            height: 31px;
+            background-color: #786F6F;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
     <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button
-            style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px; display: block;"
-            onclick="goToMainPage()">스쿨존</button>
-        <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+    <div class="fixed-container"
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; padding: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- 로고 또는 사이트 제목을 담을 컨테이너 -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button style="font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px;"
+                onclick="goToMainPage()">스쿨존</button>
+            <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+        </div>
+        <!-- 로그인 및 회원가입 버튼 -->
+        <div class="button-container" id="button-container" style="display: flex; align-items: center;">
+            <span id="user-id" style="display: none; margin-right: 10px;"></span>
+            <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+            <div class="separator"></div>
+            <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
+        </div>
     </div>
     <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
         <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +185,37 @@
         </div>
 
         <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                checkLoginStatus();
+                var loggedIn = localStorage.getItem("loggedIn");
+                var loggedInId = localStorage.getItem("loggedInId");
+            });
+
+            function logout() {
+                localStorage.removeItem("loggedIn");
+                localStorage.removeItem("loggedInId");
+                checkLoginStatus();
+                goToMainPage();
+            }
+
+            function checkLoginStatus() {
+                const isLoggedIn = localStorage.getItem('loggedIn');
+                const writeBtn = document.getElementById('write-btn');
+                const logoutBtn = document.getElementById('logout-btn');
+                const useridText = document.getElementById('user-id');
+
+                if (isLoggedIn) {
+                    useridText.textContent = localStorage.getItem("loggedInId") + "님";
+                    useridText.style.display = 'block';
+                    logoutBtn.style.display = 'block';
+                    writeBtn.style.display = 'block';
+                } else {
+                    useridText.style.display = 'none';
+                    logoutBtn.style.display = 'none';
+                    writeBtn.style.display = 'none';
+                }
+            }
+
             var totalPosts = 25;    // 게시글의 갯수
             var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
             var currentPage = 1;    // 현재 페이지
@@ -205,17 +266,17 @@
 
                 // 페이지 번호 이동 버튼 생성
                 for (var i = 1; i <= maxPage; i++) {
-                        var pageBtn = document.createElement('button');
-                        pageBtn.textContent = i;
-                        pageBtn.className = 'page-btn';
-                        if (i === currentPage) { // 현재 페이지와 같은 경우 굵은 글꼴로 변경
-                            pageBtn.style.fontWeight = 'bold';
-                        }
-                        pageBtn.onclick = function () {
-                            changePage(parseInt(this.textContent));
-                        };
-                        paginationContainer.appendChild(pageBtn);
+                    var pageBtn = document.createElement('button');
+                    pageBtn.textContent = i;
+                    pageBtn.className = 'page-btn';
+                    if (i === currentPage) { // 현재 페이지와 같은 경우 굵은 글꼴로 변경
+                        pageBtn.style.fontWeight = 'bold';
                     }
+                    pageBtn.onclick = function () {
+                        changePage(parseInt(this.textContent));
+                    };
+                    paginationContainer.appendChild(pageBtn);
+                }
 
                 // 페이지 다음 버튼 추가
                 var nextPageBtn = document.createElement('button');
@@ -255,6 +316,11 @@
             function goToMainPage() {
                 var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
                 window.location.href = mainPageURL;
+            }
+            // 상품등록 페이지로 이동하는 함수
+            function GoToProductRegist() {
+                var productRegistURL = "ProductRegistration.html";
+                window.location.href = productRegistURL;
             }
             // 마이페이지-회원정보수정 페이지로 이동하는 함수
             function GoToMyPage_MemberInfoChange() {

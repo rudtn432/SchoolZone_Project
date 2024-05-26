@@ -37,6 +37,27 @@
       /* 수평 가운데 정렬 */
       align-items: center;
     }
+
+    .button-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .button {
+      width: auto;
+      height: 35px;
+      font-size: 18px;
+      text-align: center;
+      color: #786f6f;
+      margin-right: 10px;
+    }
+
+    .separator {
+      width: 1px;
+      height: 31px;
+      background-color: #786F6F;
+      margin-right: 10px;
+    }
   </style>
 </head>
 
@@ -48,17 +69,15 @@
       style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin: 0 auto; display: block;"
       onclick="goToMainPage()">스쿨존</button>
     <!-- 로그인 및 회원가입 버튼 -->
-    <div style="display: flex; align-items: center;">
-      <button
-        style="width: 59px; height: 35px; font-size: 18px; text-align: center; position: absolute; right: 200px; color: #786f6f;"
-        onclick="goToLoginPage()">로그인</button>
-      <div
-        style="width: 1px; height: 31px; margin-left: 10px; position: absolute; right: 190px; background-color: #786F6F;">
-      </div> <!-- 구분선 추가 -->
-      <button
-        style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f; position: absolute; right: 100px;"
-        onclick="goToSignUpPage()">회원가입</button>
+    <div class="button-container" id="button-container">
+      <span id="user-id" style="display: none; margin-right: 10px;"></span>
+      <button class="button" id="mypage-btn" onclick="goToMyPage()" style="display: none;">마이페이지</button>
+      <button class="button" id="login-btn" onclick="goToLoginPage()">로그인</button>
+      <div class="separator"></div>
+      <button class="button" id="signup-btn" onclick="goToSignUpPage()">회원가입</button>
+      <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
     </div>
+
   </div>
   <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
     <div style="width: 1920px; height: 952px; position: absolute; left: -1px; top: 127px; background: #c6f1ff;">
@@ -119,6 +138,41 @@
     </svg>
   </div>
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      checkLoginStatus();
+      var loggedIn = localStorage.getItem("loggedIn");
+      var loggedInId = localStorage.getItem("loggedInId");
+    });
+
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("loggedInId");
+      checkLoginStatus();
+    }
+
+    function checkLoginStatus() {
+      const isLoggedIn = localStorage.getItem('loggedIn');
+      const mypageBtn = document.getElementById('mypage-btn');
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      const useridText = document.getElementById('user-id');
+
+      if (isLoggedIn) {
+        loginBtn.style.display = 'none';
+        signupBtn.style.display = 'none';
+        useridText.textContent=localStorage.getItem("loggedInId")+"님";
+        useridText.style.display='block';
+        mypageBtn.style.display = 'block';
+        logoutBtn.style.display = 'block';
+      } else {
+        loginBtn.style.display = 'block';
+        signupBtn.style.display = 'block';
+        useridText.style.display='none';
+        mypageBtn.style.display = 'none';
+        logoutBtn.style.display = 'none';
+      }
+    }
     // 메인 페이지로 이동하는 함수
     function goToMainPage() {
       var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
@@ -133,6 +187,10 @@
       // 플레이스 페이지의 URL을 여기에 입력합니다.
       var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
       window.location.href = PlacePageURL;
+    }
+    function goToMyPage() {
+      var myPageURL = "Mypage-memberInfoChange.html"; // 메인 페이지 URL로 수정 필요
+      window.location.href = myPageURL;
     }
     // 로그인 페이지로 이동하는 함수
     function goToLoginPage() {

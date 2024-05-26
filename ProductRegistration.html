@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스쿨존 상품등록</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html,
+        body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+            min-height: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .fixed-container {
+            position: fixed;
+            height: 60px;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            /* 다른 요소 위에 나타나도록 z-index 설정 */
+            background-color: #ffffff;
+            /* 배경색 지정 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* 그림자 효과 추가 */
+            padding: 10px 20px;
+            /* 내부 여백 설정 */
+            display: flex;
+            justify-content: center;
+            /* 수평 가운데 정렬 */
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #toolbar {
+            width: 1127px;
+            height: 56px;
+            position: absolute;
+            left: 56px;
+            top: 121px;
+            font-size: 15px;
+            text-align: center;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #000;
+            background-color: #f0f0f0;
+        }
+
+        #editor {
+            width: 1127px;
+            height: 520px;
+            position: absolute;
+            left: 56px;
+            top: 176px;
+            font-size: 15px;
+            border: 1px solid #000;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .toolbar-button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            width: auto;
+            height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: #786f6f;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 1px;
+            height: 31px;
+            background-color: #786F6F;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+    <div class="fixed-container"
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; padding: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- 로고 또는 사이트 제목을 담을 컨테이너 -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button style="font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px;"
+                onclick="goToMainPage()">스쿨존</button>
+            <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">상품등록</span>
+        </div>
+        <!-- 로그인 및 회원가입 버튼 -->
+        <div class="button-container" id="button-container" style="display: flex; align-items: center;">
+            <span id="user-id" style="margin-right: 10px;"></span>
+            <button class="button" id="mypage-btn" onclick="gotoMyPage()">마이페이지</button>
+            <div class="separator"></div>
+            <button class="button" id="logout-btn" onclick="logout()">로그아웃</button>
+        </div>
+    </div>
+
+    <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+        <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+            <line x1="-0.00488281" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+        </svg>
+        <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;">
+        </div>
+        <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
+        </div>
+
+        <div style="width: 1240px; height: 801px; position: absolute; left: 327px; top: 167px;">
+            <div
+                style="width: 1240px; height: 801px; position: absolute; left: -1px; top: -1px; background: #fff; border-width: 1px; border-color: #bababa;">
+            </div>
+            <svg width="1127" height="1" viewBox="0 0 1127 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="position: absolute; left: 55px; top: 67px;" preserveAspectRatio="xMidYMid meet">
+                <line y1="0.5" x2="1127" y2="0.5" stroke="black"></line>
+            </svg>
+            <p
+                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 15px; font-size: 15px; text-align: center; color: #000;">
+                제목 :
+            </p>
+            <p
+                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 68px; font-size: 15px; text-align: center; color: #000;">
+                내용
+            </p>
+            <p
+                style="width: 1016px; height: 53px; position: absolute; left: 167px; top: 15px; font-size: 15px; text-align: center; color: #000;">
+                제목1
+            </p>
+            <div
+                style="width: 1127px; height: 56px; position: absolute; left: 55px; top: 709px; border-radius: 20px; background: #fff; border-width: 1px; border-color: #bababa;">
+            </div>
+            <div id="toolbar">
+                <button class="toolbar-button" onclick="execCmd('bold')">굵게</button>
+                <button class="toolbar-button" onclick="execCmd('italic')">기울임꼴</button>
+                <button class="toolbar-button" onclick="execCmd('underline')">밑줄</button>
+                <button class="toolbar-button" onclick="execCmd('strikeThrough')">취소선</button>
+                <button class="toolbar-button" onclick="execCmd('justifyLeft')">왼쪽 정렬</button>
+                <button class="toolbar-button" onclick="execCmd('justifyCenter')">가운데 정렬</button>
+                <button class="toolbar-button" onclick="execCmd('justifyRight')">오른쪽 정렬</button>
+            </div>
+            <div id="editor" contenteditable="true"></div>
+            <p
+                style="width: 129px; height: 56px; position: absolute; left: 56px; top: 722px; font-size: 20px; text-align: center; color: #000;">
+                첨부파일
+            </p>
+
+            <div id="imagePreview">사진.jpg</div>
+
+            <form action="product_regist.php" method="post" enctype="multipart/form-data">
+                <input type="file" name="imageInput" accept="image/*"
+                       style="width: 150px; height: auto; position: absolute; left: 1021px; top: 720px; font-size: 15px; text-align: center; color: #000;">
+                <input type="submit" value="이미지 업로드" name="submit" style="position: absolute; left: 921px; top: 720px;">
+            </form>
+            
+
+            <svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+                style="position: absolute; left: 184px; top: 709px;" preserveAspectRatio="none">
+                <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+            </svg>
+        </div>
+        <div
+            style="width: 104px; height: 34px; position: absolute; left: 894px; top: 1006px; border-radius: 10px; background: #04bbf4;">
+        </div>
+        <button
+            style="width: 104px; height: 34px; position: absolute; left: 895px; top: 1007px; font-size: 15px; text-align: center; color: #fff;">
+            등록
+        </button>
+    </div>
+</body>
+<script>
+    const useridText = document.getElementById('user-id');
+    useridText.textContent = localStorage.getItem("loggedInId") + "님";
+
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.innerHTML = `<img src="${e.target.result}" alt="선택한 이미지" style="max-width: 100%; max-height: 100%;">`;
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+    function execCmd(command) {
+        document.execCommand(command, false, null);
+    }
+
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("loggedInId");
+        goToMainPage();
+    }
+
+    // 메인 페이지로 이동하는 함수
+    function goToMainPage() {
+        var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+        window.location.href = mainPageURL;
+    }
+    function gotoMyPage() {
+        var myPageURL = "Mypage-memberInfoChange.html"; // 메인 페이지 URL로 수정 필요
+        window.location.href = myPageURL;
+    }
+</script>
+
+</html>

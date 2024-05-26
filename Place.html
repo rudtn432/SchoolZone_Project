@@ -38,8 +38,102 @@
       /* 수평 가운데 정렬 */
       align-items: center;
     }
+
+
+    
+ 
+
+    #myform fieldset {
+            display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함 */
+            border: 0; /* 필드셋 테두리 제거 */
+        }
+        #myform input[type=radio] {
+            display: none; /* 라디오박스 감춤 */
+        }
+        #myform label:hover{
+            text-shadow: 0 0 0 rgb(250, 212, 81); /* 마우스 호버 */
+        }
+        #myform label:hover ~ label{
+            text-shadow: 0 0 0 rgb(250, 212, 81); /* 마우스 호버 뒤에오는 이모지들 */
+        }
+        #myform label {
+            font-size: 3em; /* 이모지 크기 */
+            color: transparent; /* 기존 이모지 컬러 제거 */
+            text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+        }
+        #myform fieldset{
+            display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+            direction: rtl; /* 이모지 순서 반전 */
+            border: 0; /* 필드셋 테두리 제거 */
+
+         }
+        #myform fieldset legend{
+            text-align: left;
+        }
+        #myform input[type=radio]:checked ~ label{
+                text-shadow: 0 0 0 rgb(250, 212, 81); /* 마우스 클릭 체크 */
+        }
+
+/*마우스 호버를 했을때는 색상채워지기 + 클릭했을때 고정시키기------------------------------*/
+
+
+/*모달시작----------------------------------------*/
+    /* 모달 스타일 */
+       .modal {
+      display: none;
+      position: fixed;
+      z-index: 3;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .submit-button {
+    display: block;
+    margin: 5px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+    /*모달끝----------------------------------------*/
+    
   </style>
 </head>
+
+
 
 <body>
   <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
@@ -109,7 +203,7 @@
   <div
     style="width: 614px; height: 100px; position: absolute; left: -1px; top: 60px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
   </div>
-  <div id="map" style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+  <div id="map" style="width: 100%; height: 1120px; position: relative; left: 614px; overflow: hidden; background: #fff;"></div>
 
     <!-- 검색 입력 상자 -->
     <div
@@ -125,73 +219,208 @@
         placeholder="찾고 싶은 장소를 입력하세요." onkeypress="search(event)">
     </div>
 
+
+
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=99e762e1ae90f0882b31a8fac41351f7"></script>
     <!-- 지도 생성 스크립트 -->
     <script>
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = {
-          center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+          center: new kakao.maps.LatLng(35.96844127143933, 126.95802642144369), // 지도의 중심좌표
           level: 3, // 지도의 확대 레벨
           mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
         };
+
       // 지도를 생성한다 
       var map = new kakao.maps.Map(mapContainer, mapOption); 
+        
+      var positions = [
+      {
+          content: '<div>풍년식당</div>', 
+          latlng: new kakao.maps.LatLng(35.9637878187953,126.9557784520974)
+      },
+      {
+          content: '<div>파파돈</div>', 
+          latlng: new kakao.maps.LatLng(35.96350199593388, 126.9566571636824)
+      },
+      {
+          content: '<div>1989인도</div>', 
+          latlng: new kakao.maps.LatLng(35.96338276287476, 126.95716163346096)
+      },
+      {
+          content: '<div>뚜레쥬르</div>',
+          latlng: new kakao.maps.LatLng(35.963729925732714, 126.9576852530505)
+      }
+      ];
+
+      
+      for (var i = 0; i < positions.length; i ++) {
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: positions[i].latlng // 마커의 위치
+      });
+
+      // 마커에 표시할 인포윈도우를 생성합니다 
+      var infowindow = new kakao.maps.InfoWindow({
+          content: positions[i].content // 인포윈도우에 표시할 내용
+      });
+
+      // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+      // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+      // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+      }
+
+      // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+      function makeOverListener(map, marker, infowindow) {
+          return function() {
+              infowindow.open(map, marker);
+          };
+      }
+
+      // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+      function makeOutListener(infowindow) {
+          return function() {
+              infowindow.close();
+          };
+      }
+
     </script>
+    
+
+
     </p>
 
     <img src="rectangle-53.jpeg"
-      style="width: 614px; height: 374px; position: absolute; left: -1px; top: 250px; object-fit: cover; z-index: 2;" />
-    <p
-      style="position: absolute; left: 19px; top: 292px; font-size: 45px; text-align: center; color: #fff; z-index: 2;">
-      가게 사진이 들어갈 부분입니다.
-    </p>
-    <svg width="1" height="952" viewBox="0 0 1 952" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style="position: absolute; left: 613px; top: 127px; z-index: 2;" preserveAspectRatio="none">
-      <line x1="0.5" y1="-2.18557e-8" x2="0.500042" y2="952" stroke="#04BBF4"></line>
-    </svg>
+     style="width: 614px; height: 438px; position: absolute; left: -1px; top: 202px; object-fit: cover; z-index: 2;" />
+<p
+    style="position: absolute; left: 19px; top: 244px; font-size: 45px; text-align: center; color: #fff; z-index: 2;">
+    가게 사진이 들어갈 부분입니다.
+</p>
+<svg width="1" height="952" viewBox="0 0 1 952" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 613px; top: 79px; z-index: 2;" preserveAspectRatio="none">
+    <line x1="0.5" y1="-2.18557e-8" x2="0.500042" y2="952" stroke="#04BBF4"></line>
+</svg>
 
-    <div
+ <div
       style="width: 614px; height: 65px; position: absolute; left: -1px; top: 160px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
     </div>
     <div
-      style="width: 614px; height: 100px; position: absolute; left: -1px; top: 624px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+      style="width: 614px; height: 50px; position: absolute; left: -1px; top: 624px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
     </div>
     <div
-      style="width: 614px; height: 100px; position: absolute; left: -1px; top: 724px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+      style="width: 614px; height: 50px; position: absolute; left: -1px; top: 674px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
     </div>
     <div
-      style="width: 614px; height: 400px; position: absolute; left: -1px; top: 824px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+      style="width: 614px; height: 400px; position: absolute; left: -1px; top: 724px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
     </div>
     <p
       style="position: absolute; left: 33px; top: 170px; font-size: 30px; text-align: center; color: #000; z-index: 2;">
-      업체명
+      업체명:
     </p>
     <p
-      style="position: absolute; left: 33px; top: 640px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
-      주소
+      style="position: absolute; left: 33px; top: 635px; font-size: 20px; text-align: center; color: #000; z-index: 2;">
+      주소:
     </p>
     <p
-      style="position: absolute; left: 33px; top: 735px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
-      별점 :
-    </p>
-    <svg width="43" height="41" viewBox="0 0 43 41" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style="position: absolute; left: 195px; top: 752px; z-index: 2;" preserveAspectRatio="xMidYMid meet">
-      <path
-        d="M20.7392 1.34164C20.9786 0.604593 22.0214 0.604592 22.2608 1.34164L26.5965 14.6853C26.7036 15.0149 27.0107 15.2381 27.3573 15.2381H41.3877C42.1627 15.2381 42.4849 16.2298 41.8579 16.6853L30.5071 24.9322C30.2267 25.1359 30.1094 25.497 30.2165 25.8266L34.5521 39.1703C34.7916 39.9073 33.948 40.5202 33.321 40.0647L21.9702 31.8178C21.6898 31.6141 21.3102 31.6141 21.0298 31.8178L9.67897 40.0647C9.052 40.5202 8.20841 39.9073 8.44789 39.1703L12.7835 25.8266C12.8906 25.497 12.7733 25.1359 12.4929 24.9322L1.14209 16.6853C0.515119 16.2298 0.837339 15.2381 1.61232 15.2381H15.6427C15.9893 15.2381 16.2964 15.0149 16.4035 14.6853L20.7392 1.34164Z"
-        fill="#FF1F00"></path>
+      style="position: absolute; left: 33px; top: 685px; font-size: 20px; text-align: center; color: #000; z-index: 2;">
+      평점 :
+    </p><svg width="40" height="38" viewBox="0 0 43 41" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 195px; top: 680px; z-index: 2;" preserveAspectRatio="xMidYMid meet">
+    <path
+      d="M20.7392 1.34164C20.9786 0.604593 22.0214 0.604592 22.2608 1.34164L26.5965 14.6853C26.7036 15.0149 27.0107 15.2381 27.3573 15.2381H41.3877C42.1627 15.2381 42.4849 16.2298 41.8579 16.6853L30.5071 24.9322C30.2267 25.1359 30.1094 25.497 30.2165 25.8266L34.5521 39.1703C34.7916 39.9073 33.948 40.5202 33.321 40.0647L21.9702 31.8178C21.6898 31.6141 21.3102 31.6141 21.0298 31.8178L9.67897 40.0647C9.052 40.5202 8.20841 39.9073 8.44789 39.1703L12.7835 25.8266C12.8906 25.497 12.7733 25.1359 12.4929 24.9322L1.14209 16.6853C0.515119 16.2298 0.837339 15.2381 1.61232 15.2381H15.6427C15.9893 15.2381 16.2964 15.0149 16.4035 14.6853L20.7392 1.34164Z"
+      fill="rgb(250, 212, 81)"></path>
     </svg>
+
     <p
-      style="position: absolute; left: 254px; top: 735px; font-size: 50px; font-weight: 700; text-align: center; color: #000; z-index: 2;">
+      style="position: absolute; left: 254px; top: 680px; font-size: 25px; font-weight: 700; text-align: center; color: #000; z-index: 2;">
       4.8
     </p>
     <p
-      style="position: absolute; left: 22px; top: 841px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
-      리뷰목록
-    </p>
+    style="position: absolute; left: 22px; top: 841px; font-size: 25px; text-align: center; color: #000; z-index: 2;">
+    리뷰목록
+  </p>
+    <div style="position: relative; display: flex; align-items: start; gap: 20px;">
+            <div class="flex flex-col items-start gap-4 p-4 md:p-6 rounded-md border border-gray-200 dark:border-gray-800 h-[400px] overflow-auto" style="margin-left: 100px;">
+        <div class="grid gap-2">
+          <h2 class="text-xl font-bold">Scrollable Text List</h2>
+          <p class="text-gray-500 dark:text-gray-400">
+            A vertically scrollable list of text items with titles and descriptions.
+          </p>
+        </div>
+        <div class="grid gap-4 w-full">
+          <div class="grid gap-2">
+            <h3 class="font-semibold">Item 1</h3>
+            <p class="text-gray-500 dark:text-gray-400">
+              This is the description for the first item in the list. It provides some additional context about what this
+              item represents.
+            </p>
+          </div>
+          <!-- 추가 아이템들은 여기에 위치 -->
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
     <button
+      id="openModalBtn"
       style="width: 127px; height: 36px; position: absolute; left: 471px; top: 175px; font-size: 15px; text-align: center; border-radius: 10px; color: #fff; background: #04bbf4; z-index: 2;">
       한 줄평 쓰기
     </button>
+
+
+    <!-- 모달 ----------->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>
+      <form name="myform" id="myform" method="post" action="./save">
+        <fieldset>
+            <legend>이모지 별점</legend>
+            <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+            <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+            <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+            <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+            <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">★</label>
+        </fieldset>
+        <textarea id="myTextarea" maxlength="50" placeholder="Enter text here. (최대 50글자)" style="width:100%;"></textarea>
+        <!-- 등록 버튼 -->
+        <button class="submit-button">등록</button>
+    </form>
+  </p>
+  </div>
+</div>
+
+<script>
+  // 모달 요소와 버튼 요소 가져오기
+  var modal = document.getElementById("myModal");
+  var btn = document.getElementById("openModalBtn");
+  var span = document.getElementsByClassName("close")[0];
+
+  // 버튼 클릭 시 모달 표시
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // 닫기 버튼 클릭 시 모달 닫기
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // 모달 외부 클릭 시 모달 닫기
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
 
   </div>
 </body>
@@ -206,11 +435,13 @@
     var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
     window.location.href = SecondHandTransactionPageURL;
   }
+  
   function goToPlacePage() {
     // 플레이스 페이지의 URL을 여기에 입력합니다.
     var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
     window.location.href = PlacePageURL;
   }
+
   // 로그인 페이지로 이동하는 함수
   function goToLoginPage() {
     var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요

@@ -66,17 +66,47 @@
             align-items: center;
             gap: 50px;
         }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            width: auto;
+            height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: #786f6f;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 1px;
+            height: 31px;
+            background-color: #786F6F;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
 <body>
     <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
-    <div class="fixed-container">
-        <!-- 로고 또는 사이트 제목 -->
-        <button
-            style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px; display: block;"
-            onclick="goToMainPage()">스쿨존</button>
-        <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+    <div class="fixed-container"
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; padding: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- 로고 또는 사이트 제목을 담을 컨테이너 -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button style="font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px;"
+                onclick="goToMainPage()">스쿨존</button>
+            <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+        </div>
+        <!-- 로그인 및 회원가입 버튼 -->
+        <div class="button-container" id="button-container" style="display: flex; align-items: center;">
+            <span id="user-id" style="display: none; margin-right: 10px;"></span>
+            <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+            <div class="separator"></div>
+            <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
+        </div>
     </div>
     <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
         <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -135,13 +165,53 @@
                 </div>
             </div>
             <script>
-                var totalPosts = 25;    // 게시글의 갯수
-                var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
-                var currentPage = 1;    // 현재 페이지
-                var maxPage = Math.ceil(totalPosts / postsPerPage);
+                document.addEventListener("DOMContentLoaded", function () {
+                    checkLoginStatus();
+                    var loggedIn = localStorage.getItem("loggedIn");
+                    var loggedInId = localStorage.getItem("loggedInId");
+                });
 
+                function logout() {
+                    localStorage.removeItem("loggedIn");
+                    localStorage.removeItem("loggedInId");
+                    checkLoginStatus();
+                    goToMainPage();
+                }
+
+                function checkLoginStatus() {
+                    const isLoggedIn = localStorage.getItem('loggedIn');
+                    const writeBtn = document.getElementById('write-btn');
+                    const logoutBtn = document.getElementById('logout-btn');
+                    const useridText = document.getElementById('user-id');
+
+                    if (isLoggedIn) {
+                        useridText.textContent = localStorage.getItem("loggedInId") + "님";
+                        useridText.style.display = 'block';
+                        logoutBtn.style.display = 'block';
+                        writeBtn.style.display = 'block';
+                    } else {
+                        useridText.style.display = 'none';
+                        logoutBtn.style.display = 'none';
+                        writeBtn.style.display = 'none';
+                    }
+                }
+
+                var totalPosts = 0;
+                function fetchPostsCount() {
+                    var loggedInUserId = localStorage.getItem("loggedInId"); // 로그인한 사용자 ID 가져오기
+                    // fetch API를 사용하여 PHP 파일에 요청
+                    fetch(`fetch_posts.php?loggedInUserId=${loggedInUserId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            var posts = data.posts; // 받은 게시글 데이터
+                            totalPosts = posts.length; // 전체 게시글 수 업데이트
+                            generatePosts(posts); // 게시글 생성 함수 호출
+                            generatePagination(); // 데이터를 받아온 후 페이지네이션 생성
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
                 // 게시글 생성
-                function generatePosts() {
+                function generatePosts(posts) {
                     var postTable = document.getElementById('postTable');
                     postTable.innerHTML = ''; // 이전 행들을 삭제
 
@@ -155,19 +225,23 @@
 
                     for (var i = (currentPage - 1) * postsPerPage; i < Math.min(currentPage * postsPerPage, totalPosts); i++) {
                         var newRow = postTable.insertRow(); // 새로운 행 추가
-
                         // 셀에 데이터 추가
                         newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="이미지_경로.jpg" alt="이미지 설명"></td>
-                                    <td style="width: 868px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">상품명</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${4500}원</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">2024.01.01</td>`;
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="${posts[i].image_url}"></td>
+                            <td style="width: 868px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].title}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].price}원</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].updated_at}</td>`;
                     }
                 }
 
+                var loggedIn = localStorage.getItem("loggedIn");
+                var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
+                var currentPage = 1;    // 현재 페이지
+                var maxPage = Math.ceil(totalPosts / postsPerPage);
+
                 // 페이지 버튼 생성
                 function generatePagination() {
-                    var maxPage = Math.ceil(totalPosts / postsPerPage);
+                    maxPage = Math.ceil(totalPosts / postsPerPage);
                     var paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = ''; // 이전에 생성된 버튼 제거
                     paginationContainer.style.top = 830 + 'px';
@@ -221,13 +295,11 @@
 
                 function changePage(pageNumber) {
                     currentPage = pageNumber;
-                    generatePosts();
-                    generatePagination();
+                    fetchPostsCount();
                 }
 
                 function initialize() {
-                    generatePosts();
-                    generatePagination();
+                    fetchPostsCount();
                 }
 
                 window.onload = initialize;
@@ -236,6 +308,11 @@
                 function goToMainPage() {
                     var mainPageURL = "Main.html";
                     window.location.href = mainPageURL;
+                }
+                // 상품등록 페이지로 이동하는 함수
+                function GoToProductRegist() {
+                    var productRegistURL = "ProductRegistration.html";
+                    window.location.href = productRegistURL;
                 }
                 // 마이페이지-회원정보수정 페이지로 이동하는 함수
                 function GoToMyPage_MemberInfoChange() {
