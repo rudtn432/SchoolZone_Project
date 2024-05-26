@@ -74,32 +74,32 @@
         <span style="font-size: 40px; text-align: center; color: #04bbf4;">스쿨존!</span>
       </p>
 
-      <input type="text" id="idInput" placeholder="ID"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="password" id="passwordInput" placeholder="PASSWORD"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="password" id="confirmPasswordInput" placeholder="PASSWORD 확인"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="text" id="nameInput" placeholder="이름 입력"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="text" id="phoneInput" placeholder="핸드폰 / ’-’빼고 숫자만 입력"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
-      <input type="email" id="emailInput" placeholder="email@joongo.co.kr"
-        style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="text" id="idInput" placeholder="ID"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="password" id="passwordInput" placeholder="PASSWORD"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="password" id="confirmPasswordInput" placeholder="PASSWORD 확인"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="text" id="nameInput" placeholder="이름 입력"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="text" id="birthdateInput" placeholder="생년월일 / YYYYMMDD"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="text" id="phoneInput" placeholder="핸드폰 / ’-’빼고 숫자만 입력"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
+        <input type="email" id="emailInput" placeholder="email@joongo.co.kr"
+          style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px; padding: 0 10px;">
 
-      <form>
-        <select name="school" id="schoolSelect"
-          style="width: 502px; margin-bottom: 20px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px;"
-          onchange="getSelectedValue()">
-          <option value="none">학교를 선택해주세요.</option>
-          <option value="WonkwangUniversity">원광대학교</option>
-          <option value="SeoulNationalUniversity">서울대학교</option>
-          <option value="KoreaUniversity">고려대학교</option>
-          <option value="YonseiUniversity">연세대학교</option>
-        </select>
-      </form>
+        <form>
+          <select name="school" id="schoolSelect"
+            style="width: 502px; margin-bottom: 20px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px;"
+            onchange="getSelectedValue()">
+            <option value="none">학교를 선택해주세요.</option>
+            <option value="WonkwangUniversity">원광대학교</option>
+            <option value="SeoulNationalUniversity">서울대학교</option>
+            <option value="KoreaUniversity">고려대학교</option>
+            <option value="YonseiUniversity">연세대학교</option>
+          </select>
+        </form>
 
       <button
         style="width: 502px; height: 75px; margin-bottom: 20px; border-radius: 15px; background: #04bbf4; border: none;"
@@ -156,10 +156,31 @@
         alert("학교를 선택해주세요.");
         return;
       }
-
-      // 모든 필드가 입력되었을 때 회원가입 로직을 진행하는 코드 추가
-
       // 여기에 회원가입 로직을 구현하세요.
+      // AJAX 요청 보내기
+      var xhr = new XMLHttpRequest();
+        xhr.open("POST", "register.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                var status = xhr.status;
+                if (status === 0 || (status >= 200 && status < 400)) {
+                    // 요청이 성공적으로 완료됨
+                    alert("회원가입이 완료되었습니다.");
+                    //goToMainPage();
+                } else {
+                    // 요청이 실패함
+                    alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+                }
+            }
+        };
+
+        var data = "id=" + encodeURIComponent(id) + "&password=" + encodeURIComponent(password) + "&name=" + encodeURIComponent(name) +
+            "&birthdate=" + encodeURIComponent(birthdate) + "&phone=" + encodeURIComponent(phone) + "&email=" + encodeURIComponent(email) +
+            "&school=" + encodeURIComponent(selectedValue);
+
+        xhr.send(data);
     }
     // 메인 페이지로 이동하는 함수
     function goToMainPage() {

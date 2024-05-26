@@ -1,191 +1,235 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>플레이스</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      html, body {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    </style>
-  </head>
-  <body>
-    <div
-      style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;"
-    >
-      <svg
-        width="1920"
-        height="1"
-        viewBox="0 0 1920 1"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: -1px; top: 127px;"
-        preserveAspectRatio="none"
-      >
-        <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="#04BBF4"></line>
-    </svg>
-    <svg
-        width="527"
-        height="67"
-        viewBox="0 0 527 67"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="width: 527px; height: 67px; position: absolute; left: 44px; top: 156px;"
-        preserveAspectRatio="none"
-      >
-        <rect
-          x="2.5"
-          y="2.5"
-          width="522"
-          height="62"
-          rx="7.5"
-          fill="white"
-          stroke="url(#paint0_linear_95_1314)"
-          stroke-width="5"
-        ></rect>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>플레이스</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
+      position: fixed;
+      height: 60px;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
+      display: flex;
+      justify-content: center;
+      /* 수평 가운데 정렬 */
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button
+      style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px; display: block; margin-right: 100px;"
+      onclick="goToMainPage()">스쿨존</button>
+
+    <button onclick="goToSecondHandTransactionPage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 50px;">
+      <svg width="41" height="50" viewBox="0 0 41 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet">
         <path
-          d="M35.1162 39.15L38.9662 43M37.855 32.4763C37.855 37.71 33.6262 41.9525 28.4112 41.9525C23.195 41.9525 18.9662 37.71 18.9662 32.4775C18.9662 27.2412 23.195 23 28.41 23C33.6262 23 37.855 27.2425 37.855 32.4763Z"
-          stroke="#85B6FF"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
+          d="M10.2273 10.2273C10.2273 7.51483 11.3048 4.91348 13.2228 2.9955C15.1408 1.07751 17.7421 0 20.4545 0C23.167 0 25.7683 1.07751 27.6863 2.9955C29.6043 4.91348 30.6818 7.51483 30.6818 10.2273V13.6364H40.9091V50H0V13.6364H10.2273V10.2273ZM10.2273 18.1818H4.54545V45.4545H36.3636V18.1818H30.6818V25H26.1364V18.1818H14.7727V25H10.2273V18.1818ZM26.1364 13.6364V10.2273C26.1364 8.72036 25.5377 7.27517 24.4722 6.20962C23.4066 5.14407 21.9615 4.54545 20.4545 4.54545C18.9476 4.54545 17.5024 5.14407 16.4369 6.20962C15.3713 7.27517 14.7727 8.72036 14.7727 10.2273V13.6364H26.1364Z"
+          fill="black">
+        </path>
+      </svg>
+      </svg>
+      </svg>
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">중고거래</p>
+    </button>
+
+    <button onclick="goToPlacePage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 100px;">
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 50px; height: 50px; position: relative;" preserveAspectRatio="xMidYMid meet">
+        <g clip-path="url(#clip0_91_460)">
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M43.75 18.75H40.625V21.875H43.75V43.75H6.25V21.875H9.375V18.75H6.25C5.4212 18.75 4.62634 19.0792 4.04029 19.6653C3.45424 20.2513 3.125 21.0462 3.125 21.875V43.75C3.125 44.5788 3.45424 45.3737 4.04029 45.9597C4.62634 46.5458 5.4212 46.875 6.25 46.875H43.75C44.5788 46.875 45.3737 46.5458 45.9597 45.9597C46.5458 45.3737 46.875 44.5788 46.875 43.75V21.875C46.875 21.0462 46.5458 20.2513 45.9597 19.6653C45.3737 19.0792 44.5788 18.75 43.75 18.75Z"
+            fill="black"></path>
+        </g>
         <defs>
-          <linearGradient
-            id="paint0_linear_95_1314"
-            x1="0"
-            y1="0"
-            x2="527"
-            y2="67"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#04BBF4"></stop>
-            <stop offset="1" stop-color="#1244F4"></stop>
-          </linearGradient>
+          <clipPath id="clip0_91_460">
+            <rect width="50" height="50" fill="white"></rect>
+          </clipPath>
         </defs>
       </svg>
-      <div style="width: 318px; height: 43px; position: absolute; left: 804px; top: 42px;">
-        <p
-          style="width: 318px; position: absolute; left: 0px; top: 0px; font-size: 50px; text-align: center; color: #04bbf4;"
-        >
-          플레이스
-        </p>
-      </div>
-      <div style="width: 336px; height: 41px; position: absolute; left: 1247px; top: 46px;">
-        <p
-          style="width: 158px; height: 35px; position: absolute; left: 0px; top: 0px; font-size: 18px; text-align: center; color: #786f6f;"
-        >
-          OOO님 안녕하세요.
-        </p>
-        <p
-          style="width: 89px; height: 35px; position: absolute; left: 158px; top: 0px; font-size: 18px; text-align: center; color: #786f6f;"
-        >
-          마이페이지
-        </p>
-        <svg
-          width="1"
-          height="41"
-          viewBox="0 0 1 41"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style="position: absolute; left: 157px; top: -1px;"
-          preserveAspectRatio="none"
-        >
-          <line x1="0.5" x2="0.5" y2="41" stroke="#786F6F"></line>
-        </svg>
-      </div>
-      <p
-        style="position: absolute; left: 825px; top: 582px; font-size: 100px; text-align: center; color: #000;"
-      >
-        이 부분은 지도 입니다.
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">
+        플레이스
       </p>
-      <img
-        src="rectangle-53.jpeg"
-        style="width: 614px; height: 374px; position: absolute; left: -1px; top: 250px; object-fit: cover;"
-      />
-      <p
-        style="position: absolute; left: 19px; top: 292px; font-size: 45px; text-align: center; color: #fff;"
-      >
-        가게 사진이 들어갈 부분입니다.
-      </p>
-      <svg
-        width="1"
-        height="952"
-        viewBox="0 0 1 952"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: 613px; top: 127px;"
-        preserveAspectRatio="none"
-      >
-        <line x1="0.5" y1="-2.18557e-8" x2="0.500042" y2="952" stroke="#04BBF4"></line>
-      </svg>
-      <div
-        style="width: 614px; height: 100px; position: absolute; left: -1px; top: 624px; background: #fff; border-width: 1px; border-color: #04bbf4;"
-      ></div>
-      <div
-        style="width: 614px; height: 100px; position: absolute; left: -1px; top: 724px; background: #fff; border-width: 1px; border-color: #04bbf4;"
-      ></div>
-      <div
-        style="width: 614px; height: 100px; position: absolute; left: -1px; top: 824px; background: #fff; border-width: 1px; border-color: #04bbf4;"
-      ></div>
-      <div
-        style="width: 614px; height: 155px; position: absolute; left: -1px; top: 924px; background: #fff; border-width: 1px; border-color: #04bbf4;"
-      ></div>
-      <p
-        style="position: absolute; left: 33px; top: 653px; font-size: 50px; text-align: center; color: #000;"
-      >
-        업체명
-      </p>
-      <p
-        style="position: absolute; left: 33px; top: 753px; font-size: 50px; text-align: center; color: #000;"
-      >
-        주소
-      </p>
-      <p
-        style="position: absolute; left: 33px; top: 854px; font-size: 50px; text-align: center; color: #000;"
-      >
-        별점 ex:
-      </p>
-      <svg
-        width="43"
-        height="41"
-        viewBox="0 0 43 41"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style="position: absolute; left: 195px; top: 849px;"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <path
-          d="M20.7392 1.34164C20.9786 0.604593 22.0214 0.604592 22.2608 1.34164L26.5965 14.6853C26.7036 15.0149 27.0107 15.2381 27.3573 15.2381H41.3877C42.1627 15.2381 42.4849 16.2298 41.8579 16.6853L30.5071 24.9322C30.2267 25.1359 30.1094 25.497 30.2165 25.8266L34.5521 39.1703C34.7916 39.9073 33.948 40.5202 33.321 40.0647L21.9702 31.8178C21.6898 31.6141 21.3102 31.6141 21.0298 31.8178L9.67897 40.0647C9.052 40.5202 8.20841 39.9073 8.44789 39.1703L12.7835 25.8266C12.8906 25.497 12.7733 25.1359 12.4929 24.9322L1.14209 16.6853C0.515119 16.2298 0.837339 15.2381 1.61232 15.2381H15.6427C15.9893 15.2381 16.2964 15.0149 16.4035 14.6853L20.7392 1.34164Z"
-          fill="#FF1F00"
-        ></path>
-      </svg>
-      <p
-        style="position: absolute; left: 254px; top: 854px; font-size: 50px; font-weight: 700; text-align: center; color: #000;"
-      >
-        4.8
-      </p>
-      <p
-        style="position: absolute; left: 22px; top: 981px; font-size: 50px; text-align: center; color: #000;"
-      >
-        리뷰목록
-      </p>
-      <div
-        style="width: 127px; height: 36px; position: absolute; left: 470px; top: 656px; border-radius: 10px; background: #04bbf4;"
-      ></div>
-      <p
-        style="width: 127px; height: 36px; position: absolute; left: 471px; top: 657px; font-size: 15px; text-align: center; color: #fff;"
-      >
-        한 줄평 쓰기
-      </p>
+    </button>
+
+    <!-- 로그인 및 회원가입 버튼 -->
+    <div style="display: flex; align-items: center;">
+      <button style="width: 59px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;"
+        onclick="goToLoginPage()">로그인</button>
+      <div style="width: 1px; height: 31px; margin-left: 10px; margin-right: 5px; background-color: #786F6F;"></div>
+      <!-- 구분선 추가 -->
+      <button style="width: 89px; height: 35px; font-size: 18px; text-align: center; color: #786f6f;"
+        onclick="goToSignUpPage()">회원가입</button>
     </div>
-  </body>
+  </div>
+
+  <div
+    style="width: 614px; height: 100px; position: absolute; left: -1px; top: 60px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+  </div>
+  <div id="map" style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
+
+    <!-- 검색 입력 상자 -->
+    <div
+      style="width: 527px; height: 47px; position: absolute; top: 86px; left: 45px; display: flex; align-items: center; border-radius: 10px; background: #fff; border: 2px solid #04bbf4; z-index: 2;">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 30px; height: 30px;">
+        <path
+          d="M21.1162 21.15L24.9662 25M23.855 14.4763C23.855 19.71 19.6262 23.9525 14.4112 23.9525C9.195 23.9525 4.96625 19.71 4.96625 14.4775C4.96625 9.24125 9.195 5 14.41 5C19.6262 5 23.855 9.2425 23.855 14.4763Z"
+          stroke="#85B6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <input type="text"
+        style="flex: 1; height: 100%; padding: 0 10px; border: none; outline: none; border-radius: 10px;"
+        placeholder="찾고 싶은 장소를 입력하세요." onkeypress="search(event)">
+    </div>
+
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=99e762e1ae90f0882b31a8fac41351f7"></script>
+    <!-- 지도 생성 스크립트 -->
+    <script>
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+          center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+          level: 3, // 지도의 확대 레벨
+          mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+        };
+      // 지도를 생성한다 
+      var map = new kakao.maps.Map(mapContainer, mapOption); 
+    </script>
+    </p>
+
+    <img src="rectangle-53.jpeg"
+      style="width: 614px; height: 374px; position: absolute; left: -1px; top: 250px; object-fit: cover; z-index: 2;" />
+    <p
+      style="position: absolute; left: 19px; top: 292px; font-size: 45px; text-align: center; color: #fff; z-index: 2;">
+      가게 사진이 들어갈 부분입니다.
+    </p>
+    <svg width="1" height="952" viewBox="0 0 1 952" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: 613px; top: 127px; z-index: 2;" preserveAspectRatio="none">
+      <line x1="0.5" y1="-2.18557e-8" x2="0.500042" y2="952" stroke="#04BBF4"></line>
+    </svg>
+
+    <div
+      style="width: 614px; height: 65px; position: absolute; left: -1px; top: 160px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+    </div>
+    <div
+      style="width: 614px; height: 100px; position: absolute; left: -1px; top: 624px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+    </div>
+    <div
+      style="width: 614px; height: 100px; position: absolute; left: -1px; top: 724px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+    </div>
+    <div
+      style="width: 614px; height: 400px; position: absolute; left: -1px; top: 824px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
+    </div>
+    <p
+      style="position: absolute; left: 33px; top: 170px; font-size: 30px; text-align: center; color: #000; z-index: 2;">
+      업체명
+    </p>
+    <p
+      style="position: absolute; left: 33px; top: 640px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
+      주소
+    </p>
+    <p
+      style="position: absolute; left: 33px; top: 735px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
+      별점 :
+    </p>
+    <svg width="43" height="41" viewBox="0 0 43 41" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; left: 195px; top: 752px; z-index: 2;" preserveAspectRatio="xMidYMid meet">
+      <path
+        d="M20.7392 1.34164C20.9786 0.604593 22.0214 0.604592 22.2608 1.34164L26.5965 14.6853C26.7036 15.0149 27.0107 15.2381 27.3573 15.2381H41.3877C42.1627 15.2381 42.4849 16.2298 41.8579 16.6853L30.5071 24.9322C30.2267 25.1359 30.1094 25.497 30.2165 25.8266L34.5521 39.1703C34.7916 39.9073 33.948 40.5202 33.321 40.0647L21.9702 31.8178C21.6898 31.6141 21.3102 31.6141 21.0298 31.8178L9.67897 40.0647C9.052 40.5202 8.20841 39.9073 8.44789 39.1703L12.7835 25.8266C12.8906 25.497 12.7733 25.1359 12.4929 24.9322L1.14209 16.6853C0.515119 16.2298 0.837339 15.2381 1.61232 15.2381H15.6427C15.9893 15.2381 16.2964 15.0149 16.4035 14.6853L20.7392 1.34164Z"
+        fill="#FF1F00"></path>
+    </svg>
+    <p
+      style="position: absolute; left: 254px; top: 735px; font-size: 50px; font-weight: 700; text-align: center; color: #000; z-index: 2;">
+      4.8
+    </p>
+    <p
+      style="position: absolute; left: 22px; top: 841px; font-size: 50px; text-align: center; color: #000; z-index: 2;">
+      리뷰목록
+    </p>
+    <button
+      style="width: 127px; height: 36px; position: absolute; left: 471px; top: 175px; font-size: 15px; text-align: center; border-radius: 10px; color: #fff; background: #04bbf4; z-index: 2;">
+      한 줄평 쓰기
+    </button>
+
+  </div>
+</body>
+<script>
+  function goToMainPage() {
+    // 홈페이지의 URL을 여기에 입력합니다.
+    var mainPageURL = "Main.html"; // 홈페이지 URL로 수정 필요
+    window.location.href = mainPageURL;
+  }
+  function goToSecondHandTransactionPage() {
+    // 중고거래 페이지의 URL을 여기에 입력합니다.
+    var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
+    window.location.href = SecondHandTransactionPageURL;
+  }
+  function goToPlacePage() {
+    // 플레이스 페이지의 URL을 여기에 입력합니다.
+    var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
+    window.location.href = PlacePageURL;
+  }
+  // 로그인 페이지로 이동하는 함수
+  function goToLoginPage() {
+    var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
+    window.location.href = loginPageURL;
+  }
+
+  // 회원가입 페이지로 이동하는 함수
+  function goToSignUpPage() {
+    var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
+    window.location.href = signUpPageURL;
+  }
+  function search(event) {
+    if (event.key === "Enter") {
+      var searchText = event.target.value;
+      // 여기에 검색 기능 구현
+      // 예시로 구글 검색을 시뮬레이션합니다.
+      window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
+    }
+  }
+</script>
+
 </html>
