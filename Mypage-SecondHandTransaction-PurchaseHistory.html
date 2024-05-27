@@ -87,6 +87,11 @@
             background-color: #786F6F;
             margin-right: 10px;
         }
+
+        .product-image {
+            width: 124px;
+            height: 124px;
+        }
     </style>
 </head>
 
@@ -197,39 +202,50 @@
                     }
                 }
 
-                var totalPosts = 4;    // 게시글의 갯수
-                var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
-                var currentPage = 1;    // 현재 페이지
-                var maxPage = Math.ceil(totalPosts / postsPerPage);
-
+                var totalPosts = 0;     // 게시글의 갯수
+                function fetchPostsCount() {
+                    var loggedInUserId = localStorage.getItem("loggedInId"); // 로그인한 사용자 ID 가져오기
+                    // fetch API를 사용하여 PHP 파일에 요청
+                    fetch(`fetch_purchasehistory.php?loggedInUserId=${loggedInUserId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            var posts = data.posts; // 받은 게시글 데이터
+                            totalPosts = posts.length; // 전체 게시글 수 업데이트
+                            generatePosts(posts); // 게시글 생성 함수 호출
+                            generatePagination(); // 데이터를 받아온 후 페이지네이션 생성
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
                 // 게시글 생성
-                function generatePosts() {
+                function generatePosts(posts) {
                     var postTable = document.getElementById('postTable');
                     postTable.innerHTML = ''; // 이전 행들을 삭제
-
                     // 테이블 헤더 추가
                     var headerRow = postTable.insertRow();
                     headerRow.innerHTML = `<th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">번호</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품 이미지</th>
-                                   <th style="width: 868px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품명</th>
+                                   <th style="width: auto; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품명</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품가격</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">구매일</th>`;
 
                     for (var i = (currentPage - 1) * postsPerPage; i < Math.min(currentPage * postsPerPage, totalPosts); i++) {
                         var newRow = postTable.insertRow(); // 새로운 행 추가
-
                         // 셀에 데이터 추가
-                        newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="이미지_경로.jpg" alt="이미지 설명"></td>
-                                    <td style="width: 868px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">상품명</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${10000}원</td>
-                                    <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">2024.01.01</td>`;
+                        newRow.innerHTML = `<td style="width: 100px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="${posts[i].image_url}" class="product-image"></td>
+                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].title}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${new Intl.NumberFormat('ko-KR').format(posts[i].price)}원</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].buy_time}</td>`;
                     }
                 }
 
+                var postsPerPage = 6;   // 한 페이지에 보이는 게시글의 갯수
+                var currentPage = 1;    // 현재 페이지
+                var maxPage = Math.ceil(totalPosts / postsPerPage);
+
                 // 페이지 버튼 생성
                 function generatePagination() {
-                    var maxPage = Math.ceil(totalPosts / postsPerPage);
+                    maxPage = Math.ceil(totalPosts / postsPerPage);
                     var paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = ''; // 이전에 생성된 버튼 제거
                     paginationContainer.style.top = 830 + 'px';
@@ -282,13 +298,11 @@
 
                 function changePage(pageNumber) {
                     currentPage = pageNumber;
-                    generatePosts();
-                    generatePagination();
+                    fetchPostsCount();
                 }
 
                 function initialize() {
-                    generatePosts();
-                    generatePagination();
+                    fetchPostsCount();
                 }
 
                 window.onload = initialize;

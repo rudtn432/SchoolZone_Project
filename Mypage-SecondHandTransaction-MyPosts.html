@@ -87,6 +87,11 @@
             background-color: #786F6F;
             margin-right: 10px;
         }
+
+        .product-image {
+            width: 124px;
+            height: 124px;
+        }
     </style>
 </head>
 
@@ -196,7 +201,7 @@
                     }
                 }
 
-                var totalPosts = 0;
+                var totalPosts = 0;     // 게시글의 갯수
                 function fetchPostsCount() {
                     var loggedInUserId = localStorage.getItem("loggedInId"); // 로그인한 사용자 ID 가져오기
                     // fetch API를 사용하여 PHP 파일에 요청
@@ -219,7 +224,7 @@
                     var headerRow = postTable.insertRow();
                     headerRow.innerHTML = `<th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">번호</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품 이미지</th>
-                                   <th style="width: 868px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품명</th>
+                                   <th style="width: auto; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품명</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">상품가격</th>
                                    <th style="width: 124px; height: 57px; font-size: 15px; font-weight: 700; text-align: center; color: #000; border: 1px solid #bababa;">작성일</th>`;
 
@@ -227,9 +232,9 @@
                         var newRow = postTable.insertRow(); // 새로운 행 추가
                         // 셀에 데이터 추가
                         newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="${posts[i].image_url}"></td>
-                            <td style="width: 868px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].title}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].price}원</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="${posts[i].image_url}" class="product-image"></td>
+                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].title}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${new Intl.NumberFormat('ko-KR').format(posts[i].price)}원</td>
                             <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].updated_at}</td>`;
                     }
                 }
