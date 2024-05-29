@@ -1,45 +1,48 @@
 <?php
+// 에러 리포팅 설정
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
-// 데이터베이스 설정
-$dbHost     = 'localhost';
-$dbUsername = 'root';
-$dbPassword = 'Adminadmin1234!!';
-$dbName     = 'test';
 
-// 데이터베이스 연결 생성
-$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+$host = 'localhost';
+$dbname = 'product';
+$user = 'root';
+$password = 'Adminadmin1234!!';
+$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
 
-// 연결 확인
-if($db->connect_error){
-    die("연결 실패: " . $db->connect_error);
+try {
+    $pdo = new PDO($dsn, $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // 이미지 파일 처리
+    $targetDir = "Images/";
+    $fileName = basename($_FILES["image"]["name"]);
+    $targetFilePath = $targetDir . $fileName;
+    move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath);
+
+    // 상품 정보 삽입
+    $stmt = $pdo->prepare("INSERT INTO productInfo (user_id, title, description, image_url, price, stock_quantity, category, shipping_fee, product_condition, created_at, updated_at, is_sold, view_count, like_count) VALUES (:userId, :title, :description, :imageUrl, :price, :stockQuantity, :category, :shippingFee, :productCondition, NOW(), NOW(), 0, 0, 0)");
+
+    $stmt->execute([
+        ':userId' => $_POST['userId'],
+        ':title' => $_POST['title'],
+        ':description' => $_POST['description'],
+        ':imageUrl' => $targetFilePath,
+        ':price' => $_POST['price'],
+        ':stockQuantity' => $_POST['stockQuantity'],
+        ':category' => $_POST['category'],
+        ':shippingFee' => $_POST['shippingFee'],
+        ':productCondition' => $_POST['productCondition']
+    ]);
+
+    // 상품 정보 삽입 후
+$lastInsertId = $pdo->lastInsertId();
+
+echo json_encode(array('success' => true, 'productId' => $lastInsertId));
+
+} catch (PDOException $e) {
+    // 오류 발생 시 JSON 형태로 응답
+    echo json_encode(array('success' => false, 'message' => $e->getMessage()));
+    exit;
 }
 
-// 파일 업로드 경로
-$targetDir = "Images/";
-$fileName = basename($_FILES["imageInput"]["name"]);
-$targetFilePath = $targetDir . $fileName;
-$fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
-
-if(isset($_POST["submit"]) && !empty($_FILES["imageInput"]["name"])){
-    // 허용되는 파일 형식
-    $allowTypes = array('jpg','png','jpeg','gif','pdf');
-    if(in_array($fileType, $allowTypes)){
-        // 서버에 파일 업로드
-        if(move_uploaded_file($_FILES["imageInput"]["tmp_name"], $targetFilePath)){
-            // 데이터베이스에 이미지 파일 이름 삽입
-            $insert = $db->query("INSERT into test (image_url) VALUES ('".$targetFilePath."')");
-            if($insert){
-                echo "파일 ".$fileName. "이(가) 성공적으로 업로드되었습니다.";
-            }else{
-                echo "파일 업로드에 실패하였습니다. 다시 시도해주세요.";
-            } 
-        }else{
-            echo "죄송합니다. 파일을 업로드하는 동안 오류가 발생했습니다.";
-        }
-    }else{
-        echo "죄송합니다. JPG, JPEG, PNG, GIF, & PDF 파일만 업로드가 가능합니다.";
-    }
-}else{
-    echo "업로드할 파일을 선택해주세요.";
-}
 ?>

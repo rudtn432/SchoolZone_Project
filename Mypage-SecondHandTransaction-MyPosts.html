@@ -113,7 +113,6 @@
             <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
         </div>
     </div>
-    <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
         <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
             style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
             <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
@@ -168,7 +167,6 @@
                         <li>리뷰 목록</li>
                     </button>
                 </div>
-            </div>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     checkLoginStatus();
@@ -232,11 +230,16 @@
                         var newRow = postTable.insertRow(); // 새로운 행 추가
                         // 셀에 데이터 추가
                         newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><img src="${posts[i].image_url}" class="product-image"></td>
-                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].title}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${new Intl.NumberFormat('ko-KR').format(posts[i].price)}원</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].updated_at}</td>`;
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">
+                                <button class="product-button" onclick="goToProductPage(${posts[totalPosts - i - 1].product_id})">
+                                <img src="${posts[totalPosts - i - 1].image_url}" class="product-image"></button></td>
+                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[totalPosts - i - 1].title}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${new Intl.NumberFormat('ko-KR').format(posts[totalPosts - i - 1].price)}원</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[totalPosts - i - 1].updated_at}</td>`;
                     }
+                }
+                function goToProductPage(productId) {
+                    window.location.href = `/ProductPage.html?id=${productId}`;
                 }
 
                 var loggedIn = localStorage.getItem("loggedIn");

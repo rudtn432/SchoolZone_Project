@@ -14,6 +14,8 @@
       flex: 1;
       width: 100%;
       min-height: 100%;
+      /* 뷰포트 높이를 기준으로 최소 높이 설정 */
+      /* 내용이 넘칠 경우 스크롤바 자동 생성 */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
@@ -129,6 +131,7 @@
       margin-right: 10px;
       /* 이미지와 텍스트 간격 조정 */
     }
+
     .button-container {
       display: flex;
       align-items: center;
@@ -149,6 +152,7 @@
       background-color: #786F6F;
       margin-right: 10px;
     }
+
     .button-container {
       display: flex;
       align-items: center;
@@ -168,6 +172,43 @@
       height: 31px;
       background-color: #786F6F;
       margin-right: 10px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .product {
+      width: 25%;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+
+    .product img {
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    .product-info {
+      margin-top: 5px;
+    }
+
+    /* 조회수와 좋아요 스타일 추가 */
+    .viewCount,
+    .likeCount {
+      font-size: 0.8em;
+      /* 텍스트 사이즈를 작게 */
+      color: grey;
+      /* 색깔을 회색으로 */
+    }
+
+    /* 이미지 테두리 스타일 추가 */
+    .product-img {
+      border: 2px solid grey;
+      /* 테두리 설정 */
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -231,12 +272,12 @@
       <button class="button" id="mypage-btn" onclick="goToMyPage()" style="display: none;">마이페이지</button>
       <button class="button" id="login-btn" onclick="goToLoginPage()">로그인</button>
       <div class="separator"></div>
-<button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+      <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
       <button class="button" id="signup-btn" onclick="goToSignUpPage()">회원가입</button>
       <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
     </div>
   </div>
-  
+
   <!-- 아래에 카테고리 버튼을 감싸는 컨테이너 -->
   <div class="category-container">
     <!-- 카테고리 버튼 -->
@@ -245,76 +286,45 @@
     <!-- 사이드바 -->
     <div class="sidebar" id="sidebar">
       <!-- 사이드바 내용 -->
-      <button><img src="category-electronics.png" alt="Sidebar Icon">의류</button>
-      <button><img src="sidebar_icon.png" alt="Sidebar Icon">가전제품</button>
-      <button><img src="sidebar_icon.png" alt="Sidebar Icon">디지털</button>
+      <button onclick="searchCategoryProducts('의류')">의류</button>
+      <button onclick="searchCategoryProducts('도서')">도서</button>
+      <button onclick="searchCategoryProducts('생활용품')">생활용품</button>
+      <button onclick="searchCategoryProducts('전자제품')">전자제품</button>
     </div>
   </div>
-  <div style="width: 1920px; height: 1080px; position: relative; overflow: hidden; background: #fff;">
-    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none"></svg>
-    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style="position: absolute; left: -1px; top: 193px;" preserveAspectRatio="none">
-      <line y1="0.5" x2="1920" y2="0.5" stroke="#9BB2C4" stroke-opacity="0.5"></line>
-    </svg>
-    <svg width="1" height="41" viewBox="0 0 1 41" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style="position: absolute; left: 1404px; top: 45px;" preserveAspectRatio="none">
-    </svg>
+  <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none"></svg>
+  <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: -1px; top: 193px;" preserveAspectRatio="none">
+    <line y1="0.5" x2="1920" y2="0.5" stroke="#9BB2C4" stroke-opacity="0.5"></line>
+  </svg>
+  <svg width="1" height="41" viewBox="0 0 1 41" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 1404px; top: 45px;" preserveAspectRatio="none">
+  </svg>
 
-    <!-- 검색 입력 상자 -->
-    <div
-      style="width: 593px; height: 47px; position: absolute; top: 155px; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; border-radius: 10px; background: #fff; border: 2px solid #04bbf4;">
-      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style="width: 30px; height: 30px;">
-        <path
-          d="M21.1162 21.15L24.9662 25M23.855 14.4763C23.855 19.71 19.6262 23.9525 14.4112 23.9525C9.195 23.9525 4.96625 19.71 4.96625 14.4775C4.96625 9.24125 9.195 5 14.41 5C19.6262 5 23.855 9.2425 23.855 14.4763Z"
-          stroke="#85B6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      <input type="text"
-        style="flex: 1; height: 100%; padding: 0 10px; border: none; outline: none; border-radius: 10px;"
-        placeholder="찾고 싶은 상품을 입력하세요." onkeypress="search(event)">
-    </div>
-
-    <div
-      style="width: 1920px; height: 360px; position: absolute; left: -1px; top: 193px; background: rgba(198,241,255,0.5);">
-    </div>
-    <img src="rectangle-3.jpeg"
-      style="width: 230px; height: 230px; position: absolute; left: 427px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
-      src="rectangle-4.jpeg"
-      style="width: 230px; height: 230px; position: absolute; left: 704px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
-      src="rectangle-5.jpeg"
-      style="width: 230px; height: 230px; position: absolute; left: 981px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
-      src="rectangle-6.jpeg"
-      style="width: 230px; height: 230px; position: absolute; left: 1259px; top: 627px; border-radius: 20px; object-fit: cover;" /><img
-      src="rectangle-7.jpeg"
-      style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;" />
-    <p style="width: 230px; height: 138px; position: absolute; left: 429px; top: 859px; text-align: left;">
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">가방 판매합니다</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">30,000원</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">익산시 신동</span><br />
-      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 18 댓글 23</span>
-    </p>
-    <p style="width: 230px; height: 138px; position: absolute; left: 706px; top: 859px; text-align: left;">
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">호두</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">5,000원</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">군산시 조촌동</span><br />
-      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 5 댓글 2</span>
-    </p>
-    <p style="width: 230px; height: 138px; position: absolute; left: 983px; top: 859px; text-align: left;">
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">이태리식 만두 팔아요
-        ~</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">10,000원</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">광주 서구</span><br />
-      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 25 댓글 10</span>
-    </p>
-    <p style="width: 230px; height: 138px; position: absolute; left: 1261px; top: 859px; text-align: left;">
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">아이폰 공기계/네고
-        없음</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">300,000원</span><br />
-      <span style="width: 230px; height: 138px; font-size: 15px; text-align: left; color: #000;">대전 둔산동</span><br />
-      <span style="width: 230px; height: 138px; font-size: 12px; text-align: left; color: #888;">관심 52 댓글 35</span>
-    </p>
+  <!-- 검색 입력 상자 -->
+  <div
+    style="width: 593px; height: 47px; position: absolute; top: 155px; left: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; border-radius: 10px; background: #fff; border: 2px solid #04bbf4;">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style="width: 30px; height: 30px;">
+      <path
+        d="M21.1162 21.15L24.9662 25M23.855 14.4763C23.855 19.71 19.6262 23.9525 14.4112 23.9525C9.195 23.9525 4.96625 19.71 4.96625 14.4775C4.96625 9.24125 9.195 5 14.41 5C19.6262 5 23.855 9.2425 23.855 14.4763Z"
+        stroke="#85B6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <input type="text" style="flex: 1; height: 100%; padding: 0 10px; border: none; outline: none; border-radius: 10px;"
+      placeholder="찾고 싶은 상품을 입력하세요." onkeypress="search(event)">
   </div>
+  <!-- 검색 결과가 표시될 컨테이너 -->
+  <div class="container" id="productContainer" style="position: absolute; left: 250px; top: 600px;"></div>
+
+
+  <div
+    style="width: 1920px; height: 360px; position: absolute; left: -1px; top: 193px; background: rgba(198,241,255,0.5);">
+  </div>
+
+
+  <img style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;" />
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       checkLoginStatus();
@@ -339,21 +349,61 @@
       if (isLoggedIn) {
         loginBtn.style.display = 'none';
         signupBtn.style.display = 'none';
-        useridText.textContent=localStorage.getItem("loggedInId")+"님";
-        useridText.style.display='block';
+        useridText.textContent = localStorage.getItem("loggedInId") + "님";
+        useridText.style.display = 'block';
         mypageBtn.style.display = 'block';
         logoutBtn.style.display = 'block';
         writeBtn.style.display = 'block';
       } else {
         loginBtn.style.display = 'block';
         signupBtn.style.display = 'block';
-        useridText.style.display='none';
+        useridText.style.display = 'none';
         mypageBtn.style.display = 'none';
         logoutBtn.style.display = 'none';
         writeBtn.style.display = 'none';
       }
     }
 
+    fetch('getProductList.php')
+      .then(response => response.json())
+      .then(products => {
+        const container = document.getElementById('productContainer');
+        products.reverse().forEach(product => {
+          const productDiv = document.createElement('div');
+          productDiv.className = 'product';
+
+          const img = document.createElement('img');
+          img.src = product.image_url;
+          img.className = 'product-img'; // 클래스 이름을 'product-img'로 설정
+          img.onclick = () => goToProductPage(product.product_id);
+          productDiv.appendChild(img);
+
+          const title = document.createElement('div');
+          title.textContent = product.title;
+          productDiv.appendChild(title);
+
+          const price = document.createElement('div');
+          price.textContent = `${new Intl.NumberFormat('ko-KR').format(product.price)}원`;
+          productDiv.appendChild(price);
+
+          const viewCount = document.createElement('div');
+          viewCount.className = 'viewCount'; // 클래스 이름 지정
+          viewCount.textContent = `조회수: ${product.view_count}`;
+          productDiv.appendChild(viewCount);
+
+          const likeCount = document.createElement('div');
+          likeCount.className = 'likeCount'; // 클래스 이름 지정
+          likeCount.textContent = `찜: ${product.like_count}`;
+          productDiv.appendChild(likeCount);
+
+          container.appendChild(productDiv);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+
+    function goToProductPage(productId) {
+      window.location.href = `/ProductPage.html?id=${productId}`;
+    }
     function goToMainPage() {
       // 홈페이지의 URL을 여기에 입력합니다.
       var mainPageURL = "Main.html"; // 홈페이지 URL로 수정 필요
@@ -365,9 +415,9 @@
     }
     // 상품등록 페이지로 이동하는 함수
     function GoToProductRegist() {
-                        var productRegistURL = "ProductRegistration.html"; 
-                        window.location.href = productRegistURL;
-                    }
+      var productRegistURL = "ProductRegistration.html";
+      window.location.href = productRegistURL;
+    }
     function goToSecondHandTransactionPage() {
       // 중고거래 페이지의 URL을 여기에 입력합니다.
       var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
@@ -389,14 +439,96 @@
       var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
       window.location.href = signUpPageURL;
     }
+
+    // 상품 검색
     function search(event) {
-      if (event.key === "Enter") {
-        var searchText = event.target.value;
-        // 여기에 검색 기능 구현
-        // 예시로 구글 검색을 시뮬레이션합니다.
-        window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
+      if (event.key === 'Enter') {
+        const query = event.target.value; // 입력한 검색어
+        fetch(`search_product.php?q=${query}`)
+          .then(response => response.json())
+          .then(products => {
+            const container = document.getElementById('productContainer');
+            container.innerHTML = ''; // 기존 내용을 지우고 새로운 검색 결과로 대체
+            products.reverse().forEach(product => {
+              const productDiv = document.createElement('div');
+              productDiv.className = 'product';
+
+              const img = document.createElement('img');
+              img.src = product.image_url;
+              img.className = 'product-img';
+              img.onclick = () => goToProductPage(product.product_id);
+              productDiv.appendChild(img);
+
+              const title = document.createElement('div');
+              title.textContent = product.title;
+              productDiv.appendChild(title);
+
+              const price = document.createElement('div');
+              price.textContent = `${new Intl.NumberFormat('ko-KR').format(product.price)}원`;
+              productDiv.appendChild(price);
+
+              const viewCount = document.createElement('div');
+              viewCount.className = 'viewCount';
+              viewCount.textContent = `조회수: ${product.view_count}`;
+              productDiv.appendChild(viewCount);
+
+              const likeCount = document.createElement('div');
+              likeCount.className = 'likeCount';
+              likeCount.textContent = `찜: ${product.like_count}`;
+              productDiv.appendChild(likeCount);
+
+              container.appendChild(productDiv);
+            });
+          })
+          .catch(error => console.error('Error:', error));
       }
     }
+    function searchCategoryProducts(category) {
+      fetch('search_category_product.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `category=${encodeURIComponent(category)}`
+      })
+        .then(response => response.json())
+        .then(products => {
+          const container = document.getElementById('productContainer');
+          container.innerHTML = ''; // 기존 상품 삭제
+          products.reverse().forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.className = 'product';
+
+            const img = document.createElement('img');
+            img.src = product.image_url;
+            img.className = 'product-img';
+            img.onclick = () => goToProductPage(product.product_id);
+            productDiv.appendChild(img);
+
+            const title = document.createElement('div');
+            title.textContent = product.title;
+            productDiv.appendChild(title);
+
+            const price = document.createElement('div');
+            price.textContent = `${new Intl.NumberFormat('ko-KR').format(product.price)}원`;
+            productDiv.appendChild(price);
+
+            const viewCount = document.createElement('div');
+            viewCount.className = 'viewCount';
+            viewCount.textContent = `조회수: ${product.view_count}`;
+            productDiv.appendChild(viewCount);
+
+            const likeCount = document.createElement('div');
+            likeCount.className = 'likeCount';
+            likeCount.textContent = `찜: ${product.like_count}`;
+            productDiv.appendChild(likeCount);
+
+            container.appendChild(productDiv);
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
     // 사이드바를 나타내는 함수
     function showSidebar() {
       var sidebar = document.getElementById('sidebar');

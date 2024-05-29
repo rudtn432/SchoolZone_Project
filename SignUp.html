@@ -94,10 +94,10 @@
             style="width: 502px; margin-bottom: 20px; background: #fff; border-width: 1px; border-color: #000; font-size: 20px;"
             onchange="getSelectedValue()">
             <option value="none">학교를 선택해주세요.</option>
-            <option value="WonkwangUniversity">원광대학교</option>
-            <option value="SeoulNationalUniversity">서울대학교</option>
-            <option value="KoreaUniversity">고려대학교</option>
-            <option value="YonseiUniversity">연세대학교</option>
+            <option value="원광대학교">원광대학교</option>
+            <option value="서울대학교">서울대학교</option>
+            <option value="고려대학교">고려대학교</option>
+            <option value="연세대학교">연세대학교</option>
           </select>
         </form>
 
@@ -182,6 +182,11 @@
 
         xhr.send(data);
     }
+    function goToMainPage() {
+    // 홈페이지의 URL을 여기에 입력합니다.
+    var mainPageURL = "Main.html"; // 홈페이지 URL로 수정 필요
+    window.location.href = mainPageURL;
+  }
     // 로그인 페이지로 이동하는 함수
     function goToLoginPage() {
       var loginPageURL = "Login.html"; 

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품페이지</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html,
+    body {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      min-height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .fixed-container {
+      position: fixed;
+      height: 60px;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      /* 다른 요소 위에 나타나도록 z-index 설정 */
+      background-color: #ffffff;
+      /* 배경색 지정 */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* 그림자 효과 추가 */
+      padding: 10px 20px;
+      /* 내부 여백 설정 */
+      display: flex;
+      justify-content: center;
+      /* 수평 가운데 정렬 */
+      align-items: center;
+    }
+
+    .button-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .button {
+      width: auto;
+      height: 35px;
+      font-size: 18px;
+      text-align: center;
+      color: #786f6f;
+      margin-right: 10px;
+    }
+
+    .separator {
+      width: 1px;
+      height: 31px;
+      background-color: #786F6F;
+      margin-right: 10px;
+    }
+
+    #wishlistButton {
+      width: 150px;
+      height: 50px;
+      position: absolute;
+      left: 1320px;
+      top: 610px;
+      font-size: 20px;
+      text-align: center;
+      color: #fff;
+      background-color: #ff4757;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #wishlistButton:hover {
+      background-color: #ff6b81;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+  <div class="fixed-container">
+    <!-- 로고 또는 사이트 제목 -->
+    <button style="width: auto; height: auto; font-size: 40px; text-align: center; color: #04bbf4; margin-right: 100px;"
+      onclick="goToMainPage()">스쿨존</button>
+
+    <button onclick="goToSecondHandTransactionPage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 50px;">
+      <svg width="41" height="50" viewBox="0 0 41 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet">
+        <path
+          d="M10.2273 10.2273C10.2273 7.51483 11.3048 4.91348 13.2228 2.9955C15.1408 1.07751 17.7421 0 20.4545 0C23.167 0 25.7683 1.07751 27.6863 2.9955C29.6043 4.91348 30.6818 7.51483 30.6818 10.2273V13.6364H40.9091V50H0V13.6364H10.2273V10.2273ZM10.2273 18.1818H4.54545V45.4545H36.3636V18.1818H30.6818V25H26.1364V18.1818H14.7727V25H10.2273V18.1818ZM26.1364 13.6364V10.2273C26.1364 8.72036 25.5377 7.27517 24.4722 6.20962C23.4066 5.14407 21.9615 4.54545 20.4545 4.54545C18.9476 4.54545 17.5024 5.14407 16.4369 6.20962C15.3713 7.27517 14.7727 8.72036 14.7727 10.2273V13.6364H26.1364Z"
+          fill="black">
+        </path>
+      </svg>
+      </svg>
+      </svg>
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">중고거래</p>
+    </button>
+
+    <button onclick="goToPlacePage()"
+      style="width: auto; height: auto; background: none; border: none; cursor: pointer; display: flex; align-items: center; margin-right: 100px;">
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="width: 50px; height: 50px; position: relative;" preserveAspectRatio="xMidYMid meet">
+        <g clip-path="url(#clip0_91_460)">
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M25 37.5L15.4844 24.0625C13.9269 22.2235 12.9238 19.9799 12.5921 17.593C12.2604 15.206 12.6137 12.7739 13.6108 10.5799C14.6079 8.38597 16.2078 6.52044 18.2242 5.20061C20.2405 3.88078 22.5904 3.16096 25 3.125C28.3402 3.15801 31.5312 4.51343 33.8741 6.8944C36.217 9.27537 37.5208 12.4878 37.5 15.8281C37.5013 18.7421 36.5092 21.5694 34.6875 23.8438L25 37.5ZM25 6.25C22.4873 6.27885 20.0887 7.30371 18.331 9.09954C16.5732 10.8954 15.6 13.3154 15.625 15.8281C15.6368 18.1213 16.4618 20.336 17.9531 22.0781L25 32.0625L32.2344 21.875C33.6095 20.1585 34.3639 18.0275 34.375 15.8281C34.4 13.3154 33.4268 10.8954 31.6691 9.09954C29.9113 7.30371 27.5127 6.27885 25 6.25Z"
+            fill="black"></path>
+          <path
+            d="M25 17.1875C26.7259 17.1875 28.125 15.7884 28.125 14.0625C28.125 12.3366 26.7259 10.9375 25 10.9375C23.2741 10.9375 21.875 12.3366 21.875 14.0625C21.875 15.7884 23.2741 17.1875 25 17.1875Z"
+            fill="black"></path>
+          <path
+            d="M43.75 18.75H40.625V21.875H43.75V43.75H6.25V21.875H9.375V18.75H6.25C5.4212 18.75 4.62634 19.0792 4.04029 19.6653C3.45424 20.2513 3.125 21.0462 3.125 21.875V43.75C3.125 44.5788 3.45424 45.3737 4.04029 45.9597C4.62634 46.5458 5.4212 46.875 6.25 46.875H43.75C44.5788 46.875 45.3737 46.5458 45.9597 45.9597C46.5458 45.3737 46.875 44.5788 46.875 43.75V21.875C46.875 21.0462 46.5458 20.2513 45.9597 19.6653C45.3737 19.0792 44.5788 18.75 43.75 18.75Z"
+            fill="black"></path>
+        </g>
+        <defs>
+          <clipPath id="clip0_91_460">
+            <rect width="50" height="50" fill="white"></rect>
+          </clipPath>
+        </defs>
+      </svg>
+      <p style="width: auto; height: auto; font-size: 22px; text-align: center; color: #000;">
+        플레이스
+      </p>
+    </button>
+
+    <!-- 로그인 및 회원가입 버튼 -->
+    <div class="button-container" id="button-container">
+      <span id="user-id" style="display: none; margin-right: 10px;"></span>
+      <button class="button" id="mypage-btn" onclick="goToMyPage()" style="display: none;">마이페이지</button>
+      <button class="button" id="login-btn" onclick="goToLoginPage()">로그인</button>
+      <div class="separator"></div>
+      <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+      <button class="button" id="signup-btn" onclick="goToSignUpPage()">회원가입</button>
+      <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
+    </div>
+  </div>
+
+  <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+    <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+  </svg>
+  <div
+    style="width: 1244px; height: 56.5px; position: absolute; left: 335px; top: 15.55px; border-radius: 10px; background: #fff;">
+  </div>
+  <svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="width: 30px; height: 25.3px; position: absolute; left: 358px; top: 33.73px;" preserveAspectRatio="none">
+    <path
+      d="M21.1162 18.5678L24.9662 21.8145M23.855 12.9398C23.855 17.3534 19.6262 20.9311 14.4112 20.9311C9.195 20.9311 4.96625 17.3534 4.96625 12.9409C4.96625 8.52514 9.195 4.94849 14.41 4.94849C19.6262 4.94849 23.855 8.52619 23.855 12.9398Z"
+      stroke="#85B6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <div style="width: 307px; height: 1691px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;">
+  </div>
+  <div style="width: 307px; height: 1691px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
+  </div>
+
+  <svg width="492" height="1" viewBox="0 0 492 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 980px; top: 235px;" preserveAspectRatio="none">
+    <line x1="492" y1="0.5" x2="4.37114e-8" y2="0.500044" stroke="#BABABA"></line>
+  </svg>
+  <svg width="492" height="1" viewBox="0 0 492 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 980px; top: 325px;" preserveAspectRatio="none">
+    <line x1="492" y1="0.5" x2="4.37114e-8" y2="0.500044" stroke="#BABABA"></line>
+  </svg>
+  <svg width="492" height="1" viewBox="0 0 492 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 980px; top: 415px;" preserveAspectRatio="none">
+    <line x1="492" y1="0.5" x2="4.37114e-8" y2="0.500044" stroke="#BABABA"></line>
+  </svg>
+  <svg width="492" height="1" viewBox="0 0 492 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 980px; top: 505px;" preserveAspectRatio="none">
+    <line x1="492" y1="0.5" x2="4.37114e-8" y2="0.500044" stroke="#BABABA"></line>
+  </svg>
+  <svg width="492" height="1" viewBox="0 0 492 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+    style="position: absolute; left: 980px; top: 595px;" preserveAspectRatio="none">
+    <line x1="492" y1="0.5" x2="4.37114e-8" y2="0.500044" stroke="#BABABA"></line>
+  </svg>
+
+  <p id="product-title"
+    style="width: 492px; height: 62px; position: absolute; left: 980px; top: 165px; font-size: 30px; text-align: left; color: #000;">
+  </p>
+
+  <img id="product-image" src="rectangle-53.jpeg"
+    style="width: 600px; height: 600px; position: absolute; left: 350px; top: 166px; border-radius: 10px; object-fit: cover;" />
+
+  <p id="product-price"
+    style="width: 492px; height: 62px; position: absolute; left: 980px; top: 255px; font-size: 30px; text-align: left; color: #000;">
+    <span style="width: 116px; height: 62px; font-size: 30px; text-align: left; color: #000;"></span>
+  </p>
+
+  <p id="product-condition"
+    style="width: 492px; height: 62px; position: absolute; left: 980px; top: 345px; font-size: 30px; text-align: left; color: #000;">
+  </p>
+
+  <p id="product-shipping"
+    style="width: 492px; height: 65px; position: absolute; left: 980px; top: 435px; font-size: 30px; text-align: left; color: #000;">
+  </p>
+
+  <p id="product-stock"
+    style="width: 492px; height: 62px; position: absolute; left: 980px; top: 525px; font-size: 30px; text-align: left; color: #000;">
+    <span style="width: 98px; height: 62px; font-size: 30px; text-align: center; color: #000;"></span>
+  </p>
+
+  <p id="product-view"
+    style="width: 170px; position: absolute; left: 980px; top: 615px; font-size: 25px; text-align: left; color: #000;">
+    <span style="font-size: 25px; text-align: center; color: #000;"></span>
+  </p>
+
+  <p id="product-like"
+    style="width: 170px; height: 49px; position: absolute; left: 1150px; top: 615px; font-size: 25px; text-align: left; color: #000;">
+    <span style="width: 122px; height: 49px; font-size: 25px; text-align: center; color: #000;"></span>
+  </p>
+
+  <button id="wishlistButton">찜하기</button>
+
+  <div
+    style="width: 1240px; height: 682px; position: absolute; left: 338px; top: 800px; font-size: 20px; background: #fff; border-radius: 10px; border-width: 1px; border-color: #bababa; overflow: auto;">
+    <div id="product-description" style="margin: 10px;">
+      <!-- 여기에 텍스트 내용을 넣으세요 -->
+    </div>
+  </div>
+
+
+  <button id="payment-button"
+    style="width: 492px; height: 100px; position: absolute; left: 980px; top: 670px; font-size: 20px; border-radius: 10px; text-align: center; color: #fff; background: #04bbf4;">
+    결제하기
+  </button>
+
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    checkLoginStatus();
+    var loggedIn = localStorage.getItem("loggedIn");
+    var loggedInId = localStorage.getItem("loggedInId");
+    loadProduct();
+
+    // 찜하기 상태 확인
+    checkWishlistStatus(loggedInId, getProductId());
+
+    // 찜하기 버튼 클릭 이벤트 리스너
+    document.getElementById('wishlistButton').addEventListener('click', function () {
+      const isLoggedIn = localStorage.getItem("loggedIn");
+
+      if (!isLoggedIn) {
+        alert("로그인을 먼저 해주세요.");
+        return;
+      }
+
+      const action = this.textContent === "찜하기" ? "add" : "remove";
+      toggleWishlist(action, loggedInId, getProductId());
+    });
+  });
+
+  // 결제하기 버튼 클릭 시
+  document.getElementById('payment-button').addEventListener('click', function () {
+    const productId = parseInt(getProductId(), 10); // 상품 ID 가져오기
+    const loggedInId = localStorage.getItem("loggedInId"); // 현재 로그인한 사용자 ID 가져오기
+    const isLoggedIn = localStorage.getItem("loggedIn");
+
+    if (!isLoggedIn) {
+      alert("로그인을 먼저 해주세요.");
+      return;
+    }
+
+    const data = {
+      productBuy: {
+        product_id: productId,
+        user_id: loggedInId,
+      },
+      productSale: {
+        product_id: productId,
+      },
+      productInfo: {
+        product_id: productId,
+        is_sold: 1
+      }
+    };
+
+    fetch('payment.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("상품을 성공적으로 결제하였습니다.");
+        } else {
+          alert("이미 판매 완료된 상품입니다.");
+          // 에러 처리
+          console.error('에러 메시지:', data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+
+
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("loggedInId");
+    checkLoginStatus();
+  }
+
+  function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('loggedIn');
+    const mypageBtn = document.getElementById('mypage-btn');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const useridText = document.getElementById('user-id');
+
+    if (isLoggedIn) {
+      loginBtn.style.display = 'none';
+      signupBtn.style.display = 'none';
+      useridText.textContent = localStorage.getItem("loggedInId") + "님";
+      useridText.style.display = 'block';
+      mypageBtn.style.display = 'block';
+      logoutBtn.style.display = 'block';
+    } else {
+      loginBtn.style.display = 'block';
+      signupBtn.style.display = 'block';
+      useridText.style.display = 'none';
+      mypageBtn.style.display = 'none';
+      logoutBtn.style.display = 'none';
+    }
+  }
+
+  // URL에서 상품 ID를 가져오는 함수
+  function getProductId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+  }
+
+  // 상품 정보를 가져와서 페이지에 표시하는 함수
+  async function loadProduct() {
+    const productId = getProductId();
+    if (!productId) {
+      alert('상품 ID가 없습니다.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`getProduct.php?id=${productId}`);
+      const product = await response.json();
+
+      if (product.error) {
+        alert('상품을 찾을 수 없습니다.');
+        return;
+      }
+
+      document.getElementById('product-title').innerText = product.title;
+      document.getElementById('product-image').src = product.image_url;
+      document.getElementById('product-price').innerText = `${new Intl.NumberFormat('ko-KR').format(product.price)}원`;
+      document.getElementById('product-condition').innerText = `상태: ${product.product_condition}`;
+      document.getElementById('product-shipping').innerText = `배송비: ${new Intl.NumberFormat('ko-KR').format(product.shipping_fee)}원`;
+      document.getElementById('product-stock').innerText = `재고: ${product.stock_quantity}`;
+      document.getElementById('product-view').innerText = `조회수: ${product.view_count}`;
+      document.getElementById('product-like').innerText = `찜: ${product.like_count}`;
+      document.getElementById('product-description').innerText = product.description;
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+    }
+  }
+
+  function checkWishlistStatus(userId, productId) {
+    fetch(`check_wishlist_status.php?user_id=${userId}&product_id=${productId}`)
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('wishlistButton').textContent = data === "wish" ? "찜하기" : "찜해제";
+      });
+  }
+
+  function toggleWishlist(action, userId, productId) {
+    const url = action === "add" ? "add_to_wishlist.php" : "remove_from_wishlist.php";
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `user_id=${userId}&product_id=${productId}`
+    })
+      .then(response => response.text())
+      .then(data => {
+        if (data === "success") {
+          document.getElementById('wishlistButton').textContent = action === "add" ? "찜해제" : "찜하기";
+          var allText = document.getElementById('product-like').innerText;
+          var currentCount = parseInt(allText.substring(2));
+          document.getElementById('product-like').innerText = action === "add" ?
+            "찜: " + (currentCount + 1).toString() :
+            "찜: " + (currentCount - 1).toString();
+        } else {
+          alert("작업 실패");
+        }
+      });
+  }
+
+  // 메인 페이지로 이동하는 함수
+  function goToMainPage() {
+    var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+    window.location.href = mainPageURL;
+  }
+  function goToSecondHandTransactionPage() {
+    // 중고거래 페이지의 URL을 여기에 입력합니다.
+    var SecondHandTransactionPageURL = "SecondHandTransaction.html"; // 중고거래 URL로 수정 필요
+    window.location.href = SecondHandTransactionPageURL;
+  }
+  function goToPlacePage() {
+    // 플레이스 페이지의 URL을 여기에 입력합니다.
+    var PlacePageURL = "Place.html"; // 중고거래 URL로 수정 필요
+    window.location.href = PlacePageURL;
+  }
+  function goToMyPage() {
+    var myPageURL = "Mypage-memberInfoChange.html"; // 메인 페이지 URL로 수정 필요
+    window.location.href = myPageURL;
+  }
+  // 로그인 페이지로 이동하는 함수
+  function goToLoginPage() {
+    var loginPageURL = "Login.html"; // 로그인 페이지 URL로 수정 필요
+    window.location.href = loginPageURL;
+  }
+
+  // 회원가입 페이지로 이동하는 함수
+  function goToSignUpPage() {
+    var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
+    window.location.href = signUpPageURL;
+  }
+</script>
+
+</html>

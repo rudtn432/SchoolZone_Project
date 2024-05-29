@@ -38,7 +38,7 @@ if ($loggedInUserId === null) {
 }
 
 // SQL 쿼리 준비: user_id가 로그인한 사용자의 ID와 같고, is_sold가 0인 상품 조회
-$sql = "SELECT image_url, title, price, updated_at FROM productInfo WHERE user_id = ? AND is_sold = 0";
+$sql = "SELECT product_id, image_url, title, price, updated_at FROM productInfo WHERE user_id = ? AND is_sold = 0";
 
 // SQL 쿼리 실행 준비
 $stmt = $pdo->prepare($sql);

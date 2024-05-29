@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>스쿨존 상품등록</title>
+    <title>Preview</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html,
@@ -67,10 +67,10 @@
 
         #editor {
             width: 1127px;
-            height: 520px;
+            height: 477px;
             position: absolute;
-            left: 56px;
-            top: 176px;
+            left: 383px;
+            top: 343px;
             font-size: 15px;
             border: 1px solid #000;
             padding: 10px;
@@ -136,7 +136,6 @@
         </div>
         <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
         </div>
-
         <div style="width: 1240px; height: 801px; position: absolute; left: 327px; top: 167px;">
             <div
                 style="width: 1240px; height: 801px; position: absolute; left: -1px; top: -1px; background: #fff; border-width: 1px; border-color: #bababa;">
@@ -145,18 +144,15 @@
                 style="position: absolute; left: 55px; top: 67px;" preserveAspectRatio="xMidYMid meet">
                 <line y1="0.5" x2="1127" y2="0.5" stroke="black"></line>
             </svg>
+
             <p
-                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 15px; font-size: 15px; text-align: center; color: #000;">
-                제목 :
-            </p>
+                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 25px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+                제목 :</p>
+
+            <!-- 설명 -->
             <p
-                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 68px; font-size: 15px; text-align: center; color: #000;">
-                내용
-            </p>
-            <p
-                style="width: 1016px; height: 53px; position: absolute; left: 167px; top: 15px; font-size: 15px; text-align: center; color: #000;">
-                제목1
-            </p>
+                style="width: 111px; height: 53px; position: absolute; left: 56px; top: 80px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+                설명</p>
             <div
                 style="width: 1127px; height: 56px; position: absolute; left: 55px; top: 709px; border-radius: 20px; background: #fff; border-width: 1px; border-color: #bababa;">
             </div>
@@ -169,20 +165,6 @@
                 <button class="toolbar-button" onclick="execCmd('justifyCenter')">가운데 정렬</button>
                 <button class="toolbar-button" onclick="execCmd('justifyRight')">오른쪽 정렬</button>
             </div>
-            <div id="editor" contenteditable="true"></div>
-            <p
-                style="width: 129px; height: 56px; position: absolute; left: 56px; top: 722px; font-size: 20px; text-align: center; color: #000;">
-                첨부파일
-            </p>
-
-            <div id="imagePreview">사진.jpg</div>
-
-            <form action="product_regist.php" method="post" enctype="multipart/form-data">
-                <input type="file" name="imageInput" accept="image/*"
-                       style="width: 150px; height: auto; position: absolute; left: 1021px; top: 720px; font-size: 15px; text-align: center; color: #000;">
-                <input type="submit" value="이미지 업로드" name="submit" style="position: absolute; left: 921px; top: 720px;">
-            </form>
-            
 
             <svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
                 style="position: absolute; left: 184px; top: 709px;" preserveAspectRatio="none">
@@ -190,29 +172,138 @@
             </svg>
         </div>
         <div
-            style="width: 104px; height: 34px; position: absolute; left: 894px; top: 1006px; border-radius: 10px; background: #04bbf4;">
+            style="width: 1127px; height: 56px; position: absolute; left: 382px; top: 820px; border-radius: 20px; background: #fff; border-width: 1px; border-color: #bababa;">
         </div>
-        <button
-            style="width: 104px; height: 34px; position: absolute; left: 895px; top: 1007px; font-size: 15px; text-align: center; color: #fff;">
-            등록
-        </button>
+
+        <p
+            style="width: 129px; height: 56px; position: absolute; left: 383px; top: 833px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            상품가격</p>
+
+        <p
+            style="width: 129px; height: 56px; position: absolute; left: 699px; top: 833px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            재고 수량</p>
+
+        <p
+            style="width: 129px; height: 56px; position: absolute; left: 965px; top: 833px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            상품 상태</p>
+        <p
+            style="width: 129px; height: 56px; position: absolute; left: 1231px; top: 833px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            배송비</p>
+        <p
+            style="width: 129px; height: 56px; position: absolute; left: 383px; top: 888px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            첨부파일</p>
+
+        <svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 511px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 698px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 964px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 1230px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 827px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 1093px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg><svg width="1" height="56" viewBox="0 0 1 56" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 1359px; top: 820px;" preserveAspectRatio="none">
+            <line x1="0.5" x2="0.5" y2="56" stroke="#BABABA"></line>
+        </svg>
+        <div
+            style="width: 339px; height: 53px; position: absolute; left: 1170px; top: 234px; border-radius: 20px; background: #fff; border-width: 1px; border-color: #bababa;">
+        </div>
+
+        <p
+            style="width: 177px; height: 53px; position: absolute; left: 1171px; top: 245px; font-size: 20px; font-weight: bold; text-align: center; color: #000;">
+            카테고리</p>
+        <svg width="1" height="53" viewBox="0 0 1 53" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: 1347px; top: 234px;" preserveAspectRatio="none">
+            <line x1="0.5" y1="2.10309e-8" x2="0.499998" y2="53" stroke="#BABABA"></line>
+        </svg>
+
+
+        <form id="productForm">
+            <!-- 제목 -->
+            <input type="text" id="title" placeholder="제목을 입력해주세요."
+                style="width: 1000px; height: 47px; position: absolute; left: 480px; top: 183px; font-size: 15px; text-align: left; color: #000; border: none; background-color: transparent;">
+            <div id="editor" contenteditable="true"></div>
+            <!-- 이미지 첨부 -->
+            <input type="file" id="imageInput" name="imageInput" accept="image/*" capture="camera"
+                style="width: 500px; height: auto; position: absolute; left: 520px; top: 890px; font-size: 15px; text-align: center; color: #000;">
+            <!-- 상품가격 -->
+            <input type="number" id="price" placeholder="상품가격을 입력해주세요."
+                style="width: 179px; height: 47px; position: absolute; left: 515px; top: 825px; font-size: 15px; text-align: center; color: #000; border: none; background-color: transparent;">
+            <!-- 재고 수량 -->
+            <input type="number" id="stockQuantity" placeholder="재고 수량을 입력해주세요."
+                style="width: 129px; height: 47px; position: absolute; left: 832px; top: 825px; font-size: 15px; text-align: center; color: #000; border: none; background-color: transparent;">
+            <!-- 카테고리 -->
+            <select name="category" id="categorySelect" onchange="getSelectedValue()"
+                style="position: absolute; left: 1350px; top: 245px; font-size: 15px; text-align: center; color: #000; font-size: 20px;">
+                <option value="none">카테고리 선택</option>
+                <option value="의류">의류</option>
+                <option value="도서">도서</option>
+                <option value="생활용품">생활용품</option>
+            </select>
+            <!-- 배송비 -->
+            <input type="number" id="shippingFee" placeholder="배송비를 입력해주세요."
+                style="width: 129px; height: 47px; position: absolute; left: 1365px; top: 825px; font-size: 15px; text-align: center; color: #000; border: none; background-color: transparent;">
+            <!-- 상품 상태 -->
+            <select name="condition" id="conditionSelect"
+                style="width: 129px; position: absolute; left: 1095px; top: 833px; font-size: 15px; text-align: center; color: #000; font-size: 20px;"
+                onchange="getSelectedValue()">
+                <option value="none">상태 선택</option>
+                <option value="새상품">새상품</option>
+                <option value="좋음">좋음</option>
+                <option value="보통">보통</option>
+                <option value="나쁨">나쁨</option>
+            </select>
+            <!-- 등록 버튼 -->
+            <button type="button" onclick="submitProduct()"
+                style="width: 104px; height: 34px; position: absolute; left: 895px; top: 1007px; border-radius: 10px; font-size: 15px; text-align: center; color: #fff; background: #04bbf4;">등록</button>
+        </form>
     </div>
 </body>
 <script>
     const useridText = document.getElementById('user-id');
     useridText.textContent = localStorage.getItem("loggedInId") + "님";
 
-    document.getElementById('imageInput').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.innerHTML = `<img src="${e.target.result}" alt="선택한 이미지" style="max-width: 100%; max-height: 100%;">`;
-            }
-            reader.readAsDataURL(file);
-        }
-    });
+    function submitProduct() {
+        const formData = new FormData();
+        formData.append('userId', localStorage.getItem("loggedInId"));
+        formData.append('title', document.getElementById('title').value);
+        formData.append('description', document.getElementById('editor').innerText);
+        formData.append('image', document.getElementById('imageInput').files[0]);
+        formData.append('price', document.getElementById('price').value);
+        formData.append('stockQuantity', document.getElementById('stockQuantity').value);
+        formData.append('category', document.getElementById('categorySelect').value);
+        formData.append('shippingFee', document.getElementById('shippingFee').value);
+        formData.append('productCondition', document.getElementById('conditionSelect').value);
+
+        fetch('product_regist.php', {
+    method: 'POST',
+    body: formData
+})
+.then(response => response.json()) // JSON으로 변환
+.then(data => {
+    if (data.success) {
+        alert("상품이 성공적으로 등록되었습니다.");
+        // 상품 페이지로 이동
+        window.location.href = `/ProductPage.html?id=${data.productId}`;
+    } else {
+        // 에러 처리
+        console.error('상품 등록에 실패했습니다. 에러 메시지:', data.message);
+    }
+})
+.catch(error => console.error('Error:', error));
+
+    }
+
     function execCmd(command) {
         document.execCommand(command, false, null);
     }
