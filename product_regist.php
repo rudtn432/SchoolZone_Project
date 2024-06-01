@@ -16,7 +16,11 @@ try {
     // 이미지 파일 처리
     $targetDir = "Images/";
     $fileName = basename($_FILES["image"]["name"]);
-    $targetFilePath = $targetDir . $fileName;
+    // 현재 시간을 파일 이름에 추가
+    $fileNameWithoutExt = pathinfo($fileName, PATHINFO_FILENAME);
+    $fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+    $newFileName = $fileNameWithoutExt . "_" . time() . "." . $fileExt;
+    $targetFilePath = $targetDir . $newFileName;
     move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath);
 
     // 상품 정보 삽입
@@ -35,9 +39,9 @@ try {
     ]);
 
     // 상품 정보 삽입 후
-$lastInsertId = $pdo->lastInsertId();
+    $lastInsertId = $pdo->lastInsertId();
 
-echo json_encode(array('success' => true, 'productId' => $lastInsertId));
+    echo json_encode(array('success' => true, 'productId' => $lastInsertId));
 
 } catch (PDOException $e) {
     // 오류 발생 시 JSON 형태로 응답

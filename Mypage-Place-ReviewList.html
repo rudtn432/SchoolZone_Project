@@ -36,6 +36,7 @@
             justify-content: center;
             /* 수평 가운데 정렬 */
             align-items: center;
+            white-space: nowrap;
         }
 
         .container {
@@ -149,29 +150,33 @@
             </button>
             <div class="dropdown" onmouseover="keepDropdownOpen_SHT()" onmouseleave="hideDropdown_SHT()"
                 style="position: absolute; left: 0px; top: 202px;">
-                <button class="dropbtn" onclick="goToMyPosts()"
+                <button class="dropbtn" onclick="goToMyChat()"
                     style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">중고거래</button>
                 <div class="dropdown-content-SecondHandTransaction">
-                    <button onclick="goToMyPosts()"
+                    <button onclick="goToMyChat()"
                         style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                        <li>스쿨톡</li>
+                    </button>
+                    <button onclick="goToMyPosts()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 74px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
                         <li>내 상품목록</li>
                     </button>
                     <button onclick="goToSalesHistory()"
-                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 74px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 148px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
                         <li>판매내역</li>
                     </button>
                     <button onclick="goToPurchaseHistory()"
-                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 148px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 222px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
                         <li>구매내역</li>
                     </button>
                     <button onclick="goToWishlist()"
-                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 222px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 296px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
                         <li>찜한 상품</li>
                     </button>
                     <button onclick="GoToMyPage_Place_ReviewList()"
-                        style="width: 307px; height: 74px; position: absolute; top: 296px; font-size: 25px; text-align: center; color: #000; background: #a4ebff;">플레이스</button>
+                        style="width: 307px; height: 74px; position: absolute; top: 370px; font-size: 25px; text-align: center; color: #000; background: #a4ebff;">플레이스</button>
                     <button onclick="GoToMyPage_Place_ReviewList()"
-                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 370px; font-size: 20px; text-align: center; color: #000; background: #6fe0ff">
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 444px; font-size: 20px; text-align: center; color: #000; background: #6fe0ff">
                         <li>리뷰 목록</li>
                     </button>
                 </div>
@@ -249,10 +254,10 @@
                     var newRow = postTable.insertRow(); // 새로운 행 추가
                     // 셀에 데이터 추가
                     newRow.innerHTML = `<td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${i + 1}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].name}</td>
-                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].comment}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><span style="color: red;">★ </span>${posts[i].rating}</td>
-                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[i].created_at}</td>`;
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[totalPosts - i - 1].name}</td>
+                            <td style="width: auto; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[totalPosts - i - 1].comment}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;"><span style="color: red;">★ </span>${posts[totalPosts - i - 1].rating}</td>
+                            <td style="width: 124px; height: 124px; text-align: center; color: #000; border: 1px solid #bababa;">${posts[totalPosts - i - 1].created_at}</td>`;
                 }
             }
 
@@ -262,6 +267,9 @@
 
             // 페이지 버튼 생성
             function generatePagination() {
+                if(totalPosts == 0){
+                        return;
+                    }
                 maxPage = Math.ceil(totalPosts / postsPerPage);
                 var paginationContainer = document.querySelector('.pagination-container');
                 paginationContainer.innerHTML = ''; // 이전에 생성된 버튼 제거
@@ -339,6 +347,11 @@
                 var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
                 window.location.href = myPage_MemberInfoChangeURL;
             }
+            // 마이페이지-채팅 페이지로 이동하는 함수
+            function goToMyChat() {
+                    var myPage_MyChatURL = "Mypage-SecondHandTransaction-Chat.html";
+                    window.location.href = myPage_MyChatURL;
+                }
             // 마이페이지-중고거래 페이지로 이동하는 함수
             function goToMyPosts() {
                 var myPage_MyPostsURL = "Mypage-SecondHandTransaction-MyPosts.html";

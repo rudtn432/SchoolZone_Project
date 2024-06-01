@@ -38,29 +38,29 @@
       justify-content: center;
       /* 수평 가운데 정렬 */
       align-items: center;
+      white-space: nowrap;
     }
 
     .rating-container {
       display: flex;
       align-items: center;
       position: absolute;
-      left: 33px;
+      left: 20px;
       /* 기존 텍스트 위치 사용 */
-      top: 685px;
+      top: 680px;
       /* 기존 텍스트 위치 사용 */
       z-index: 2;
     }
 
     .rating-container .star-icon {
-      margin-right: 30px;
+      margin-right: 5px;
       /* 아이콘과 텍스트 사이의 간격 */
       position: relative;
-      left: -10px;
       /* 아이콘을 왼쪽으로 10px 이동 */
     }
 
     .rating {
-      top: 685px;
+      top: 680px;
       font-size: 20px;
     }
 
@@ -119,6 +119,7 @@
 
     .sidebar {
       width: 150px;
+      height: 320px;
       position: absolute;
       left: -1px;
       top: 724px;
@@ -153,7 +154,7 @@
     .review-list {
       position: absolute;
       left: 22px;
-      top: 841px;
+      top: 861px;
       font-size: 25px;
       text-align: center;
       color: #000;
@@ -387,7 +388,7 @@
     style="width: 614px; height: 100px; position: absolute; left: -1px; top: 60px; background: #fff; border-width: 1px; border-color: #04bbf4; z-index: 2;">
   </div>
   <div id="map"
-    style=" width:calc(100% - 614px); height: 100vh; position: relative; left: 614px; overflow: hidden; background: #fff;">
+    style=" width:calc(100% - 614px); height: 1040px; position: relative; left: 614px; overflow: hidden; background: #fff;">
   </div>
   <!-- 검색 입력 상자 -->
   <div
@@ -414,7 +415,39 @@
       mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
     };
 
+
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    var loggedIn = localStorage.getItem("loggedIn");
+    // 로그인 되어있다면 지도의 중심좌표를 학교 중심으로
+    if (loggedIn) {
+      var loggedInId = localStorage.getItem("loggedInId");
+      // 서버에 사용자 정보 요청
+      fetch('getUserSchool.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: loggedInId })
+      })
+        .then(response => response.json())
+        .then(data => {
+          var coords = { // 기본 좌표 (변경 가능)
+            '서울대학교': { lat: 37.459794758475326, lng: 126.95112059036468 },
+            '고려대학교': { lat: 37.589535772350686, lng: 127.0323144015117 },
+            '연세대학교': { lat: 37.564346113706684, lng: 126.93893005455341 },
+            '원광대학교': { lat: 35.9684412714393, lng: 126.9580264214437 }
+          };
+
+          var school = data.school;
+          if (coords[school]) {
+            var center = new kakao.maps.LatLng(coords[school].lat, coords[school].lng);
+            map.setCenter(center);
+          }
+
+        })
+        .catch(error => console.error('Error:', error));
+    }
 
     $(document).ready(function () {
       console.log('start')
@@ -466,15 +499,28 @@
                 .then(data => {
                   document.getElementById('companyName').textContent = data.name;
                   document.getElementById('address').textContent = data.address;
+
+                  // 이미지 URL을 활용하여 이미지 출력
+                  let imageHtml = `<img src="${data.photo}" alt="가게 사진" style="width: 580px; height: 370px">`;
+                  document.querySelector('.text-overlay').innerHTML = imageHtml;
+
+                  // 리뷰 출력
                   let reviews = '';
-                  data.reviews.forEach(review => {
-                    reviews += `<div>Rating: ${review.rating}, Comment: ${review.comment}</div>`;
+                  data.reviews.reverse().forEach(review => {
+                    reviews += `<div><span style="color: rgb(250, 212, 81);">★</span>${review.rating}, ${review.comment}</div>`;
                   });
-                  document.querySelector('.review-list').innerHTML = reviews;
+                  document.getElementById('review').innerHTML = reviews;
+
+                  // 평균 별점 출력
+                  var rating = data.averageRating;
+                  var truncatedRating = Math.floor(rating * 100) / 100;
+                  document.getElementById('rating').textContent = "평균 별점: " + truncatedRating;
+
                 })
                 .catch((error) => {
                   console.error('Error:', error);
                 });
+
             };
           })(marker, i, infowindow));
 
@@ -497,6 +543,54 @@
         }
       });
     }
+
+    // 장소 검색
+    function search(event) {
+      if (event.key === 'Enter') {
+        const query = event.target.value;
+
+        fetch('search_place.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: query })
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (!data.error) {
+              document.getElementById('companyName').textContent = data.name;
+              document.getElementById('address').textContent = data.address;
+
+              // 이미지 URL을 활용하여 이미지 출력
+              let imageHtml = `<img src="${data.photo}" alt="가게 사진" style="width: 580px; height: 370px">`;
+              document.querySelector('.text-overlay').innerHTML = imageHtml;
+
+              // 리뷰 출력
+              let reviews = '';
+              data.reviews.reverse().forEach(review => {
+                reviews += `<div><span style="color: rgb(250, 212, 81);">★</span>${review.rating}, ${review.comment}</div>`;
+              });
+              document.getElementById('review').innerHTML = reviews;
+
+              // 평균 별점 출력
+              var rating = data.averageRating;
+              var truncatedRating = Math.floor(rating * 100) / 100;
+              document.getElementById('rating').textContent = "평균 별점: " + truncatedRating;
+
+              // 지도의 중심을 업데이트
+              var newCenter = new kakao.maps.LatLng(data.latitude, data.longitude);
+              map.setCenter(newCenter);
+            }
+            else {
+              alert("없는 장소입니다. 다시 입력해 주세요.");
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+    }
   </script>
 
   <script>
@@ -510,7 +604,11 @@
           document.getElementById('companyName').innerHTML += data.name;
           document.getElementById('address').innerHTML += data.address;
           document.getElementById('rating').innerHTML += data.rating;
+
+          // business_id 값을 hidden 필드에 설정  
+          document.querySelector('input[name="business_id"]').value = data.business_id;
         })
+
         .catch(function (error) {
           console.error('Error:', error);
         });
@@ -520,7 +618,7 @@
 
 
   <img src="rectangle-53.jpeg" class="rectangle-img" />
-  <p class="text-overlay">가게 사진이 들어갈 부분입니다.</p>
+  <p class="text-overlay">가게 사진</p>
   <svg width="1" height="952" viewBox="0 0 1 952" fill="none" xmlns="http://www.w3.org/2000/svg" class="divider-line"
     preserveAspectRatio="none">
     <line x1="0.5" y1="-2.18557e-8" x2="0.500042" y2="952" stroke="#04BBF4"></line>
@@ -543,7 +641,7 @@
   </div>
 
   <p class="review-list">리뷰목록</p>
-  <p class="review-list">리뷰목록</p>
+  <p id="review" style="position: absolute;  left: 160px;  top: 725px;  font-size: 20px;"></p>
   <button id="openModalBtn" class="button1">한 줄평 쓰기</button>
 
 
@@ -555,10 +653,8 @@
   <div id="myModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <p>
-      <form name="myform" id="myform" method="post" action="One_line_review.php">
+      <form name="myform" id="myform" method="get">
         <fieldset>
-          <legend>이모지 별점</legend>
           <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
           <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
           <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
@@ -567,14 +663,14 @@
         </fieldset>
         <textarea id="myTextarea" name="comment" maxlength="50" placeholder="Enter text here. (최대 50글자)"
           style="width:100%;"></textarea>
-        <!-- 숨겨진 필드 -->
-        <input type="hidden" name="business_id" value="YOUR_BUSINESS_ID"> <!-- 여기는 무슨말인지 ?? -->
         <!-- 등록 버튼 -->
-        <button class="submit-button">등록</button>
+        <button type="button" id="regist" class="submit-button">등록</button>
       </form>
-      </p>
     </div>
   </div>
+
+
+
 
   <script>
     // 모달 요소와 버튼 요소 가져오기
@@ -584,6 +680,12 @@
 
     // 버튼 클릭 시 모달 표시
     btn.onclick = function () {
+      var loggedIn = localStorage.getItem("loggedIn");
+      if (!loggedIn) {
+        alert("로그인을 먼저 해주세요.");
+        return;
+      }
+      document.getElementById("myform").reset();
       modal.style.display = "block";
     }
 
@@ -641,6 +743,79 @@
     }
   }
 
+  // 등록 버튼 클릭 시
+  document.getElementById('regist').addEventListener('click', function () {
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const comment = document.getElementById('myTextarea').value;
+    const companyName = document.getElementById('companyName').textContent;
+    const userId = localStorage.getItem("loggedInId");
+
+    const data = {
+      rating: rating,
+      comment: comment,
+      companyName: companyName,
+      userId: userId
+    };
+
+    fetch('One_line_review.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('리뷰가 성공적으로 등록되었습니다.');
+          var modal = document.getElementById("myModal");
+          modal.style.display = "none";
+          updateReview();
+        } else {
+          alert('리뷰 등록에 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('리뷰 등록 중 오류가 발생했습니다.');
+      });
+  });
+
+  // 리뷰목록이랑 평균 별점 업데이트
+  async function updateReview() {
+    const companyName = document.getElementById('companyName').textContent;
+
+    try {
+      const response = await fetch('updateReviews.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: companyName }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // 리뷰 출력
+        let reviews = '';
+        data.reviews.reverse().forEach(review => {
+          reviews += `<div><span style="color: rgb(250, 212, 81);">★</span>${review.rating}, ${review.comment}</div>`;
+        });
+        document.getElementById('review').innerHTML = reviews;
+
+        // 평균 별점 출력
+        var rating = data.averageRating;
+        var truncatedRating = Math.floor(rating * 100) / 100;
+        document.getElementById('rating').textContent = "평균 별점: " + truncatedRating;
+      } else {
+        console.error('Error fetching reviews:', data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
   function goToMainPage() {
     // 홈페이지의 URL을 여기에 입력합니다.
     var mainPageURL = "Main.html"; // 홈페이지 URL로 수정 필요
@@ -672,14 +847,7 @@
     var signUpPageURL = "SignUp.html"; // 회원가입 페이지 URL로 수정 필요
     window.location.href = signUpPageURL;
   }
-  function search(event) {
-    if (event.key === "Enter") {
-      var searchText = event.target.value;
-      // 여기에 검색 기능 구현
-      // 예시로 구글 검색을 시뮬레이션합니다.
-      window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(searchText);
-    }
-  }
+
 </script>
 
 </html>

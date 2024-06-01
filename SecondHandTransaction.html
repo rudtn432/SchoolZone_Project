@@ -38,6 +38,7 @@
       justify-content: center;
       /* 수평 가운데 정렬 */
       align-items: center;
+      white-space: nowrap;
     }
 
     /* 카테고리 버튼을 감싸는 컨테이너 스타일 */
@@ -59,23 +60,31 @@
 
     /* 버튼 스타일 */
     .category {
+      /* 크기 및 위치 설정 */
       width: 125px;
       height: auto;
-      display: flex;
-      /* 텍스트와 이미지를 가로로 정렬하기 위해 flex 사용 */
-      align-items: center;
-      /* 수직 가운데 정렬 */
-      font-size: 22px;
-      text-align: center;
-      font-weight: bold;
-      /* 글꼴을 굵게 설정 */
-      color: #000;
-      border: none;
-      background: none;
       position: fixed;
       left: 20px;
       top: 70px;
+
+      /* 텍스트 스타일 */
+      font-size: 22px;
+      font-weight: bold;
+      /* 글꼴 굵게 */
+      text-align: center;
+      color: #000;
+      /* 글자색 */
+
+      /* 배경 및 테두리 설정 */
+      background: none;
+      border: none;
+
+      /* Flexbox 설정 */
+      display: flex;
+      align-items: center;
+      /* 수직 가운데 정렬 */
     }
+
 
     .category img {
       width: 24px;
@@ -90,67 +99,62 @@
     .sidebar {
       position: fixed;
       top: 70px;
-      left: calc(20px + 125px);
-      /* 카테고리 버튼의 오른쪽에 위치하도록 조정 */
-      width: 180px;
+      left: calc(20px + 325px);
+      width: 200px;
+      /* 사이드바 너비를 약간 넓게 조정 */
       min-height: 66px;
-      /* 최소 높이를 버튼의 높이로 설정 */
       max-height: calc(100vh - 128px);
-      /* 최대 높이를 화면의 높이에서 상단 여백만큼 뺀 값으로 설정 */
       background-color: #f0f0f0;
       padding: 20px;
       border-left: 1px solid #ccc;
-      transition: opacity 0.2s;
-      /* 사이드바 나타날 때 애니메이션 적용 */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      /* 그림자 추가 */
+      transition: opacity 0.3s, transform 0.3s;
+      /* 애니메이션 전환 추가 */
       opacity: 0;
-      /* 초기에는 투명하게 설정하여 숨김 */
+      transform: translateX(-100%);
+      /* 초기 상태에서 왼쪽으로 이동하여 숨김 */
       pointer-events: none;
-      /* 사이드바가 사라진 상태에서는 마우스 이벤트 비활성화 */
+    }
+
+    .sidebar.visible {
+      opacity: 1;
+      transform: translateX(0);
+      /* 보일 때 원래 위치로 이동 */
+      pointer-events: auto;
+      /* 마우스 이벤트 활성화 */
     }
 
     .sidebar button {
       display: flex;
       align-items: center;
-      /* 자식 요소들을 세로 중앙 정렬 */
       width: 100%;
-      padding: 10px;
+      padding: 12px;
+      /* 패딩을 약간 늘림 */
       margin-bottom: 10px;
       font-size: 16px;
       text-align: center;
       background-color: #ffffff;
-      border: none;
+      border: 1px solid #ddd;
+      /* 버튼 테두리 추가 */
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+      /* 호버 효과 애니메이션 */
     }
 
-    .sidebar button img {
-      width: 24px;
-      /* 이미지 너비 조정 */
-      height: 24px;
-      /* 이미지 높이 조정 */
-      margin-right: 10px;
-      /* 이미지와 텍스트 간격 조정 */
+    .sidebar button:hover {
+      background-color: #f9f9f9;
+      /* 호버 시 배경색 변경 */
+      border-color: #bbb;
+      /* 호버 시 테두리 색상 변경 */
     }
 
-    .button-container {
-      display: flex;
-      align-items: center;
-    }
-
-    .button {
-      width: 89px;
-      height: 35px;
-      font-size: 18px;
-      text-align: center;
-      color: #786f6f;
-      margin-right: 10px;
-    }
-
-    .separator {
-      width: 1px;
-      height: 31px;
-      background-color: #786F6F;
-      margin-right: 10px;
+    .sidebar button:active {
+      background-color: #e9e9e9;
+      /* 클릭 시 배경색 변경 */
+      border-color: #aaa;
+      /* 클릭 시 테두리 색상 변경 */
     }
 
     .button-container {
@@ -290,6 +294,10 @@
       <button onclick="searchCategoryProducts('도서')">도서</button>
       <button onclick="searchCategoryProducts('생활용품')">생활용품</button>
       <button onclick="searchCategoryProducts('전자제품')">전자제품</button>
+      <button onclick="searchCategoryProducts('가구')">가구</button>
+      <button onclick="searchCategoryProducts('취미/게임')">취미/게임</button>
+      <button onclick="searchCategoryProducts('운동/레저')">운동/레저</button>
+      <button onclick="searchCategoryProducts('기타')">기타</button>
     </div>
   </div>
   <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -322,8 +330,7 @@
     style="width: 1920px; height: 360px; position: absolute; left: -1px; top: 193px; background: rgba(198,241,255,0.5);">
   </div>
 
-
-  <img style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;" />
+  <img style="width: 1062px; height: 360px; position: absolute; left: 428px; top: 193px; object-fit: cover;" src="163deec5-28e2-49d9-b3ba-ab407eca85c4.png" />
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -388,12 +395,12 @@
 
           const viewCount = document.createElement('div');
           viewCount.className = 'viewCount'; // 클래스 이름 지정
-          viewCount.textContent = `조회수: ${product.view_count}`;
+          viewCount.textContent = `조회수 ${product.view_count}`;
           productDiv.appendChild(viewCount);
 
           const likeCount = document.createElement('div');
           likeCount.className = 'likeCount'; // 클래스 이름 지정
-          likeCount.textContent = `찜: ${product.like_count}`;
+          likeCount.textContent = `찜 ${product.like_count}`;
           productDiv.appendChild(likeCount);
 
           container.appendChild(productDiv);
@@ -469,12 +476,12 @@
 
               const viewCount = document.createElement('div');
               viewCount.className = 'viewCount';
-              viewCount.textContent = `조회수: ${product.view_count}`;
+              viewCount.textContent = `조회수 ${product.view_count}`;
               productDiv.appendChild(viewCount);
 
               const likeCount = document.createElement('div');
               likeCount.className = 'likeCount';
-              likeCount.textContent = `찜: ${product.like_count}`;
+              likeCount.textContent = `찜 ${product.like_count}`;
               productDiv.appendChild(likeCount);
 
               container.appendChild(productDiv);
@@ -515,12 +522,12 @@
 
             const viewCount = document.createElement('div');
             viewCount.className = 'viewCount';
-            viewCount.textContent = `조회수: ${product.view_count}`;
+            viewCount.textContent = `조회수 ${product.view_count}`;
             productDiv.appendChild(viewCount);
 
             const likeCount = document.createElement('div');
             likeCount.className = 'likeCount';
-            likeCount.textContent = `찜: ${product.like_count}`;
+            likeCount.textContent = `찜 ${product.like_count}`;
             productDiv.appendChild(likeCount);
 
             container.appendChild(productDiv);

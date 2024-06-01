@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스쿨존 마이페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html,
+        body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+            min-height: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .fixed-container {
+            position: fixed;
+            height: 60px;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            /* 다른 요소 위에 나타나도록 z-index 설정 */
+            background-color: #ffffff;
+            /* 배경색 지정 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* 그림자 효과 추가 */
+            padding: 10px 20px;
+            /* 내부 여백 설정 */
+            display: flex;
+            justify-content: center;
+            /* 수평 가운데 정렬 */
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .chat-container {
+            position: absolute;
+            display: flex;
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            flex-direction: column;
+            width: 400px;
+            height: 600px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        #send-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
+        .message-container {
+            display: flex;
+            justify-content: flex-start;
+            /* 기본적으로 왼쪽 정렬 */
+            margin-bottom: 5px;
+        }
+
+        .message {
+            display: inline-block;
+            max-width: 70%;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #e1ffc7;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .message.right {
+            background-color: #ffffff;
+            align-self: flex-end;
+            /* 오른쪽 정렬 */
+            border: 1px solid black;
+            /* 여기서도 검은색 테두리를 유지 */
+        }
+
+        .message.left {
+            background-color: #fffab0;
+            align-self: flex-start;
+            /* 왼쪽 정렬 */
+            border: 1px solid black;
+            /* 여기서도 검은색 테두리를 유지 */
+        }
+
+        .chatUser-button {
+            padding: 10px 20px;
+            /* 버튼 내부 여백 */
+            font-size: 16px;
+            /* 글자 크기 */
+            color: white;
+            /* 글자 색상 */
+            background-color: #007bff;
+            /* 배경 색상 */
+            border: none;
+            /* 테두리 제거 */
+            border-radius: 5px;
+            /* 모서리 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* 그림자 효과 */
+            cursor: pointer;
+            /* 마우스 오버 시 커서 변경 */
+            transition: all 0.3s ease;
+            /* 부드러운 전환 효과 */
+        }
+
+        .chatUser-button:hover {
+            background-color: #0056b3;
+            /* 호버 시 배경 색상 변경 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            /* 호버 시 그림자 효과 강화 */
+        }
+
+        .leaveChat-button {
+            position: absolute;
+            left: 1095px;
+            top: 210px;
+            font-size: small;
+            text-align: center;
+            padding: 5px 5px;
+            width: auto;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid black;
+            color: white;
+            background-color: rgb(255, 0, 0);
+            /* 밝은 빨간색 */
+        }
+
+        .leaveChat-button:hover {
+            background-color: rgb(205, 0, 0);
+            /* 호버 시 약간 어두운 빨간색으로 변경 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content-SecondHandTransaction {
+            display: none;
+            position: absolute;
+            top: 71px;
+            /* 드롭다운 내용의 위치 조정 */
+            min-width: 204px;
+            z-index: 1;
+        }
+
+        .dropdown-content-Place {
+            display: none;
+            position: absolute;
+            min-width: 204px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #6fe0ff;
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button {
+            width: auto;
+            height: 35px;
+            font-size: 18px;
+            text-align: center;
+            color: #786f6f;
+            margin-right: 10px;
+        }
+
+        .separator {
+            width: 1px;
+            height: 31px;
+            background-color: #786F6F;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 상단에 고정된 요소들을 담을 컨테이너 -->
+    <div class="fixed-container"
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; position: fixed; top: 0; left: 0; padding: 10px; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- 로고 또는 사이트 제목을 담을 컨테이너 -->
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <button style="font-size: 40px; text-align: center; color: #04bbf4; margin-right: 10px;"
+                onclick="goToMainPage()">스쿨존</button>
+            <span style="height: 43px; font-size: 25px; text-align: center; color: #000; margin-top: 20px;">마이페이지</span>
+        </div>
+        <!-- 로그인 및 회원가입 버튼 -->
+        <div class="button-container" id="button-container" style="display: flex; align-items: center;">
+            <span id="user-id" style="display: none; margin-right: 10px;"></span>
+            <button class="button" id="write-btn" onclick="GoToProductRegist()" style="display: none;">상품등록</button>
+            <div class="separator"></div>
+            <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
+        </div>
+    </div>
+
+    <div style="width: 1920px; height: 900px; position: relative; overflow: hidden; background: #fff;">
+        <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+            style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+            <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+        </svg>
+
+        <div style="width: 307px; height: 1200px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;">
+        </div>
+        <div style="width: 307px; height: 1200px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
+        </div>
+
+        <!-- 채팅 -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div id="nowChatUser"></div>님과의 채팅
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="메세지를 입력하세요.">
+                <button id="send-button" onclick="sendMessage()">전송</button>
+            </div>
+        </div>
+        <button class="leaveChat-button" id="leave-chat" onclick="LeaveChat()">
+            나가기
+        </button>
+
+        <!-- 목록 -->
+        <div style="font-weight: bold;">
+            <button onclick="GoToMyPage_MemberInfoChange()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 128px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
+                회원정보 수정</button>
+            <button onclick="goToMyChat()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 202px; font-size: 25px; text-align: center; color: #000; background: #a4ebff;">
+                중고거래</button>
+            <button onclick="goToMyChat()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 273px; font-size: 20px; text-align: center; color: #000; background: #6fe0ff">
+                <li>스쿨톡</li>
+            </button>
+            <button onclick="goToMyPosts()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 347px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                <li>내 상품목록</li>
+            </button>
+            <button onclick="goToSalesHistory()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 421px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                <li>판매내역</li>
+            </button>
+            <button onclick="goToPurchaseHistory()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 495px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                <li>구매내역</li>
+            </button>
+            <button onclick="goToWishlist()"
+                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 569px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+                <li>찜한 상품</li>
+            </button>
+            <div class="dropdown" onmouseover="keepDropdownOpen_Place()" onmouseleave="hideDropdown_Place()"
+                style="position: absolute; left: 0px; top: 643px;">
+                <button class="dropbtn" onclick="GoToMyPage_Place_ReviewList()"
+                    style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">플레이스</button>
+                <div class="dropdown-content-Place">
+                    <button onclick="GoToMyPage_Place_ReviewList()"
+                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                        <li>리뷰 목록</li>
+                    </button>
+                </div>
+</body>
+
+<script>
+    // 함수를 반복 호출하는 폴링
+    setInterval(fetchMessages, 1000);
+
+    document.addEventListener("DOMContentLoaded", function () {
+        checkLoginStatus();
+        var loggedIn = localStorage.getItem("loggedIn");
+        var loggedInId = localStorage.getItem("loggedInId");
+
+        // 중복을 체크하기 위한 배열
+        const addedUserIds = [];
+        let buttonTop = 200; // 초기 top 위치
+
+        fetch(`getChatUsers.php?loggedInId=${loggedInId}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(chat => {
+                    let userId = chat.user_id2; // 데이터 구조에 따라 경로를 조정해야 할 수 있습니다.
+
+                    if (!addedUserIds.includes(userId)) {
+                        addedUserIds.push(userId);
+
+                        const button = document.createElement('button');
+                        button.classList.add('chatUser-button');
+                        button.textContent = userId;
+                        button.style.position = 'absolute';
+                        button.style.width = '100px'
+                        button.style.top = `${buttonTop}px`;
+                        button.style.left = '600px';
+                        button.addEventListener('click', function () {
+                            document.getElementById('nowChatUser').textContent = this.textContent;
+                            fetchMessages();
+                        });
+
+                        document.body.appendChild(button);
+
+                        // 다음 버튼을 위해 top 위치 조정
+                        buttonTop += 50;
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
+
+        fetchMessages();
+    });
+
+    function logout() {
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("loggedInId");
+        checkLoginStatus();
+        goToMainPage();
+    }
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('loggedIn');
+        const writeBtn = document.getElementById('write-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const useridText = document.getElementById('user-id');
+        if (isLoggedIn) {
+            useridText.textContent = localStorage.getItem("loggedInId") + "님";
+            useridText.style.display = 'block';
+            logoutBtn.style.display = 'block';
+            writeBtn.style.display = 'block';
+        } else {
+            useridText.style.display = 'none';
+            logoutBtn.style.display = 'none';
+            writeBtn.style.display = 'none';
+        }
+    }
+
+    // 메세지 가져오기
+    async function fetchMessages() {
+        const nowChatUser = document.getElementById('nowChatUser').innerText;
+        if (nowChatUser === '') {
+            return;
+        }
+        const response = await fetch('fetch_messages.php');
+        const messages = await response.json();
+        const loggedInId = localStorage.getItem("loggedInId");
+        const messagesContainer = document.getElementById('chat-messages');
+        messagesContainer.innerHTML = ''; // 메시지 컨테이너를 비웁니다.
+
+        messages.forEach((msg) => {
+            const messageContainer = document.createElement('div'); // messageContainer 정의
+            messageContainer.classList.add("message-container"); // 새로운 줄에서 시작
+
+            const messageElement = document.createElement('div');
+            messageElement.textContent = msg.message;
+            // 현재 로그인한 사용자가 메시지의 송신자인 경우
+            if (msg.send_user_id === loggedInId && msg.receive_user_id === nowChatUser) {
+                messageElement.classList.add('message', 'right');
+                messageContainer.style.justifyContent = 'flex-end'; // 오른쪽 정렬
+                messageContainer.appendChild(messageElement); // messageElement를 messageContainer에 추가
+                messagesContainer.appendChild(messageContainer); // messageContainer를 messagesContainer에 추가
+            } else if (msg.send_user_id === nowChatUser && msg.receive_user_id === loggedInId) {
+                // 상대방이 메시지의 송신자인 경우
+                messageElement.classList.add('message', 'left');
+                messageContainer.style.justifyContent = 'flex-start'; // 왼쪽 정렬
+                messageContainer.appendChild(messageElement); // messageElement를 messageContainer에 추가
+                messagesContainer.appendChild(messageContainer); // messageContainer를 messagesContainer에 추가
+            }
+        });
+        // 모든 메시지를 추가한 후에 스크롤을 가장 아래로 이동
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // 엔터키 이벤트 리스너 추가
+    document.getElementById('message-input').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 엔터키 기본 동작 방지 (폼 제출 등)
+            sendMessage(); // 엔터키 입력 시 sendMessage 함수 호출
+        }
+    });
+
+    // 메세지 보내기
+    async function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+        if (message === '') {
+            alert("메세지를 입력해주세요.");
+            return;
+        }
+        const sendUserId = localStorage.getItem("loggedInId"); // 로그인한 사용자의 ID
+        const receiveUserId = document.getElementById('nowChatUser').innerText; // 현재 채팅중인 상대 사용자의 ID
+        messageInput.value = ''; // 입력란을 비웁니다.
+        await fetch('send_messages.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sendUserId, receiveUserId, message }),
+        });
+        await fetchMessages(); // 메시지를 다시 불러옵니다.
+    }
+
+    function LeaveChat() {
+        // localStorage에서 loggedInId 가져오기
+        const loggedInId = localStorage.getItem("loggedInId");
+        // 현재 채팅 중인 사용자의 ID 가져오기
+        const nowChatUserId = document.getElementById("nowChatUser").innerText;
+
+        if (nowChatUserId === '') {
+            return;
+        }
+
+        // fetch API를 사용하여 서버에 요청 보내기
+        fetch('deleteChatUser.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id1: loggedInId, user_id2: nowChatUserId }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Chat user successfully deleted') {
+                    // 성공 메시지를 받았을 때의 처리
+                    alert('채팅이 성공적으로 삭제되었습니다.');
+                    // 페이지 새로고침
+                    window.location.reload();
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // 에러 처리 로직
+                alert('오류가 발생했습니다.');
+            });
+    }
+
+    // 메인 페이지로 이동하는 함수
+    function goToMainPage() {
+        var mainPageURL = "Main.html"; // 메인 페이지 URL로 수정 필요
+        window.location.href = mainPageURL;
+    }
+    // 상품등록 페이지로 이동하는 함수
+    function GoToProductRegist() {
+        var productRegistURL = "ProductRegistration.html";
+        window.location.href = productRegistURL;
+    }
+    // 마이페이지-회원정보수정 페이지로 이동하는 함수
+    function GoToMyPage_MemberInfoChange() {
+        var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
+        window.location.href = myPage_MemberInfoChangeURL;
+    }
+    // 마이페이지-채팅 페이지로 이동하는 함수
+    function goToMyChat() {
+        var myPage_MyChatURL = "Mypage-SecondHandTransaction-Chat.html";
+        window.location.href = myPage_MyChatURL;
+    }
+    // 마이페이지-중고거래 페이지로 이동하는 함수
+    function goToMyPosts() {
+        var myPage_MyPostsURL = "Mypage-SecondHandTransaction-MyPosts.html";
+        window.location.href = myPage_MyPostsURL;
+    }
+    function goToSalesHistory() {
+        // 여기에 판매내역 페이지로 이동하는 코드를 작성하세요.
+        var myPage_SalesHistoryURL = "Mypage-SecondHandTransaction-SalesHistory.html";
+        window.location.href = myPage_SalesHistoryURL;
+    }
+    function goToPurchaseHistory() {
+        // 여기에 구매내역 페이지로 이동하는 코드를 작성하세요.
+        var myPage_PurchaseHistoryURL = "Mypage-SecondHandTransaction-PurchaseHistory.html";
+        window.location.href = myPage_PurchaseHistoryURL;
+    }
+    function goToWishlist() {
+        // 여기에 찜한 상품 페이지로 이동하는 코드를 작성하세요.
+        var myPage_WishlistURL = "Mypage-SecondHandTransaction-Wishlist.html";
+        window.location.href = myPage_WishlistURL;
+    }
+    // 마이페이지-플레이스 리뷰목록 페이지로 이동하는 함수
+    function GoToMyPage_Place_ReviewList() {
+        var myPage_Place_ReviewListURL = "Mypage-Place-ReviewList.html";
+        window.location.href = myPage_Place_ReviewListURL;
+    }
+    var dropdownContent_SHT = document.querySelector('.dropdown-content-SecondHandTransaction');
+    var dropdownContent_Place = document.querySelector('.dropdown-content-Place');
+    function keepDropdownOpen_SHT() {
+        dropdownContent_SHT.style.display = "block";
+    }
+    function hideDropdown_SHT() {
+        dropdownContent_SHT.style.display = "none";
+    }
+    function keepDropdownOpen_Place() {
+        dropdownContent_Place.style.display = "block";
+    }
+    function hideDropdown_Place() {
+        dropdownContent_Place.style.display = "none";
+    }
+</script>
+
+</html>

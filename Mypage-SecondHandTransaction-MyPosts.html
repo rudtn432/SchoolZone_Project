@@ -36,6 +36,7 @@
             justify-content: center;
             /* 수평 가운데 정렬 */
             align-items: center;
+            white-space: nowrap;
         }
 
         .dropdown {
@@ -113,60 +114,65 @@
             <button class="button" id="logout-btn" onclick="logout()" style="display: none;">로그아웃</button>
         </div>
     </div>
-        <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-            style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
-            <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
-        </svg>
-        <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;">
-        </div>
-        <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
-        </div>
-        <div style="width: 307px; height: 74px; position: absolute; left: -1px; top: 570px; background: #e3f9ff;"></div>
+    <svg width="1920" height="1" viewBox="0 0 1920 1" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="position: absolute; left: -1px; top: 127px;" preserveAspectRatio="none">
+        <line x1="-0.00476074" y1="0.5" x2="1920" y2="0.5" stroke="black"></line>
+    </svg>
+    <div style="width: 307px; height: 952px; position: absolute; left: 1612px; top: 127px; background: #e3f9ff;">
+    </div>
+    <div style="width: 307px; height: 952px; position: absolute; left: -1px; top: 127px; background: #e3f9ff;">
+    </div>
+    <div style="width: 307px; height: 74px; position: absolute; left: -1px; top: 570px; background: #e3f9ff;"></div>
 
 
-        <!-- 게시글 목록 테이블 -->
-        <div style="width: 1240px; height: 2000; position: absolute; left: 343px; top: 172px;">
-            <table id="postTable" style="width: 1240px; position: absolute; top: 0; border-collapse: collapse;">
-            </table>
-            <!-- 페이지 번호 버튼을 담을 컨테이너 -->
-            <div class="pagination-container">
+    <!-- 게시글 목록 테이블 -->
+    <div style="width: 1240px; height: 2000; position: absolute; left: 343px; top: 172px;">
+        <table id="postTable" style="width: 1240px; position: absolute; top: 0; border-collapse: collapse;">
+        </table>
+        <!-- 페이지 번호 버튼을 담을 컨테이너 -->
+        <div class="pagination-container">
+        </div>
+    </div>
+
+    <!-- 목록 -->
+    <div style="font-weight: bold;">
+        <button onclick="GoToMyPage_MemberInfoChange()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 128px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
+            회원정보 수정</button>
+        <button onclick="goToMyChat()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 202px; font-size: 25px; text-align: center; color: #000; background: #a4ebff;">
+            중고거래</button>
+        <button onclick="goToMyChat()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 273px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+            <li>스쿨톡</li>
+        </button>
+        <button onclick="goToMyPosts()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 347px; font-size: 20px; text-align: center; color: #000; background: #6fe0ff">
+            <li>내 상품목록</li>
+        </button>
+        <button onclick="goToSalesHistory()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 421px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+            <li>판매내역</li>
+        </button>
+        <button onclick="goToPurchaseHistory()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 495px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+            <li>구매내역</li>
+        </button>
+        <button onclick="goToWishlist()"
+            style="width: 307px; height: 74px; position: absolute; left: 0px; top: 569px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
+            <li>찜한 상품</li>
+        </button>
+        <div class="dropdown" onmouseover="keepDropdownOpen_Place()" onmouseleave="hideDropdown_Place()"
+            style="position: absolute; left: 0px; top: 643px;">
+            <button class="dropbtn" onclick="GoToMyPage_Place_ReviewList()"
+                style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">플레이스</button>
+            <div class="dropdown-content-Place">
+                <button onclick="GoToMyPage_Place_ReviewList()"
+                    style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
+                    <li>리뷰 목록</li>
+                </button>
             </div>
-        </div>
 
-        <!-- 목록 -->
-        <div style="font-weight: bold;">
-            <button onclick="GoToMyPage_MemberInfoChange()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 128px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">
-                회원정보 수정</button>
-            <button onclick="goToMyPosts()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 202px; font-size: 25px; text-align: center; color: #000; background: #a4ebff;">
-                중고거래</button>
-            <button onclick="goToMyPosts()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 273px; font-size: 20px; text-align: center; color: #000; background: #6fe0ff">
-                <li>내 상품목록</li>
-            </button>
-            <button onclick="goToSalesHistory()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 347px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
-                <li>판매내역</li>
-            </button>
-            <button onclick="goToPurchaseHistory()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 421px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
-                <li>구매내역</li>
-            </button>
-            <button onclick="goToWishlist()"
-                style="width: 307px; height: 74px; position: absolute; left: 0px; top: 495px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff;">
-                <li>찜한 상품</li>
-            </button>
-            <div class="dropdown" onmouseover="keepDropdownOpen_Place()" onmouseleave="hideDropdown_Place()"
-                style="position: absolute; left: 0px; top: 569px;">
-                <button class="dropbtn" onclick="GoToMyPage_Place_ReviewList()"
-                    style="width: 307px; height: 74px; font-size: 25px; text-align: center; color: #000; background: #e3f9ff;">플레이스</button>
-                <div class="dropdown-content-Place">
-                    <button onclick="GoToMyPage_Place_ReviewList()"
-                        style="width: 307px; height: 74px; position: absolute; left: 0px; top: 0px; font-size: 20px; text-align: center; color: #000; background: #e3f9ff">
-                        <li>리뷰 목록</li>
-                    </button>
-                </div>
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     checkLoginStatus();
@@ -249,12 +255,15 @@
 
                 // 페이지 버튼 생성
                 function generatePagination() {
+                    if (totalPosts == 0) {
+                        return;
+                    }
                     maxPage = Math.ceil(totalPosts / postsPerPage);
                     var paginationContainer = document.querySelector('.pagination-container');
                     paginationContainer.innerHTML = ''; // 이전에 생성된 버튼 제거
-                    paginationContainer.style.top = 830 + 'px';
+                    paginationContainer.style.top = 880 + 'px';
                     if (currentPage == maxPage && totalPosts % postsPerPage != 0) {
-                        paginationContainer.style.top = 830 - ((postsPerPage - (totalPosts % postsPerPage)) * 124) + 'px';
+                        paginationContainer.style.top = 880 - ((postsPerPage - (totalPosts % postsPerPage)) * 133) + 'px';
                     }
 
                     // 페이지 이전 버튼 추가
@@ -326,6 +335,11 @@
                 function GoToMyPage_MemberInfoChange() {
                     var myPage_MemberInfoChangeURL = "Mypage-memberInfoChange.html";
                     window.location.href = myPage_MemberInfoChangeURL;
+                }
+                // 마이페이지-채팅 페이지로 이동하는 함수
+                function goToMyChat() {
+                    var myPage_MyChatURL = "Mypage-SecondHandTransaction-Chat.html";
+                    window.location.href = myPage_MyChatURL;
                 }
                 function goToMyPosts() {
                     // 여기에 내 게시글 페이지로 이동하는 코드를 작성하세요.

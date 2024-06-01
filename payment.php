@@ -92,6 +92,50 @@ try {
     // 트랜잭션 커밋
     $mysqli->commit();
 
+    // chat 데이터베이스 연결 설정
+$chatServername = "localhost";
+$chatUsername = "root";
+$chatPassword = "Adminadmin1234!!";
+$chatDbname = "chat";
+
+// chat 데이터베이스 연결
+$chatMysqli = new mysqli($chatServername, $chatUsername, $chatPassword, $chatDbname);
+
+// 연결 오류 확인
+if ($chatMysqli->connect_error) {
+    echo json_encode(['success' => false, 'error' => 'Chat database connection failed: ' . $chatMysqli->connect_error]);
+    exit();
+}
+
+try {
+    // chatUser 데이터테이블 업데이트
+    $chatStmt = $chatMysqli->prepare("INSERT INTO chatUser (product_id, user_id1, user_id2) VALUES (?, ?, ?)");
+    if (!$chatStmt) {
+        throw new Exception("Chat Prepare failed: " . $chatMysqli->error);
+    }
+    $chatStmt->bind_param("iss", $productInfo['product_id'], $productBuy['user_id'], $seller_id);
+    if (!$chatStmt->execute()) {
+        throw new Exception("Chat Execute failed: " . $chatStmt->error);
+    }
+    $chatStmt->close();
+
+    $chatStmt = $chatMysqli->prepare("INSERT INTO chatUser (product_id, user_id1, user_id2) VALUES (?, ?, ?)");
+    if (!$chatStmt) {
+        throw new Exception("Chat Prepare failed: " . $chatMysqli->error);
+    }
+    $chatStmt->bind_param("iss", $productInfo['product_id'], $seller_id, $productBuy['user_id']);
+    if (!$chatStmt->execute()) {
+        throw new Exception("Chat Execute failed: " . $chatStmt->error);
+    }
+    $chatStmt->close();
+} catch (Exception $e) {
+    // 오류 발생 시 에러 메시지 출력
+    echo json_encode(['success' => false, 'error' => 'Chat Update Error: ' . $e->getMessage()]);
+} finally {
+    $chatMysqli->close();
+}
+
+
     echo json_encode(['success' => true]);
 } catch (Exception $e) {
     // 트랜잭션 롤백
